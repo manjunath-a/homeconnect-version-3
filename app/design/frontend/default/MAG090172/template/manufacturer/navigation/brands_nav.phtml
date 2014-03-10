@@ -1,0 +1,69 @@
+<?php
+/**
+ * MageSupport.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.magesupport.com/license/
+ *
+ * @category   MS
+ * @package    MS_Verticalexpanded
+ * @copyright  Copyright (c) 2008-2010 MageSupport.com (http://www.magesupport.com)
+ * @license    http://www.magesupport.com/license/
+ */
+?>
+
+<?php
+$maufacturers = Mage::getModel('manufacturer/manufacturer')->getCollection()->addFieldToFilter('status',Array('eq'=>1));    
+?>
+
+<div class="block block-brand-nav">
+<div class="block-title">
+	<strong><span><?php echo $this->getBlockTitle(); ?></span></strong>
+</div>
+<div class="block-content">
+
+	<?php if($this->getComboDropDown()):?>
+	
+		<select id="layered-select-left" class="select-left" name="layered-select-left" onchange="window.location.href=this.value">
+			<option selected="selected">Please select</option>
+			<?php foreach($maufacturers as $manufacturer): ?>
+				<option value="<?php echo $manufacturer->getUrl() ?>">
+					<?php echo Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product', Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName())?>                
+				</option>
+			<?php endforeach ?>
+		</select>
+	
+	<?php else: ?>		
+		
+		<ul>
+			<?php foreach($maufacturers as $manufacturer): $i++; ?>
+				<?php if(Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product',Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName())): ?>
+				
+				<?php if($this->getNumberOfBrands()):?>
+					
+					<?php if($this->getNumberOfBrands() >= $i):?>
+							<li><a href="<?php echo $manufacturer->getUrl(); ?>">  <?php echo Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product', Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName()) ?></a></li>									
+					<?php endif;?>				
+					
+				<?php else: ?>	
+				
+						<li><a href="<?php echo $manufacturer->getUrl(); ?>">  <?php echo Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product', Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName()) ?></a></li>									
+						
+				<?php endif;?>
+				
+				
+			<?php endif; ?>
+		<?php endforeach ?>
+	</ul>
+			
+      	
+	<?php endif; ?>
+	
+</div>
+</div>
+
+
+

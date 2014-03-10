@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>		
+		 
+		<reference name="left">
+			<block type="manufacturer/navigation" name="manufacturer.navigation.left" after="sidenav">
+			 <action method="setTemplate" ifconfig="manufacturer/sidebar/enabledleft">
+				   <template>manufacturer/navigation/brands_nav.phtml</template>
+			  </action>
+			</block>         	
+        </reference>
+	
+		<reference name="right">
+			<block type="manufacturer/navigation" name="manufacturer.navigation.right" before="-">
+			 <action method="setTemplate" ifconfig="manufacturer/sidebar/enabledright">
+				   <template>manufacturer/navigation/brands_nav.phtml</template>
+			  </action>
+			</block>         	
+        </reference> 
+		
+		
+    </default>
+   
+    <manufacturer_index_index>
+        <reference name="content">
+            <block type="manufacturer/manufacturer" name="manufacturer" template="manufacturer/manufacturer.phtml" />
+        </reference>
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+    </manufacturer_index_index>
+	
+
+	<manufacturer_view>
+		
+		<reference name="content">
+            <block type="manufacturer/manufacturerinfo" name="brandinfo" template="manufacturer/manufacturer_info.phtml"/>
+            <block type="manufacturer/product_list" name="product_list" template="catalog/product/list.phtml">
+                <block type="catalog/product_list_toolbar" name="product_list_toolbar" template="catalog/product/list/toolbar.phtml">
+                    <block type="page/html_pager" name="product_list_toolbar_pager"/>
+                </block>
+                <action method="setColumnCount">
+                    <columns>3</columns>
+                </action>
+                <action method="setToolbarBlockName">
+                    <name>product_list_toolbar</name>
+                </action>
+            </block>
+        </reference>
+			
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+
+	</manufacturer_view>
+		
+	
+	
+	 <catalog_product_view>
+        <block type="catalog/product_view" name="product.logoimage">
+            <action method="setTemplate"  >
+                <template>manufacturer/logoimage.phtml</template>
+            </action>
+        </block>
+        <reference name="product.info.extrahint">
+            <action method="insert"><block>product.logoimage</block></action>
+        </reference>
+    </catalog_product_view>	
+	
+</layout> 

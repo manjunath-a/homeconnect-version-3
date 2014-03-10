@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<config>    
+    <modules>        
+        <Megnor_Newproducts>            
+            <version>2.0</version>        
+        </Megnor_Newproducts>    
+    </modules>    
+    <global>        
+        <helpers>            
+            <newproducts>                
+                <class>Megnor_Newproducts_Helper</class>            
+            </newproducts>        
+        </helpers>				
+        <blocks>			
+            <newproducts>				
+                <class>Megnor_Newproducts_Block</class>			
+            </newproducts>		
+        </blocks>        
+        <resources>            
+            <newproducts_setup>                
+                <setup>                    
+                    <module>Megnor_Newproducts</module>                
+                </setup>                
+                <connection>                    
+                    <use>core_setup</use>                
+                </connection>            
+            </newproducts_setup>            
+            <newproducts_write>                
+                <connection>                    
+                    <use>core_write</use>                
+                </connection>            
+            </newproducts_write>            
+            <newproducts_read>                
+                <connection>                    
+                    <use>core_read</use>                
+                </connection>            
+            </newproducts_read>        
+        </resources>    
+    </global>    
+    <frontend>        
+        <layout>            
+            <updates>                
+                <newproducts>                    
+                    <file>newproducts.xml</file>                
+                </newproducts>            
+            </updates>        
+        </layout>		 
+        <routers>            
+            <newproducts>                
+                <use>standard</use>                
+                <args>                    
+                    <module>Megnor_Newproducts</module>                    
+                    <frontName>newproducts</frontName>                
+                </args>            
+            </newproducts>        
+        </routers>    
+    </frontend>    
+    <adminhtml>        
+        <menu>            
+            <megnor_menu translate="title" module="newproducts">                
+                <children>					
+                    <newproductssetting module="newproducts">						
+                        <title>Latest/New Product</title>						
+                        <sort_order>6</sort_order>						
+                        <action>adminhtml/system_config/edit/section/newproducts</action>					
+                    </newproductssetting>                
+                </children>                            
+            </megnor_menu>        
+        </menu>        
+        <acl>            
+            <resources>                
+                <admin>                    
+                    <children>                        
+                        <system>                            
+                            <children>                                
+                                <config>                                    
+                                    <children>                                        
+                                        <newproducts>                                            
+                                            <title>NewProducts</title>                                        
+                                        </newproducts>                                    
+                                    </children>                                
+                                </config>                            
+                            </children>                        
+                        </system>                    
+                    </children>                
+                </admin>            
+            </resources>        
+        </acl>    
+    </adminhtml>		
+    <default>		
+        <newproducts>			
+            <general>				
+                <active>1</active>				
+                <categorywised>1</categorywised>			
+            </general>			
+            <sidebar>					
+                <heading>Latest products</heading>				
+                <number_of_items>3</number_of_items>				
+                <enabledleft>1</enabledleft>				
+                <enabledright>0</enabledright>			
+            </sidebar>			
+            <listing_home>				
+                <heading>Latest Products</heading> 
+            </listing_home>			
+            <standalone>                
+                <heading>Latest Products</heading>                
+                <layout>two_columns_left</layout>                
+                <meta_title>New Products</meta_title>                
+                <meta_description>Check out our great collection of Latest products</meta_description>                
+                <meta_keywords>latest, new, products</meta_keywords>            
+            </standalone>		
+        </newproducts>	
+    </default>
+</config>

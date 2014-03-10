@@ -1,0 +1,117 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product media data template
+ *
+ * @see Mage_Catalog_Block_Product_View_Media
+ */
+?>
+<?php
+    $_product = $this->getProduct();
+    $_helper = $this->helper('catalog/output');
+?>
+ 
+ 
+<p class="product-image">
+		<a href="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(600,600); ?>"  rel="<?php echo implode($config, ',');?>" title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" id="zoom1" class="cloud-zoom">	
+		<?php
+		echo '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize(292,320).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'"/>';			
+		?>
+		</a>
+		
+	<?php if (count($this->getGalleryImages()) > 0): ?>
+	 <a id="zoom-btn" class="lightbox-group zoom-btn-small" href="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize(600,600); ?>" title="<?php echo $this->getImageLabel(); ?>"><?php echo $this->__('Zoom'); ?></a>
+	 <?php endif; ?>
+</p>
+ 
+
+<?php if (count($this->getGalleryImages()) > 0): ?>
+ 		
+<div class="more-views additional-carousel">
+
+	<?php 
+			$sliderFor = 4;
+			$productCount = count($this->getGalleryImages());
+	?>	
+		
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>	
+	
+		<div id="additional-carousel" class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>">
+		
+		<?php foreach ($this->getGalleryImages() as $_image): ?>
+			<div class="slider-item">
+				<div class="product-block">	
+				
+				<a href='<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(600,600);?>' class='cloud-zoom-gallery lightbox-group' title='<?php echo $this->escapeHtml($_image->getLabel()) ?>' rel="useZoom: 'zoom1', smallImage: '<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile())->resize(292,320);?>' ">
+				
+				<img src="<?php echo $this->helper('catalog/image')->init($this->getProduct(), 'thumbnail', $_image->getFile())->resize(75); ?>" width="75" height="75" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>" />
+				
+				</a>
+				
+				</div>
+			</div>
+		<?php endforeach; ?>
+		
+		</div>
+		
+	<span class="additional_default_width" style="display:none; visibility:hidden"></span>
+	
+	<script type="text/javascript">
+        jQuery(function($) {
+            
+            $(".lightbox-group").colorbox({
+                rel:		'lightbox-group',
+                opacity:	0.5,
+                speed:		300
+			});
+			$(".cloud-zoom-gallery").first().removeClass("cboxElement");
+			$(".cloud-zoom-gallery").click(function() {
+				$("#zoom-btn").attr('href', $(this).attr('href'));
+				$("#zoom-btn").attr('title', $(this).attr('title'));
+				
+				$(".cloud-zoom-gallery").each(function() {
+						$(this).addClass("cboxElement");
+					});
+				$(this).removeClass("cboxElement");
+			});
+            
+        });
+		
+		jQuery(function($) {
+		var t; $(window).resize(function() { clearTimeout(t); t = setTimeout(function() { $(".cloud-zoom-gallery").first().click(); }, 200); });
+		});
+	 
+    </script>
+</div>
+<?php endif; ?>
+
+ 

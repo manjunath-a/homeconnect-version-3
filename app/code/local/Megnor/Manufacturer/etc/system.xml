@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <manufacturer translate="label" module="manufacturer">
+            <label>Manufacturer Options</label>
+            <tab>Megnor_Framework</tab>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <sort_order>1</sort_order>
+            <groups>			
+                <general translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>					
+						<enable translate="label">
+                            <label>Manufacturer Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>	
+						<url_prefix translate="label comment">
+                            <label>Frontend router</label>
+                            <comment>For example: http://www.yourstore.com/brand, http://www.yourstore.com/brand/apple</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>0</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </url_prefix>      					                                             
+                        <attribute_code translate="label comment">
+                            <label>Attribute Code</label>
+                            <comment>from 'Catalog > Attributes > Manage Attributes'</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </attribute_code>                                                
+                        <show_logo translate="label comment">
+                            <label>Show Logo on Product Page</label>
+                            <comment>Show brand logo on the product page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_logo>
+                        <show_link translate="label comment">
+                            <label>Show Link on Product Page</label>
+                            <comment>Show Link 'See other products by Brand' on the product page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_link>
+                    </fields>
+                </general>
+								
+				<sidebar translate="label">
+                    <label>Block on Sidebar</label>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>						
+						<blocktitle translate="label comment">
+                            <label>Block Title</label>
+                            <comment>Title of Block to Display e.g Brands (Default 'Brands'). </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </blocktitle>												
+						<number_of_brands translate="label comment">
+                            <label>Number of Items</label>
+                            <comment>Number of brands in the sidebar block. Set 0 to display all</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_of_brands>							
+						<combodropdown translate="label comment">
+                            <label>Show in Combo Drop Down</label>
+							<comment>If Yes, It shows Combo Drop Down for Brands. </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </combodropdown>						
+                        <enabledleft translate="label">
+                            <label>Enabled For Left Column</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabledleft>						
+						<enabledright translate="label">
+                            <label>Enabled For Right Column</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabledright>		                       						
+                    </fields>
+                </sidebar>
+				<cmspage translate="label">
+                    <label>CMS page widget</label>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>						
+						<heading translate="label comment">
+                            <label>Heading</label>                            
+                            <frontend_type>text</frontend_type>
+                            <sort_order>800</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading>	 
+						<brands_name translate="label comment">
+                            <label>Show Brands Name</label>							
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </brands_name>
+								                        	                       						
+                    </fields>
+                </cmspage>				
+				<standalone translate="label">
+                    <label>Standalone page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <heading translate="label comment">
+                            <label>Page Heading</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading>                        
+                        <layout translate="label comment">
+                            <label>Layout</label>
+                            <comment>Layout for manufacturer-products page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </layout>
+						<meta_title translate="label comment">
+                            <label>Meta Title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_title>
+                        <meta_description translate="label comment">
+                            <label>Meta Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_description>
+                        <meta_keywords translate="label comment">
+                            <label>Meta Keywords</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </meta_keywords>
+				 </fields>
+                </standalone> 
+            </groups>
+        </manufacturer>
+    </sections>
+</config>

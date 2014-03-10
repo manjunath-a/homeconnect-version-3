@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Megnor
+ * @package     Megnor_Framework
+ * @copyright   Copyright (c) 2012 Megnor Computer Pvt Ltd. (http://www.templatemela.com)
+ */
+-->
+<config>
+	<modules>
+		<Megnor_Framework>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Megnor_Framework>
+	</modules>
+</config>

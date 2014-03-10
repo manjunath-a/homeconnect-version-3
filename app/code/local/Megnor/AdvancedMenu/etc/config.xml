@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Megnor_AdvancedMenu>
+            <version>2.0.1</version>
+        </Megnor_AdvancedMenu>
+    </modules>
+	<global>
+		<models>
+			<advancedmenu_adminhtml>
+				<class>Megnor_AdvancedMenu_Adminhtml_Model</class>
+      		</advancedmenu_adminhtml>
+			<advancedmenu>
+                <class>Megnor_AdvancedMenu_Model</class>				
+                <resourceModel>Megnor_AdvancedMenu_Model_Resource</resourceModel>
+            </advancedmenu>
+            <advancedmenu_mysql4>
+                <class>Megnor_AdvancedMenu_Model_Mysql4</class>
+            </advancedmenu_mysql4>
+        </models>
+        <blocks>
+            <catalog>
+                <rewrite>
+                    <navigation>Megnor_AdvancedMenu_Block_Navigation</navigation>
+                    <!-- v1.4-1.6 -->
+                </rewrite>
+            </catalog>
+            <page>
+                <rewrite>
+                    <html_topmenu>Megnor_AdvancedMenu_Block_Topmenu</html_topmenu>
+                    <!-- v1.7 -->
+                </rewrite>
+            </page>
+            <advancedmenu>
+                <class>Megnor_AdvancedMenu_Block</class>
+            </advancedmenu>
+        </blocks>
+        <helpers>
+            <advancedmenu>
+                <class>Megnor_AdvancedMenu_Helper</class>
+            </advancedmenu>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <advancedmenu>
+                    <file>advancedmenu.xml</file>
+                </advancedmenu>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+		<menu>
+			<megnor_menu translate="title" module="advancedmenu">
+				<children>
+					<advancedmenusetting module="advancedmenu">
+						<title>Advanced Menu</title>
+						<sort_order>9</sort_order>
+						<action>adminhtml/system_config/edit/section/advanced_menu</action>
+					</advancedmenusetting>
+				</children>                
+			</megnor_menu>
+		</menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <advanced_menu translate="title" module="advancedmenu">
+                                            <title><![CDATA[Web & People: Advanced Menu]]></title>
+                                            <sort_order>2000</sort_order>
+                                        </advanced_menu>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <default>
+        <advanced_menu>
+            <general>
+                <enabled>1</enabled>
+				<block_position>bottom</block_position>
+                <display_empty_categories>1</display_empty_categories>
+                <max_level>3</max_level>
+                <show_home_link>1</show_home_link>                              
+            </general>
+            <columns>
+                <count>3</count>
+                <integrate>1</integrate>
+            </columns>         
+        </advanced_menu>
+    </default>
+    
+</config>

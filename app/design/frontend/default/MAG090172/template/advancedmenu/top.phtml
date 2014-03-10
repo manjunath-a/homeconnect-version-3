@@ -1,0 +1,85 @@
+<?php $_categories = $this->getStoreCategories() ?>
+<?php if(count($_categories)): ?>
+<nav class="nav-container">
+	<div class="nav-inner">
+    <div id="advancedmenu"> 
+		
+		<div class="mega_menu">
+			<div class="mega_bkg"> 
+				<div class="block-title">
+				<span><?php echo $this->__('Categories') ?></span>
+				<h2 class="toggle_arrow"></h2>
+				</div>
+			</div>
+			<ul class="block-content">  
+				<?php foreach ($_categories as $_category): ?>
+					<?php echo $this->drawAdvancedMenuItem($_category) ?>
+				<?php endforeach ?> 
+			</ul>
+		</div>	
+		
+		
+		<!------- Display Home link  -------------->
+		<?php if ($this->showHomeLink()) : ?>
+        <div class="menu">
+            <div class="parentMenu menu0 home_link">
+                <a href="<?php echo $this->getUrl('') ?>">
+                    <span><?php echo $this->__('Home'); ?></span>
+                </a>
+            </div>
+        </div>
+        <?php endif ?>	
+		
+		
+		
+		<div class="custom_link">
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('tm_advancedmenu_staticlink')->toHtml() ?> 
+		</div>
+		
+		
+		<!------- Display CMS link  -------------->
+		<?php if ($this->isActivecustomBlock()) : 
+			$custom_block_name =  Mage::getStoreConfig('advanced_menu/customblock/menucustomblock_name'); 
+			$custom_block_identifier =  Mage::getStoreConfig('advanced_menu/customblock/customblock_identifier'); 
+			$custom_topoffset = Mage::getStoreConfig('advanced_menu/popup/top_offset') + 0;
+		?> 
+				<div class="custom_menu">
+					<a><span><?php echo $custom_block_name; ?></span></a>
+				<div class="customblock_inner" style="top:<?php echo $custom_topoffset; ?>px">
+					<div class="megnor-advanced-menu-popup_inner">
+						<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($custom_block_identifier)->toHtml() ?> 
+					</div>	
+				</div>
+				</div>
+			 
+		<?php  endif;?>	
+		
+		<div class="clearBoth"></div>
+    </div>
+	
+	<!--- Code for responsive menu start --->
+	<?php $_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+	<div class="nav-responsive" style="display:none;"><span>Menu</span><div class="expandable"></div></div>
+		<div class="responsive_menu">
+			<ul id="nav" class="advanced_nav">
+				<?php echo $_menu ?>
+			</ul>
+		</div>
+	</div>	
+	<!--- Code for responsive menu end --->
+
+</nav>
+<script type="text/javascript">
+//<![CDATA[
+var CUSTOMMENU_POPUP_WIDTH = <?php echo Mage::getStoreConfig('advanced_menu/popup/width') + 0; ?>;
+var CUSTOMMENU_POPUP_TOP_OFFSET = <?php echo Mage::getStoreConfig('advanced_menu/popup/top_offset') + 0; ?>;
+var CUSTOMMENU_POPUP_RIGHT_OFFSET_MIN = <?php echo Mage::getStoreConfig('advanced_menu/popup/right_offset_min') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_DISPLAYING = <?php echo Mage::getStoreConfig('advanced_menu/popup/delay_displaying') + 0; ?>;
+var CUSTOMMENU_POPUP_DELAY_BEFORE_HIDING = <?php echo Mage::getStoreConfig('advanced_menu/popup/delay_hiding') + 0; ?>;
+var megnorCustommenuTimerShow = {};
+var megnorCustommenuTimerHide = {};
+//]]>
+</script>
+<?php endif ?>
+
+ 

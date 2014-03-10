@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Megnor_Manufacturer>
+            <version>0.1.0</version>
+        </Megnor_Manufacturer>
+    </modules>
+	<global>
+        <models>
+            <manufacturer>
+                <class>Megnor_Manufacturer_Model</class>
+                <resourceModel>manufacturer_mysql4</resourceModel>
+            </manufacturer>
+            <manufacturer_mysql4>
+                <class>Megnor_Manufacturer_Model_Mysql4</class>
+                <entities>
+                    <manufacturer>
+                        <table>manufacturer</table>
+                    </manufacturer>
+                </entities>
+            </manufacturer_mysql4>
+        </models>
+        <resources>
+            <manufacturer_setup>
+                <setup>
+                    <module>Megnor_Manufacturer</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </manufacturer_setup>
+            <manufacturer_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </manufacturer_write>
+            <manufacturer_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </manufacturer_read>
+        </resources>
+        <blocks>
+            <manufacturer>
+                <class>Megnor_Manufacturer_Block</class>
+            </manufacturer>
+        </blocks>
+        <helpers>
+            <manufacturer>
+                <class>Megnor_Manufacturer_Helper</class>
+            </manufacturer>
+        </helpers>
+    </global>
+	
+    <frontend>
+        <routers>
+            <manufacturer>
+                <use>standard</use>
+                <args>
+                    <module>Megnor_Manufacturer</module>
+                    <frontName>manufacturer</frontName>
+                </args>
+            </manufacturer>
+        </routers>
+        <layout>
+            <updates>
+                <manufacturer>
+                    <file>manufacturer.xml</file>
+                </manufacturer>
+            </updates>
+        </layout>
+    </frontend>
+	
+    <admin>
+        <routers>
+			<manufacturer>
+				<use>admin</use>
+				<args>
+					<module>Megnor_Manufacturer</module>
+					<frontName>manufacturer</frontName>
+				</args>
+			</manufacturer>
+        </routers>
+    </admin>
+	
+    <adminhtml>
+		<menu>
+            <megnor_menu translate="title" module="featuredproducts">
+                <children>					
+					<manufacturer>
+						<title>Manufacturer Extension</title>
+						<sort_order>8</sort_order>
+						<children>
+							<manufacturer module="manufacturer">
+								<title>Manufacturer Logos</title>
+								<sort_order>0</sort_order>
+								<action>manufacturer/adminhtml_manufacturer</action>
+							</manufacturer>
+							<manufacturersetting module="manufacturer">
+								<title>Manufacturer Options</title>
+								<sort_order>2</sort_order>
+								<action>adminhtml/system_config/edit/section/manufacturer</action>
+							</manufacturersetting>
+
+						</children>
+					</manufacturer>
+					
+                </children>                
+            </megnor_menu>			
+        </menu>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <Megnor_Manufacturer>
+                            <title>Manufacturer Extensions</title>
+                            <sort_order>3</sort_order>
+                        </Megnor_Manufacturer>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <manufacturer>
+                                            <title>Manufacturer Options</title>
+                                        </manufacturer>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>		
+		
+		<layout>
+			<updates>
+				<manufacturer>
+					<file>manufacturer.xml</file>
+				</manufacturer>
+			</updates>
+		</layout>
+    </adminhtml>   
+	
+	<default>
+		<manufacturer>
+			<general>
+				<enable>1</enable>
+				<url_prefix>manufacturer</url_prefix>		
+				<attribute_code>manufacturer</attribute_code>											
+				<show_logo>0</show_logo>
+				<show_link>0</show_link>
+			</general>			
+			<sidebar>
+				<blocktitle>Shop By Brand</blocktitle>
+				<number_of_brands>0</number_of_brands>												
+				<combodropdown>0</combodropdown>
+				<enabledleft>1</enabledleft>
+				<enabledright>0</enabledright>
+			</sidebar>
+			<cmspage>
+				<heading>Brands</heading>
+				<brands_name>0</brands_name>
+			</cmspage>
+			<standalone>
+				<heading>Manufacture Products</heading>
+				<layout>two_columns_left</layout>
+				<meta_title>Manufacture Products</meta_title>
+                <meta_description>Check out our great collection of Manufacture products</meta_description>
+                <meta_keywords>manufacture, products</meta_keywords>
+			</standalone> 
+		</manufacturer>
+	</default> 
+</config>

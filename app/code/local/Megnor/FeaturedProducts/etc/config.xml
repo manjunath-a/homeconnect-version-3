@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--
+    /**
+     * @category     Inchoo
+     * @package     Inchoo Featured Products
+     * @author        Domagoj Potkoc, Megnor Team <web@Megnor.net>
+     * @modified    Mladen Lotar <mladen.lotar@surgeworks.com>, Vedran Subotic <vedran.subotic@surgeworks.com>
+     */
+    -->
+    <modules>
+        <Megnor_FeaturedProducts>
+            <version>2.0.1</version>
+        </Megnor_FeaturedProducts>
+    </modules>
+
+    <global>
+        <blocks>
+            <featuredproducts>
+                <class>Megnor_FeaturedProducts_Block</class>
+            </featuredproducts>
+        </blocks>
+
+        <helpers>
+            <featuredproducts>
+                <class>Megnor_FeaturedProducts_Helper</class>
+            </featuredproducts>
+        </helpers>
+
+        <models>
+            <featuredproducts>
+                <class>Megnor_FeaturedProducts_Model</class>
+            </featuredproducts>
+        </models>
+
+        <resources>
+            <featuredproducts_setup>
+                <setup>
+                    <module>Megnor_FeaturedProducts</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </featuredproducts_setup>
+
+            <featuredproducts_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </featuredproducts_write>
+            <featuredproducts_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </featuredproducts_read>
+        </resources>
+    </global>
+
+    <frontend>
+        <routers>
+            <featuredproducts>
+                <use>standard</use>
+                <args>
+                    <module>Megnor_FeaturedProducts</module>
+                    <frontName>featured-products</frontName>
+                </args>
+            </featuredproducts>
+        </routers>
+        <layout>
+            <updates>
+                <featuredproducts>
+                    <file>featured.xml</file>
+                </featuredproducts>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <featuredproducts before="Mage_Adminhtml">Megnor_FeaturedProducts_Adminhtml</featuredproducts>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+		
+    </admin>
+	<adminhtml>
+        <menu>
+            <megnor_menu translate="title" module="featuredproducts">
+                <children>
+					<featuredproducts>
+						<title>Featured Product</title>
+						<sort_order>4</sort_order>
+						<children>
+							<featuredproducts module="featuredproducts">
+								<title>Manage Featured Products</title>
+								<sort_order>0</sort_order>
+								<action>adminhtml/featured/index</action>
+							</featuredproducts>
+							<featuredsettings module="featuredproducts">
+								<title>Featured Product Options</title>
+								<sort_order>2</sort_order>
+								<action>adminhtml/system_config/edit/section/featuredproducts</action>
+							</featuredsettings>
+						</children>
+					</featuredproducts>
+                </children>                
+            </megnor_menu>
+			
+        </menu>
+	</adminhtml>
+    <default>
+        <featuredproducts>
+            <general>
+                <active>1</active>              
+            </general>
+            <cmspage>
+                <heading_block>Featured Products</heading_block>
+                <product_sort_by>random</product_sort_by>
+                <number_of_items>3</number_of_items>
+            </cmspage>
+            <standalone>
+                <heading>Featured Products</heading>
+                <layout>two_columns_left</layout>
+                <meta_title>Featured Products</meta_title>
+                <meta_description>Check out our great collection of Featured products</meta_description>
+                <meta_keywords>featured, products</meta_keywords>
+            </standalone>
+        </featuredproducts>
+    </default>
+</config>

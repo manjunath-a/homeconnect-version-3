@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @category    Megnor
+ * @package     Megnor_Framework
+ * @copyright   Copyright (c) 2012 Megnor Computer Pvt Ltd. (http://www.templatemela.com)
+ */
+-->
+<config>
+ 	 <tabs>
+        <Megnor_Framework>
+            <label>Templatemela Framework</label>
+            <sort_order>1</sort_order>
+        </Megnor_Framework>
+    </tabs>
+</config>
