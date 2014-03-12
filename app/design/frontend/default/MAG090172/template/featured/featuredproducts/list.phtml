@@ -64,9 +64,23 @@
             </div><!--- End list center ---->
 			
 			<div class="list-right">
-				 <?php echo $this->getPriceHtml($_product, true) ?>
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display custom Per Unit value next to price
+                                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                                    //Original was - $this->getPriceHtml($_product, true)
+                                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                                ?>
+				 <?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit'); ?>
                     <?php if($_product->isSaleable()): ?>
-                        <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                    <?php
+                        //Modified by : Compassites - Shanmuga Prabu
+                        //To display custom text on Add to Cart button
+                        //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+                        //Original was - echo $this->__('Add to Cart')
+                        //Changed to - echo $_product->getData('hco_addtocartlabel');
+                    ?>
+                        <p><button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button></p>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                    <?php endif; ?> 
@@ -109,13 +123,26 @@
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                 <?php endif; ?>
                 
-                
-                <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To display custom Per Unit value next to price
+                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                    //Original was - $this->getPriceHtml($_product, true)
+                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                ?>                
+                <?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit');?>
              
                 <div class="actions">
                    
                     <?php if($_product->isSaleable()): ?>
-                        <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                    <?php
+                        //Modified by : Compassites - Shanmuga Prabu
+                        //To display custom text on Add to Cart button
+                        //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+                        //Original was - echo $this->__('Add to Cart')
+                        //Changed to - echo $_product->getData('hco_addtocartlabel');
+                    ?>
+                        <button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button>
                     <?php else: ?>
                         <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
                     <?php endif; ?>

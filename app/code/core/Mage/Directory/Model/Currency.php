@@ -219,7 +219,10 @@ class Mage_Directory_Model_Currency extends Mage_Core_Model_Abstract
      */
     public function format($price, $options = array(), $includeContainer = true, $addBrackets = false)
     {
-        return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
+        //return $this->formatPrecision($price, 2, $options, $includeContainer, $addBrackets);
+        //Modified by : Compassites - Shanmuga Prabu
+        //To display price without decimal places
+        return $this->formatPrecision($price, 0, $options, $includeContainer, $addBrackets);
     }
 
     /**
