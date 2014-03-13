@@ -89,7 +89,14 @@
 		</div>
 			
 		<div class="list-right">
-		  <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To display custom Per Unit value next to price
+                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                    //Original was - $this->getPriceHtml($_product, true)
+                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                ?>
+		<?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit'); ?>
           <?php if($_product->isSaleable()): ?>
           <?php
             //Modified by : Compassites - Shanmuga Prabu
@@ -137,7 +144,14 @@
                 <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
                 <?php endif; ?>
 				
-                <?php echo $this->getPriceHtml($_product, true) ?>
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To display custom Per Unit value next to price
+                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                    //Original was - $this->getPriceHtml($_product, true)
+                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                ?>
+                <?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit') ?>
 				
                 <div class="actions">
                     <?php if($_product->isSaleable()): ?>
