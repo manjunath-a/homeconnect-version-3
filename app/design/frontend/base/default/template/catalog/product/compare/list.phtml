@@ -26,7 +26,13 @@
 /* @var $this Mage_Catalog_Block_Product_Compare_List */
 ?>
 <div class="page-title title-buttons">
-    <h1><?php echo $this->__('Compare Products') ?></h1>
+    <?php
+        //Modified by : Compassites - Shanmuga Prabu
+        //To display Compare Services instead of Compare Products in the side bar
+        //Original was - echo $this->__('Compare Products')
+        //Changed to - echo $this->__('Compare Services')
+    ?>
+    <h1><?php echo $this->__('Compare Services') ?></h1>
     <a href="#" onclick="window.print(); return false;" class="link-print"><?php echo $this->__('Print This Page') ?></a>
 </div>
 <?php $_total=$this->getItems()->getSize() ?>

@@ -133,7 +133,14 @@
 			 
             <?php echo $this->getChildHtml('alert_urls') ?>
             <?php echo $this->getChildHtml('product_type_data') ?>
-            <?php echo $this->getTierPriceHtml() ?>
+            <?php
+                //Modified by : Compassites - Shanmuga Prabu
+                //To display custom Per Unit value next to price
+                //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                //Original was - echo $this->getTierPriceHtml()
+                //Changed to - echo $this->getTierPriceHtml()  . " " . $_product->getData('hco_perunit');
+            ?>
+            <?php echo $this->getTierPriceHtml()  . " " . $_product->getData('hco_perunit'); ?>
             <?php echo $this->getChildHtml('extrahint') ?>
 			
 			  <?php echo $this->getChildHtml('other');?>

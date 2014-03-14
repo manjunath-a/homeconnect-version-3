@@ -31,7 +31,13 @@ $_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
 ?>
 <div class="block block-list block-compare">
     <div class="block-title">
-        <strong><span><?php echo $this->__('Compare Products') ?>
+        <?php
+            //Modified by : Compassites - Shanmuga Prabu
+            //To display Compare Services instead of Compare Products in the side bar
+            //Original was - echo $this->__('Compare Products')
+            //Changed to - echo $this->__('Compare Services')
+        ?>
+        <strong><span><?php echo $this->__('Compare Services') ?>
             <?php if($_helper->getItemCount() > 0): ?> 
                 <small><?php echo $this->__('(%d)', $_helper->getItemCount()) ?></small>
             <?php endif; ?>
@@ -43,7 +49,13 @@ $_items = $_helper->getItemCount() > 0 ? $_helper->getItemCollection() : null;
         <?php foreach($_items as $_index => $_item): ?>
             <li class="item">
                 <input type="hidden" class="compare-item-id" value="<?php echo $_item->getId() ?>" />
-                <a href="<?php echo $_helper->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare products?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To display Compare Services instead of Compare Products in the side bar
+                    //Original was - echo $this->__('Are you sure you would like to remove this item from the compare products?')
+                    //Changed to - echo $this->__('Are you sure you would like to remove this item from the compare services?')
+                ?>
+                <a href="<?php echo $_helper->getRemoveUrl($_item) ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove" onclick="return confirm('<?php echo $this->__('Are you sure you would like to remove this item from the compare services?') ?>');"><?php echo $this->__('Remove This Item') ?></a>
                 <p class="product-name"><a href="<?php echo $this->getProductUrl($_item) ?>"><?php echo $this->helper('catalog/output')->productAttribute($_item, $_item->getName(), 'name') ?></a></p>
             </li>
         <?php endforeach; ?>
