@@ -35,7 +35,12 @@
                 <label for="newsletter"><?php echo $this->__('Sign Up for Our Newsletter:') ?></label>
             </div>
             <div class="input-box">
-               <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" />
+            <?php
+                //Modified by : Compassites - Shanmuga Prabu
+                //To display placeholder text in Sign Up for Newsletter text box
+                //Added - placeholder="<?php echo $this->__('Sign up for our newsletter')
+            ?>
+               <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" placeholder="<?php echo $this->__('Enter your email address') ?>" class="input-text required-entry validate-email" />
             </div>
             <div class="actions">
                 <button type="submit" title="<?php echo $this->__('Subscribe') ?>" class="button"><span><span><?php echo $this->__('Subscribe') ?></span></span></button>

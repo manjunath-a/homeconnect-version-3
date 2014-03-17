@@ -18,29 +18,28 @@
  * versions in the future. If you wish to customize Magento for your
  * needs please refer to http://www.magentocommerce.com for more information.
  *
- * @category   design_default
- * @package    Mage
- * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
-
-<?php $_product = $this->getProduct() ?>
-
+<?php $_product = $this->getProduct(); ?>
+<?php
+    //Modified by : Compassites - Shanmuga Prabu
+    //To display custom text on Add to Cart button
+    //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+    //Original was - $buttonTitle = $this->__('Add to Carty');
+    //Changed to - $buttonTitle = $_product->getData('hco_addtocartlabel');
+?>
+<?php $buttonTitle = $_product->getData('hco_addtocartlabel'); ?>
 <?php if($_product->isSaleable()): ?>
-    <fieldset class="add-to-cart-box">
-        <legend><?php echo $this->__('Add Items to Cart') ?></legend>
+    <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
-        <span class="qty-box"><label for="qty"><?php echo $this->__('Qty') ?>:</label>
-        <input name="qty" type="text" class="input-text qty" id="qty" maxlength="12" value="<?php echo $this->getMinimalQty($_product) ?>" /></span>
+        <label for="qty"><?php echo $this->__('Qty:') ?></label>
+        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
         <?php endif; ?>
-        <?php
-            //Modified by : Compassites - Shanmuga Prabu
-            //To display custom text on Add to Cart button
-            //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
-            //Original was - echo $this->__('Add to Cart')
-            //Changed to - echo $_product->getData('hco_addtocartlabel');
-        ?>
-        <button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button>
-    </fieldset>
+        <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <?php echo $this->getChildHtml('', true, true) ?>
+    </div>
 <?php endif; ?>
