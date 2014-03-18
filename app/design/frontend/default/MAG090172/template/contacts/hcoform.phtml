@@ -25,7 +25,6 @@
  */
 ?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
-<h2 class="legend"><?php echo Mage::helper('contacts')->__('Request for information') ?></h2>
 <div class="contacform">
 <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
     <div class="fieldset">
@@ -52,9 +51,9 @@
                 </div>
             </li>
             <li class="wide">
-                <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Tell us what service you are looking for') ?></label>
+                <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Share your details with us') ?></label>
                 <div class="input-box">
-                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Tell us what service you are looking for') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Share your details with us') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
                 </div>
             </li>
         </ul>

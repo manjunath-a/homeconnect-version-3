@@ -28,7 +28,13 @@
 <div class="page-title">
     <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
 </div>
- <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+<?php
+    //Modified by : Compassites - Shanmuga Prabu
+    //To Contact Information text on Contact Us page
+    //Original was - echo Mage::helper('contacts')->__('Contact Information')
+    //Changed to - echo Mage::helper('contacts')->__('How can we serve you?')
+?>
+<h2 class="legend"><?php echo Mage::helper('contacts')->__('How can we serve you?') ?></h2>
 <div class="contacform">
 <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post">
     <div class="fieldset">
