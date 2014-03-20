@@ -74,7 +74,13 @@
                 <thead>
                     <tr>
                         <th rowspan="<?php echo $mergedCells; ?>">&nbsp;</th>
-                        <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Product Name') ?></th>
+                        <?php
+                            //Modified by : Compassites - Shanmuga Prabu
+                            //To change Product Name to Services
+                            //Original was - echo $this->__('Product Name')
+                            //Changed to - echo $this->__('Services')
+                        ?>
+                        <th rowspan="<?php echo $mergedCells; ?>"><?php echo $this->__('Services') ?></th>
                         <th rowspan="<?php echo $mergedCells; ?>"></th>
                         <?php if ($this->helper('wishlist')->isAllowInCart()) : ?>
                         <th rowspan="<?php echo $mergedCells; ?>" class="a-center"><?php echo $this->__('Move to Wishlist') ?></th>

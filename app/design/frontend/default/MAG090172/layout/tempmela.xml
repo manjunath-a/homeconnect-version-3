@@ -148,10 +148,28 @@ Product view
 			
 			<block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs">			 	
 				<action method="setTemplate"><template>framework/tabs/tabs.phtml</template></action>				
-				<action method="addTab" translate="title" module="catalog"><alias>description_tabbed</alias><title>Product Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>				 			 
+                                <!--
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To change Product Description
+                                    //Original was - Product Description
+                                    //Changed to - Description
+                                -->
+				<action method="addTab" translate="title" module="catalog"><alias>description_tabbed</alias><title>Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>				 			 
 				<action method="addTab" translate="title" module="catalog"><alias>additional_tabbed</alias><title>Additional Information</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>  
-				<action method="addTab" translate="title" module="review"><alias>review_tabbed</alias><title>Product's Review</title><block>review/product_view_list</block><template>framework/tabs/review.phtml</template></action>				
-				<action method="addTab" translate="title" module="tag"><alias>tags_tabbed</alias><title>Product Tags</title><block>tag/product_list</block><template>framework/tabs/tags.phtml</template></action>				
+                                <!--
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To change Product's Review
+                                    //Original was - Product's Review
+                                    //Changed to - Review
+                                -->
+				<action method="addTab" translate="title" module="review"><alias>review_tabbed</alias><title>Review</title><block>review/product_view_list</block><template>framework/tabs/review.phtml</template></action>				
+                                <!--
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To change Product Tags
+                                    //Original was - Product Tags
+                                    //Changed to - Tags
+                                -->
+				<action method="addTab" translate="title" module="tag"><alias>tags_tabbed</alias><title>Tags</title><block>tag/product_list</block><template>framework/tabs/tags.phtml</template></action>				
 				<action method="addTab" translate="title" module="catalog"><alias>cms</alias><title>CMS tab</title><block>core/template</block><template>framework/tabs/cms.phtml</template></action>				
 			 </block> 
 		 </reference>	 

@@ -18,8 +18,13 @@
 <?php
 $maufacturers = Mage::getModel('manufacturer/manufacturer')->getCollection()->addFieldToFilter('status',Array('eq'=>1));    
 ?>
-
-<div class="block block-brand-nav">
+<?php
+    //Modified by : Compassites - Shanmuga Prabu
+    //To disable Shop by Brand block from all pages
+    //Original was - <div class="block block-brand-nav">
+    //Changed to - <div class="block block-brand-nav" style="display: none;">
+?>
+<div class="block block-brand-nav" style="display: none;">
 <div class="block-title">
 	<strong><span><?php echo $this->getBlockTitle(); ?></span></strong>
 </div>

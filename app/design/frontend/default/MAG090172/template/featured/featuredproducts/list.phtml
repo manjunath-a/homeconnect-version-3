@@ -27,7 +27,13 @@
 				<?php endif; ?>
 					
 				<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
-					<div class="sale-label"><?php echo $this->__('Sale') ?></div>
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display "Offer" instead of "Sale" over all products with discounted price
+                                    //Original was - echo $this->__('Sale')
+                                    //Changed to - echo $this->__('Offer')
+                                ?>
+					<div class="sale-label"><?php echo $this->__('Offer') ?></div>
 				<?php endif; ?>
 					
 					
@@ -111,7 +117,13 @@
 				<?php endif; ?>
 				
 				<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
-					<div class="sale-label"><?php echo $this->__('Sale') ?></div>
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display "Offer" instead of "Sale" over all products with discounted price
+                                    //Original was - echo $this->__('Sale')
+                                    //Changed to - echo $this->__('Offer')
+                                ?>
+					<div class="sale-label"><?php echo $this->__('Offer') ?></div>
 				<?php endif; ?>
 				
 			

@@ -60,6 +60,12 @@ var review_tab_show=function() {
         </p>
     </div>
 <?php elseif ($this->getDisplayIfEmpty()): ?>
-    <p class="no-rating"><a rel="nofollow" onclick="review_tab_show()" href="#product_tabs_review_tabbed"><?php echo $this->__('Be the first to review this product') ?></a></p>
+<?php
+    //Modified by : Compassites - Shanmuga Prabu
+    //To change Be the first to review on Product details page
+    //Original was - echo $this->__('Be the first to review this product')
+    //Changed to - echo $this->__('Be the first to review this service')
+?>
+    <p class="no-rating"><a rel="nofollow" onclick="review_tab_show()" href="#product_tabs_review_tabbed"><?php echo $this->__('Be the first to review this service') ?></a></p>
 <?php endif; ?>
 
