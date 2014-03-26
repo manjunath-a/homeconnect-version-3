@@ -775,6 +775,13 @@ Product.OptionsPrice.prototype = {
 
     },
     formatPrice: function(price) {
-        return formatCurrency(price, this.priceFormat);
+        /*
+         //Modified by : Compassites - Shanmuga Prabu
+         //To remove decimal from price of products with custom option
+         //Original was - return formatCurrency(price, this.priceFormat);
+         //Changed to - return formatCurrency(price, this.priceFormat).replace(".00","");
+         */
+        /*return formatCurrency(price, this.priceFormat);*/
+        return formatCurrency(price, this.priceFormat).replace(".00","");
     }
 }
