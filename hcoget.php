@@ -40,7 +40,10 @@
             $productName = $productInfo['name'];
             $productDescription = $productInfo['short_description'];
             $productPrice = $productInfo['price'];
-            $productImageUrl = $productImage[0]['url'];
+            if(count($productImage)==0)
+                $productImageUrl='http://i.imgur.com/RoyW0oD.jpg';
+            else
+                $productImageUrl = $productImage[0]['url'];
             $productPageUrl = $productInfo['url_path'];
             $productCategory=$productInfo['categories'];
             foreach($productCategory as $category)
@@ -79,7 +82,9 @@
     {
         $masterProductList[0]=array('result'=>'failure');
     }
-    
+    //echo "<pre>";
+    //print_r($masterProductList);
+    //echo "</pre>";
     $encodedValue=json_encode($masterProductList);
     echo $encodedValue;
 ?>
