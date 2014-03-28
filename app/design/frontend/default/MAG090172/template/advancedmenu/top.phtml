@@ -24,7 +24,13 @@
         <div class="menu">
             <div class="parentMenu menu0 home_link">
                 <a href="<?php echo $this->getUrl('') ?>">
-                    <span><?php echo $this->__('Home'); ?></span>
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To add HCO Logo and change text Home to HCO
+                    //Original was - echo $this->__('Home');
+                    //Changed to - echo $this->__('HCO');
+                ?>
+                    <span><img src='http://i.imgur.com/gOqd1vn.png'/>&nbsp;<?php echo $this->__('HCO'); ?></span>
                 </a>
             </div>
         </div>

@@ -2810,16 +2810,20 @@ text-shadow:none; }
     width: 181px;
 }
 .subbanner .banner1 {
-    background: url("../images/bg1.jpg") no-repeat scroll left center transparent;
+  /*  background: url("../images/bg1.jpg") no-repeat scroll left center transparent; */
+  /*  Commented by : Shan - Compassites. Remove background image from banner */
 }
 .subbanner .banner2 {
-    background: url("../images/bg2.jpg") no-repeat scroll left center transparent;
+  /*  background: url("../images/bg2.jpg") no-repeat scroll left center transparent; */
+  /*  Commented by : Shan - Compassites. Remove background image from banner */
 }
 .subbanner .banner3 {
-    background: url("../images/bg3.jpg") no-repeat scroll left center transparent;
+  /*  background: url("../images/bg3.jpg") no-repeat scroll left center transparent; */
+  /*  Commented by : Shan - Compassites. Remove background image from banner */
 }
 .subbanner .banner4 {
-    background: url("../images/bg4.jpg") no-repeat scroll left center transparent;
+  /*  background: url("../images/bg4.jpg") no-repeat scroll left center transparent; */
+  /*  Commented by : Shan - Compassites. Remove background image from banner */
 }
 .subbanner .banner4 {
     border: medium none;
@@ -2856,22 +2860,22 @@ text-shadow:none; }
 }
 .ie7 .subbanner .data{ padding-left:10px; }
 .subbanner .data .h1 {
-    color: #FFFFFF;
+    color: #E76452; /* Original was - color: #FFFFFF; Changed by Shan - Compassites*/
     font-family: 'Oswald';
     font-size: 16px;
 }
 .subbanner .banner4 .h1 {
-    color: #FFFFFF; /* Original was - color: #000000; Changed by Shan - Compassites*/
+    color: #E76452; /* Original was - color: #000000; Changed by Shan - Compassites*/
     font-family: 'Oswald';
     font-size: 16px;
 }
 .subbanner .data .h2 {
-    color: #FFFFFF;
+    color: #565656; /* Original was - color: #FFFFFF; Changed by Shan - Compassites*/
     font-family: Arial,Helvetica,sans-serif;
     font-size: 13px;
 }
 .subbanner .banner4 .h2 {
-    color: #FFFFFF; /* Original was - color: #000000; Changed by Shan - Compassites*/
+    color: #565656; /* Original was - color: #000000; Changed by Shan - Compassites*/
 }
 .subbanner .banner:hover .img {
     transform: rotate(360deg);
