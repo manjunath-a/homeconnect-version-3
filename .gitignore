@@ -4,3 +4,4 @@
 /var/cache/
 /var/session/
 /var/report/
+/app/etc/local.xml
