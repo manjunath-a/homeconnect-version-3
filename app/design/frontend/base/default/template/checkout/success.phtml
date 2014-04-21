@@ -104,8 +104,8 @@
 			$product_sku    	= $item->sku;
 			$product_name   	= $item->getName();
 			$_product       	= Mage::getModel('catalog/product')->load($product_id);
-			$spName				= $_product->getServiceProvider();
-			$spEmail			= $_product->getServiceProviderEmail();
+			$spName				= $_product->gethco_serviceprovider();
+			$spEmail			= $_product->gethco_serviceprovideremail();
 			$cats           	= $_product->getCategoryIds();
 			$quantity       	= rtrim($item->getQtyOrdered(), '.0000');
 			$price          	= number_format($item->getPrice(), 2);
