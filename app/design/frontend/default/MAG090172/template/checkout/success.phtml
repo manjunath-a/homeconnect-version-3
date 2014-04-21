@@ -62,3 +62,94 @@
 <div class="buttons-set">
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
+
+<!-- Sending Emails for Service Providers - Code Added by Compassites -->
+
+<?php
+
+	if($orderNumber = $this->escapeHtml($this->getOrderId()))
+	{
+		$body	= "Order Number: <strong>"   . $orderNumber  . "</strong><br />";
+	
+	//     // fetch the order based on the id
+		$order = Mage::getModel('sales/order')->loadByIncrementId($orderNumber);
+
+	// Get ship-to address information  
+		$shipping_address_data = $order->getShippingAddress();  
+	// get order item collection
+		$orderItems = $order->getAllItems();
+
+		// Output the ship-to address information  
+		$body .= '<br><b>Shipping Address :</b></br>';
+		$body .= $shipping_address_data['firstname']    . " ";  
+		$body .= $shipping_address_data['lastname']     . "<br />";  
+		$body .= $shipping_address_data['street']       . "<br />";  
+		$body .= $shipping_address_data['city']         . ", ";  
+		$body .= $shipping_address_data['region']       . " ";  
+		$body .= $shipping_address_data['postcode']     . "<br />";  
+		$body .= $shipping_address_data['country_id']   . "<br /><br />";
+
+		$table_start = '
+			<table border="1">
+				<tr>
+					<th>ID</th>
+					<th>Details</th>
+					<th>Quantity</th>
+					<th>Price</th>
+				</tr>';
+
+		foreach ($orderItems as $item)
+		{
+			$product_id     	= $item->product_id;
+			$product_sku    	= $item->sku;
+			$product_name   	= $item->getName();
+			$_product       	= Mage::getModel('catalog/product')->load($product_id);
+			$spName				= $_product->getHco_serviceprovider();
+			$spEmail			= $_product->getHco_serviceprovideremail();
+			$cats           	= $_product->getCategoryIds();
+			$quantity       	= rtrim($item->getQtyOrdered(), '.0000');
+			$price          	= number_format($item->getPrice(), 2);
+			$category_id    	= $cats[0]; // just grab the first id
+			$category       	= Mage::getModel('catalog/category')->load($category_id);
+			$category_name  	= $category->getName();     // Movies, Gaming, Music, Posters
+			$lastProductEmail	= '';
+			$productDetails		= '';
+			$table_end			= '';
+			
+			$productDetails	= "
+				<tr style=\"border-top: 1px solid #000;\">
+					<td style=\"padding: .25em;\">$product_id</td>
+					<td style=\"padding: .25em .5em;\">
+						SKU: <strong>$product_sku</strong> <br>
+						Service Name:<strong>$product_name</strong>
+					</td>
+					<td style=\"padding: .25em; text-align: right;\">$quantity</td>
+					<td>Rs. $price</td>
+				</tr>";
+
+			if($spEmail != $lastProductEmail) {
+
+				$lastProductEmail	= $spEmail;
+
+				$table_end = '</table><br />* If "Payment Method" is <strong>Check / Money order</strong>, please ensure payment is received BEFORE processing.';
+
+				$eMailBody		= '<html><head><body>'.$body . $table_start . $productDetails . $table_end.'</body></head></html>';
+				$senderName		= Mage::getStoreConfig('trans_email/ident_general/name');
+				$senderEmail 	= Mage::getStoreConfig('trans_email/ident_general/email');
+
+				$mail = Mage::getModel('core/email');
+				$mail->setToName('Service Provider');
+				$mail->setToEmail($spEmail);
+				$mail->setBody($eMailBody);
+				$mail->setSubject('Order Placement Confirmation - '.$product_name.'. ['.$orderNumber.'] for your fulfilment');
+				$mail->setFromEmail($senderEmail);
+				$mail->setFromName($senderName);
+				$mail->setType('html');// YOu can use Html or text as Mail format
+				$mail->send();
+			}
+		}
+	}
+
+?>
+
+<!-- Compassites Code ends -->
