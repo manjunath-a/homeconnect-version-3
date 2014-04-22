@@ -63,7 +63,7 @@
     <button type="button" class="button" title="<?php echo $this->__('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'"><span><span><?php echo $this->__('Continue Shopping') ?></span></span></button>
 </div>
 
-<!-- Sending Emails for Service Providers - Code Added by Compassites -->
+<!-- Sending Emails for Service Providers - Code Added by Compassites - Shan -->
 
 <?php
 
@@ -75,12 +75,12 @@
 		$order = Mage::getModel('sales/order')->loadByIncrementId($orderNumber);
 
 	// Get ship-to address information  
-		$shipping_address_data = $order->getShippingAddress();  
+		$shipping_address_data = $order->getBillingAddress();  
 	// get order item collection
 		$orderItems = $order->getAllItems();
 
 		// Output the ship-to address information  
-		$body .= '<br><b>Shipping Address :</b></br>';
+		$body .= '<br><b>Customer Address :</b></br>';
 		$body .= $shipping_address_data['firstname']    . " ";  
 		$body .= $shipping_address_data['lastname']     . "<br />";  
 		$body .= $shipping_address_data['street']       . "<br />";  
@@ -138,7 +138,7 @@
 				$senderEmail 	= Mage::getStoreConfig('trans_email/ident_general/email');
 
 				$mail = Mage::getModel('core/email');
-				$mail->setToName('Service Provider');
+				$mail->setToName($spName);
 				$mail->setToEmail($spEmail);
 				$mail->setBody($eMailBody);
 				$mail->setSubject('Order Placement Confirmation - '.$product_name.'. ['.$orderNumber.'] for your fulfilment');
