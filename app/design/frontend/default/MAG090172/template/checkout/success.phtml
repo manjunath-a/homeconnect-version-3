@@ -82,13 +82,14 @@
 		// Output the ship-to address information  
 		$body .= '<br><b>Customer Address :</b></br>';
 		$body .= $shipping_address_data['firstname']    . " ";  
-		$body .= $shipping_address_data['lastname']     . "<br />";  
-		$body .= $shipping_address_data['street']       . "<br />";  
+		$body .= $shipping_address_data['lastname']     . "<br/>";  
+		$body .= $shipping_address_data['street']       . "<br/>";  
 		$body .= $shipping_address_data['city']         . ", ";  
 		$body .= $shipping_address_data['region']       . " ";  
-		$body .= $shipping_address_data['postcode']     . "<br />";  
-		$body .= $shipping_address_data['country_id']   . "<br /><br />";
-
+		$body .= $shipping_address_data['postcode']     . "<br/>";  
+		$body .= $shipping_address_data['country_id']   . "<br/><br/>";
+                
+                $customerMobile=$shipping_address_data['telephone'];
 		$table_start = '
 			<table border="1">
 				<tr>
@@ -148,8 +149,81 @@
 				$mail->send();
 			}
 		}
+                
+                //Code below is for sending SMS
+                //Send SMS to customer
+                if(trim($customerMobile)!='')
+                {
+                    $ch = curl_init();
+                    $user="alerts@homeconnectonline.com:homeconnect1";
+                    $receipientno=$customerMobile; 
+                    $senderID="TEST SMS"; 
+                    $msgtxt="We have received your Order No. " . $orderNumber . ". It will be processed shortly.";
+                    curl_setopt($ch,CURLOPT_URL,  "http://api.mVaayoo.com/mvaayooapi/MessageCompose");
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_setopt($ch, CURLOPT_POST, 1);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, "user=$user&senderID=$senderID&receipientno=$receipientno&msgtxt=$msgtxt");
+                    $buffer = curl_exec($ch);
+                    if(empty ($buffer))
+                    {
+                        //echo " buffer is empty ";
+                        echo "<br/>Unable to send an SMS notification to you.";
+                    }
+                    else
+                    {
+                        //echo $buffer;
+                        echo "<br/>Order Confirmation SMS has been sent to you.";
+                    } 
+                    curl_close($ch);
+                }
+                          
+                //Send SMS to Service Providers
+                foreach ($orderItems as $item)
+		{
+			$product_id     	= $item->product_id;
+			$product_sku    	= $item->sku;
+			$product_name   	= $item->getName();
+			$_product       	= Mage::getModel('catalog/product')->load($product_id);
+			$spName                 = $_product->getHco_serviceprovider();
+			$spMobile		= $_product->getHco_serviceprovidermobile();
+			$cats           	= $_product->getCategoryIds();
+			$quantity       	= rtrim($item->getQtyOrdered(), '.0000');
+			$price          	= number_format($item->getPrice(), 2);
+			$category_id    	= $cats[0]; // just grab the first id
+			$category       	= Mage::getModel('catalog/category')->load($category_id);
+			$category_name  	= $category->getName();     // Movies, Gaming, Music, Posters
+			$lastProductEmail	= '';
+			$productDetails		= '';
+			$table_end		= '';
+			
+			$sms	= "order for ($product_sku)$product_name - Qty. $quantity from Customer - ";
+                        $sms=$sms . $shipping_address_data['firstname'] . " " . $shipping_address_data['lastname'];
+
+			if(trim($spMobile) != '')
+                        {                            
+                            $ch = curl_init();
+                            $user="alerts@homeconnectonline.com:homeconnect1";
+                            $receipientno=$spMobile; 
+                            $senderID="TEST SMS"; 
+                            $msgtxt=$sms; 
+                            curl_setopt($ch,CURLOPT_URL,  "http://api.mVaayoo.com/mvaayooapi/MessageCompose");
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                            curl_setopt($ch, CURLOPT_POST, 1);
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, "user=$user&senderID=$senderID&receipientno=$receipientno&msgtxt=$msgtxt");
+                            $buffer = curl_exec($ch);
+                            if(empty ($buffer))
+                            {
+                                //echo " buffer is empty ";
+                                echo "<br/>Pending - " . $product_name;
+                            }
+                            else
+                            {
+                                //echo $buffer;
+                                echo "<br/>Processing - " . $product_name;
+                            } 
+                            curl_close($ch);                            
+			}
+		}
 	}
-
 ?>
-
 <!-- Compassites Code ends -->
