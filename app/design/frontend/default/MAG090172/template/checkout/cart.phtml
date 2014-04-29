@@ -47,6 +47,12 @@
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php echo $this->getChildHtml('form_before') ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
+    <?php
+        //Modified by : Compassites - Shanmuga Prabu
+        //To fix the issue of updating quantity in cart from View Cart page
+        //Added the below line - echo $this->getBlockHtml('formkey');
+    ?>
+         <?php echo $this->getBlockHtml('formkey'); ?> 
         <fieldset>
             <table id="shopping-cart-table" class="data-table cart-table">
                 <col width="1" />
