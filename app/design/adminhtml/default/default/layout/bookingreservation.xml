@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <bookingreservation_adminhtml_bookingreservation_index>
+        <reference name="content">
+            <block type="bookingreservation/adminhtml_bookingreservation" name="bookingreservation" />
+        </reference>
+    </bookingreservation_adminhtml_bookingreservation_index>
+    
+    <bookingreservation_adminhtml_staffmembers_index>
+        <reference name="content">
+            <block type="bookingreservation/adminhtml_staffmembers" name="staffmembers" />
+        </reference>
+    </bookingreservation_adminhtml_staffmembers_index>
+    
+    <!--<adminhtml_catalog_product_edit>-->
+    <!--    <reference name="product_tabs">-->
+    <!--        <action method="addTab">-->
+    <!--            <name>bookingreservation_tab</name>-->
+    <!--            <block>bookingreservation/adminhtml_catalog_product_tab</block>-->
+    <!--        </action>-->
+    <!--    </reference>-->
+    <!--</adminhtml_catalog_product_edit>-->
+    
+    <bookingreservation_adminhtml_staffmembers_memberbookings>
+	<block type="core/text_list" name="root">
+	    
+	    <block type="bookingreservation/adminhtml_staffmembers_edit_tab_memberbookings" name="staffmembers.edit.tab.memberbookings"/>
+	    
+	</block>
+    </bookingreservation_adminhtml_staffmembers_memberbookings>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <adminhtml_sales_order_view>
+        <reference name="order_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+            <block type="adminhtml/sales_order_totals_item" name="homeservice.refunded" template="bookingreservation/sales/order/refunded.phtml">
+                <action method="setDisplayArea"><area>footer</area></action>
+                <action method="setAfterCondition"><condition>last</condition></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_view>
+    
+    <adminhtml_sales_order_invoice_new>
+        <reference name="invoice_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+    
+    
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="invoice_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+    
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+    
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="creditmemo_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+    
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="creditmemo_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice" template="bookingreservation/sales/order/total.phtml">
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+    
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_totals">
+            <block type="adminhtml/sales_order_totals_item" name="homeservice.refunded" template="bookingreservation/sales/order/refunded.phtml">
+                <action method="setDisplayArea"><area>footer</area></action>
+            </block>
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+    
+    
+</layout>
