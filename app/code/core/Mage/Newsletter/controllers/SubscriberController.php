@@ -130,4 +130,36 @@ class Mage_Newsletter_SubscriberController extends Mage_Core_Controller_Front_Ac
         }
         $this->_redirectReferer();
     }
+    
+    //Added by : Compassites - Shanmuga Prabu
+    //Unsubscribe Form Action
+    //Used in Unsubscribe Newsletter module
+
+    public function unsubscribecusAction()
+    {
+        $email = $this->getRequest()->getParam('email');
+        $subsModel = Mage::getModel('newsletter/subscriber');
+        $subscriber = $subsModel->loadByEmail($email);
+
+        $id = (int) $subsModel->getId();
+        $code = (string) $subsModel->getCode();
+        if ($id && $code)
+        {
+            $session = Mage::getSingleton('core/session');
+            try
+            {
+                Mage::getModel('newsletter/subscriber')->load($id)->setCheckCode($code)->unsubscribe();
+                $session->addSuccess($this->__('You have been unsubscribed.'));
+            }
+            catch (Mage_Core_Exception $e)
+            {
+                $session->addException($e, $e->getMessage());
+            }
+            catch (Exception $e)
+            {
+                $session->addException($e, $this->__('There was a problem with the un-subscription.'));
+            }
+        }
+        $this->_redirectReferer();
+    } 
 }

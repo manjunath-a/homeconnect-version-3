@@ -56,4 +56,13 @@ class Mage_Newsletter_Block_Subscribe extends Mage_Core_Block_Template
     {
         return $this->getUrl('newsletter/subscriber/new', array('_secure' => true));
     }
+
+    //Added by : Compassites - Shanmuga Prabu
+    //Unsubscribe Form Action
+    //Used in Unsubscribe Newsletter module
+
+    public function getUnsubscribeFormActionUrl()
+    {
+        return $this->getUrl('newsletter/subscriber/unsubscribecus', array('_secure' => true));
+    } 
 }
