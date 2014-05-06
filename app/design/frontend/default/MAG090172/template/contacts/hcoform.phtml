@@ -24,6 +24,10 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+    $pgTitle=$this->getLayout()->getBlock('head')->getTitle();
+    $pgTitle=substr($pgTitle, 0, strpos($pgTitle, "::")-1);
+?>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
 <div class="contacform">
 <form action="/index.php/contacts/index/post/" id="contactForm" method="post">
@@ -53,7 +57,7 @@
             <li class="wide">
                 <label for="comment" class="required"><em>*</em><?php echo Mage::helper('contacts')->__('Comments (Please mention your Requirements/Services)') ?></label>
                 <div class="input-box">
-                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comments (Please mention your Requirements/Services)') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                    <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comments (Please mention your Requirements/Services)') ?>" class="required-entry input-text" cols="5" rows="3">I am interested in <?php echo $pgTitle; ?>. Please contact me.</textarea>
                 </div>
             </li>
         </ul>
