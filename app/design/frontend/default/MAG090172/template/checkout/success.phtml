@@ -145,7 +145,7 @@
 				$mail->setSubject('Order Placement Confirmation - '.$product_name.'. ['.$orderNumber.'] for your fulfilment');
 				$mail->setFromEmail($senderEmail);
 				$mail->setFromName($senderName);
-				$mail->setType('html');// YOu can use Html or text as Mail format
+				$mail->setType('html');// You can use Html or text as Mail format
 				$mail->send();
 			}
 		}
@@ -158,7 +158,7 @@
                     $user="alerts@homeconnectonline.com:homeconnect1";
                     $receipientno=$customerMobile; 
                     $senderID="TEST SMS"; 
-                    $msgtxt="We have received your Order No. " . $orderNumber . ". It will be processed shortly.";
+                    $msgtxt="Dear customer, your order " . $orderNumber . " has been successfully placed. Contact us at 9980066799 in case you want to modify your order - homeconnectonline.com";
                     curl_setopt($ch,CURLOPT_URL,  "http://api.mVaayoo.com/mvaayooapi/MessageCompose");
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                     curl_setopt($ch, CURLOPT_POST, 1);
