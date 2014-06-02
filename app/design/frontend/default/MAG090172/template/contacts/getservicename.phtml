@@ -55,7 +55,9 @@
                 <div class="input-box">
                     <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comments (Please mention your Requirements/Services)') ?>" class="required-entry input-text" cols="5" rows="3"><?php 
                             if(isset($_GET['sku']))
-                                echo "Enquiry for " . $_GET['sku']; 
+                                echo "Enquiry for " . $_GET['sku'];
+                            else
+                                echo "I am interested in Write to us. Please contact me.";
                         ?></textarea>
                 </div>
             </li>
