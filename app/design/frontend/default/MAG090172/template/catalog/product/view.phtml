@@ -31,6 +31,27 @@
  * @see Mage_Review_Block_Product_View
  */
 ?>
+
+<?php
+/*
+ * Code added by : Compassites - Shanmuga Prabu
+ * To include Facebook Social Plugin javascript
+ */
+?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=729790757063858&version=v2.0";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<?php
+ /*
+  * End of code added by Compassites - Shanmuga Prabu
+  */
+?>
+
 <?php $_helper = $this->helper('catalog/output'); ?>
 <?php $_product = $this->getProduct(); ?>
 
@@ -248,6 +269,21 @@
         
         <?php echo $this->getChildHtml('product_additional_data') ?>
     </div>
+    <?php
+    /*
+     * Code added by : Compassites - Shanmuga Prabu
+     * To display Facebook Social Plugin for entering comments against each service / products
+     * The current service / product URL is fetched using the Magento helper and passed on
+     * to Facebook Social plugin
+     */
+        $magentoCurrentUrl = Mage::helper('core/url')->getCurrentUrl();
+    ?>
+    <div class="fb-comments" data-href="<?php echo $magentoCurrentUrl; ?>" data-numposts="5" data-colorscheme="light"></div>
+    <?php
+    /*
+     * End of code added by Compassites - Shanmuga Prabu
+     */
+    ?>
 </div>
 <?php echo $this->getChildHtml('upsell_products') ?>
 
