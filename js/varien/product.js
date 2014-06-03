@@ -781,7 +781,7 @@ Product.OptionsPrice.prototype = {
          //Original was - return formatCurrency(price, this.priceFormat);
          //Changed to - return formatCurrency(price, this.priceFormat).replace(".00","");
          */
-        return formatCurrency(price, this.priceFormat);
+        return formatCurrency(price, this.priceFormat).replace(".00","");
         
         /* Below is the changed code. Commented because it caused the Booking and Reservation
          * plugin to malfunction
