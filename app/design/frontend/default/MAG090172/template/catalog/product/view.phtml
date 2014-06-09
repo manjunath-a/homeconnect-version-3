@@ -104,6 +104,16 @@
     var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
 </script>
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+    <?php
+    /*
+     * Code added by : Compassites - Shanmuga Prabu
+     * To display Facebook Social Plugin for entering comments against each service / products
+     * The current service / product URL is fetched using the Magento helper and passed on
+     * to Facebook Social plugin
+     */
+        $magentoCurrentUrl = Mage::helper('core/url')->getCurrentUrl();
+    ?>
+
 <div class="product-view">
     <div class="product-essential">
     <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
@@ -192,6 +202,7 @@
 					<p class="email-friend"><a href="<?php echo $this->helper('catalog/product')->getEmailToFriendUrl($_product) ?>"><?php echo $this->__('Email to a Friend') ?></a></p>
 				<?php endif; ?>
 				<?php echo $this->getChildHtml('addto') ?>
+                                        <p><div class="fb-like" data-href="<?php echo $magentoCurrentUrl; ?>" data-layout="standard" data-action="recommend" data-show-faces="false" data-share="true"></div></p>
  			</div>
 
         </div> 
@@ -269,15 +280,6 @@
         
         <?php echo $this->getChildHtml('product_additional_data') ?>
     </div>
-    <?php
-    /*
-     * Code added by : Compassites - Shanmuga Prabu
-     * To display Facebook Social Plugin for entering comments against each service / products
-     * The current service / product URL is fetched using the Magento helper and passed on
-     * to Facebook Social plugin
-     */
-        $magentoCurrentUrl = Mage::helper('core/url')->getCurrentUrl();
-    ?>
     <div class="fb-comments" data-href="<?php echo $magentoCurrentUrl; ?>" data-numposts="5" data-colorscheme="light"></div>
     <?php
     /*
