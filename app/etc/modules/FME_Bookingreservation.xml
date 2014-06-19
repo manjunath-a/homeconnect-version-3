@@ -10,7 +10,7 @@
 <config>
     <modules>
         <FME_Bookingreservation>
-            <active>false</active>
+            <active>true</active>
             <codePool>local</codePool>
         </FME_Bookingreservation>
     </modules>
