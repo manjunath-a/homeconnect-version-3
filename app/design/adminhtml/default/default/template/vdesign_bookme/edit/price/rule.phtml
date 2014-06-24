@@ -1,0 +1,195 @@
+<?php
+
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $this->getElement()->getClass() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_readonly    = $this->getElement()->getReadonly() ?>
+<?php $helper = Mage::helper('bookme') ?>
+<tr>
+    <td class="label"><?php echo $helper->__($this->getElement()->getLabel()) ?></td>
+    <td colspan="10" class="grid">
+    <table cellspacing="0" class="data border" id="pricerule_table">
+        
+        <col width="70" />
+        <col width="180" />
+        <col width="90" />
+        <col width="50" />
+        <col width="50" />
+        <col width="1" />
+        <thead>
+            <tr class="headings">
+                <th><?php echo Mage::helper('bookme')->__('Type') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Condition') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Price Move') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Amount Type') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Amount') ?></th>
+                <th class="last"><?php echo Mage::helper('bookme')->__('Action') ?></th>
+            </tr>
+        </thead>
+        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+        </tfoot>
+    </table>
+<script type="text/javascript">// <![CDATA[
+
+var price_rule_Template = 
+	'<tr>'+
+	'<td><select id="price_rule_{{index}}_type" name="<?php echo $_htmlName ?>[{{index}}][type]" onchange="priceItems.addCondition({{index}}, this.value)">'+
+	'<option value="1"><?php echo $helper->__('First Moment') ?></option><option value="2"><?php echo $helper->__('Last Minute') ?></option><option value="3"><?php echo $helper->__('Length of Reservation') ?></option>'+
+	'</select>'+
+	'<input type="hidden" id="price_rule_{{index}}_deleted" name="<?php echo $_htmlName ?>[{{index}}][deleted]" value="{{deleted}}"/>'+
+	'<input type="hidden" id="price_rule_{{index}}_rule_id" name="<?php echo $_htmlName ?>[{{index}}][rule_id]" value="{{rule_id}}"/>'+
+	'</td>'+
+	'<td id="price_rule_{{index}}_condition"></td>'+
+	'<td><select id="price_rule_{{index}}_move" name="<?php echo $_htmlName ?>[{{index}}][move]">'+
+	'<option value="1"><?php echo $helper->__('increase') ?></option><option value="2"><?php echo $helper->__('decrease') ?></option>'+
+	'</select>'+
+	'</td>'+
+	'<td><select id="price_rule_{{index}}_amount_type" name="<?php echo $_htmlName ?>[{{index}}][amount_type]">'+
+	'<option value="1"><?php echo $helper->__('percentage') ?></option><option value="2"><?php echo $helper->__('fixed amount') ?></option></select>'+
+	'</td>'+
+	'<td><input style="width:50px" type="text" id="price_rule_{{index}}_amount" name="<?php echo $_htmlName ?>[{{index}}][amount]" value="{{amount}}" />'+
+	'</td>'+
+	'<td><button title="remove" type="button" class="scalable delete icon-btn delete-product-option" '+
+	'id="price_rule_{{index}}_delete_button" onclick="return priceItems.remove(event, {{index}});" >'+
+	'<span>Remove</span></button></td>'+	
+	'</tr>';
+
+var condition1_template = 
+	'<?php echo Mage::helper('bookme')->__('booked at least far in') ?> <input style="width:50px" type="text" id="price_rule_{{index}}_qty" name="<?php echo $_htmlName ?>[{{index}}][qty]" value="{{qty}}">'+
+	'<select id="price_rule_{{index}}_qtytype" name="<?php echo $_htmlName ?>[{{index}}][qtytype]">'+
+	'<option value="1"><?php echo $helper->__('days') ?></option><option value="2"><?php echo $helper->__('weeks')?></option><option value="3"><?php echo $helper->__('months') ?></option>'+
+	'</select>';
+
+var condition2_template = 
+	'<?php echo Mage::helper('bookme')->__('booked nearest in') ?> <input style="width:50px" type="text" id="price_rule_{{index}}_qty" name="<?php echo $_htmlName ?>[{{index}}][qty]" value="{{qty}}">'+
+	'<select id="price_rule_{{index}}_qtytype" name="<?php echo $_htmlName ?>[{{index}}][qtytype]">'+
+	'<option value="1"><?php echo $helper->__('days') ?></option><option value="2"><?php echo $helper->__('weeks') ?></option><option value="3"><?php echo $helper->__('months') ?></option>'+
+	'</select>';
+
+var condition3_template = 
+	'<?php echo $helper->__('minimal quantity is') ?> <input style="width:50px" type="text" id="price_rule_{{index}}_qty" name="<?php echo $_htmlName ?>[{{index}}][qty]" value="{{qty}}"> <?php echo $helper->__('Sessions / Days') ?>';
+
+	var priceItems = {
+		    tbody : $('<?php echo $_htmlId ?>_container'),
+		    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+		    templateText : price_rule_Template,
+		    itemCount : 0,
+		    add : function() {
+		        alertAlreadyDisplayed = false;
+		        this.template = new Template(this.templateText, this.templateSyntax);
+
+		        var data = {
+				        rule_id: '',
+		                index: this.itemCount++
+		            };
+				
+	            if(arguments.length == 7){
+					data.rule_id = arguments[0];
+					data.type = arguments[1];
+					data.qty = arguments[2];
+					data.value_type = arguments[3];
+					data.move = arguments[4];
+					data.amount_type = arguments[5];
+					data.amount = arguments[6];
+		        }
+				
+		        data.id = this.itemCount;
+		        
+		        Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
+		        this.bindRemoveButtons();
+
+		        if(arguments.length > 0)
+		        {
+			        var sel = $('price_rule_'+data.index+'_discount_type');
+			        if(sel != null){
+				        sel.value = data.discount_type;
+			        }
+		        }
+				if(arguments.length == 7){
+		        	this.addCondition(data.index, data.type);
+					$('price_rule_'+data.index+'_type').value = data.type;
+					if($('price_rule_'+data.index+'_qtytype') != null)
+						$('price_rule_'+data.index+'_qtytype').value = data.value_type;
+					$('price_rule_'+data.index+'_qty').value = data.qty;
+					$('price_rule_'+data.index+'_move').value = data.move;
+					$('price_rule_'+data.index+'_amount_type').value = data.amount_type;
+				}else{
+					this.addCondition(data.index, 1);
+				}
+		    },
+		    addCondition: function(){
+		    	var index = arguments[0];
+			    var type = arguments[1];
+			    var element = $('price_rule_'+index+'_condition');
+			    var data = {
+		                index: index
+		        };
+				if(arguments.length > 1){
+
+				}
+				if(type == 1){
+					var subtemplate = new Template(condition1_template, this.templateSyntax);
+					element.innerHTML = subtemplate.evaluate(data);
+			        this.bindRemoveButtons();
+				}
+				if(type == 2){
+					var subtemplate = new Template(condition2_template, this.templateSyntax);
+					element.innerHTML = subtemplate.evaluate(data);
+			        this.bindRemoveButtons();
+				}
+				if(type == 3){
+					var subtemplate = new Template(condition3_template, this.templateSyntax);
+					element.innerHTML = subtemplate.evaluate(data);
+			        this.bindRemoveButtons();
+				}
+
+				
+			},
+		    remove : function(event){
+			    var index = arguments[1];
+		        var element = $(Event.findElement(event, 'tr'));
+		        alertAlreadyDisplayed = false;
+		        if(element){
+		            $('price_rule_'+index+'_deleted').value = 1;
+		            Element.select(element, 'div.flex').each(function(elm){
+		                elm.remove();
+		            });
+		            element.addClassName('no-display');
+		            element.addClassName('ignore-validate');
+		            element.hide();
+		        }
+		    },
+		    bindRemoveButtons : function(){
+		        var buttons = $$('tbody#link_items_body .delete-link-item');
+		        for(var i=0;i<buttons.length;i++){
+		            if(!$(buttons[i]).binded && !$(buttons[i]).hasClassName('disabled')){
+		                $(buttons[i]).binded = true;
+		                Event.observe(buttons[i], 'click', this.remove.bind(this));
+		            }
+		        }
+		    }
+		    
+		};
+
+
+
+	priceItems.bindRemoveButtons();
+	<?php foreach ($this->getValues() as $item):?>
+		
+		priceItems.add(
+				'<?php echo $item['rule_id']?>',
+				 '<?php echo $item['type'] ?>',
+				  '<?php echo $item['value'] ?>',
+				   '<?php echo ((isset($item['value_type']))? $item['value_type'] : "") ?>',
+				   '<?php echo $item['move']?>',
+				   '<?php echo $item['amount_type']?>',
+				    '<?php echo $item['amount']?>');
+	<?php endforeach;?>
+// ]]></script>
+	</td>
+</tr>

@@ -1,0 +1,169 @@
+
+<?php $_option = $this->getOption();
+date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/timezone'));
+
+$mind = str_replace(" ", " ", ($this->getProduct()->getData('bookable_from'))? $this->getProduct()->getData('bookable_from') : (date('Y/m/d')));
+
+$mind = (strtotime(date('Y/m/d')) >  strtotime($mind))? date('Y/m/d') : $mind;
+$mind = date('Y/m/d', strtotime($mind));
+$maxd = ($this->getProduct()->getData('bookable_to'))? date('Y/m/d', strtotime($this->getProduct()->getData('bookable_to'))) : '2100/01/01';
+?>
+<dt><label<?php if ($_option->getIsRequire()) echo ' class="required"' ?>><?php if ($_option->getIsRequire()) echo '<em>*</em>' ?>
+<?php 
+	echo  $this->htmlEscape($_option->getTitle()) ?></label>
+	<br /><p style="float: right"><strong><?php
+	if($this->getProduct()->getAttributeText('display_timezone') == 'enabled')
+	{
+		$hour = date('Z') / 60 / 60;
+		echo 'Our timezone: '.Mage::app()->getStore()->getConfig('general/locale/timezone').' [UTC'.(($hour > 0)? '+'.$hour : $hour).']';
+	}
+	?></strong></p>
+    <?php echo $this->getFormatedPrice() ?></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+    <div class="input-box" style="height: 270px">
+        <input type="hidden"
+               id="options_<?php echo $_option->getId() ?>_multidate"
+               class="input-text <?php echo $_option->getIsRequire() ? ' required-entry' : '' ?> product-custom-option"
+               name="options[<?php echo $_option->getId() ?>][val]"
+               value="<?php echo $this->escapeHtml($this->getDefaultValue()) ?>"
+               onchange="displayInfo()" />
+         <input type="hidden"
+               id="options_multidate_offset"
+               name="options[<?php echo $_option->getId() ?>][offset]"
+               value="" />
+         
+         <input type="hidden" id="pikaday_max_qty" name="pikaday_max_qty" value="0" onchange="addMaxQty()"/>
+		 <div id="pikaday_element">
+         	
+				    <script type="text/javascript">
+				    //<![CDATA[
+				    //var opConfig = new Product.Options({"8":{"price":100,"oldPrice":100,"priceValue":"100.0000","type":"fixed","excludeTax":100,"includeTax":100}});
+				   
+				    var dayfrom = new Date('<?php echo $mind ?>');
+				    dayfrom.setHours(0); dayfrom.setMinutes(0); dayfrom.setSeconds(0); dayfrom.setMilliseconds(0);
+				    
+				    var dayto = new Date('<?php echo $maxd ?>');
+				    dayto.setHours(0); dayto.setMinutes(0); dayto.setSeconds(0); dayto.setMilliseconds(0);
+				    
+				    var picker = new Pikaday(
+				    {
+					   field: document.getElementById('options_<?php echo $_option->getId()?>_multidate'),
+					   stillShown : true,
+				        firstDay: 1,
+				        minDate: dayfrom,
+						maxDate: dayto,
+				        id: <?php echo $this->getProduct()->getId() ?>,
+				        yearRange: [2014,2100],
+				        type : '<?php echo $this->getProduct()->getAttributeText('billable_period') ?>',
+				        optionId : <?php echo $this->getOption()->getId() ?>,
+						basePrice : <?php echo $this->getProduct()->getFinalPrice()?>,
+						sessions : [],
+						reloadp : true,
+						baseUrl : '<?php echo (Mage::app()->getStore()->isCurrentlySecure())? Mage::getStoreConfig('web/secure/base_url').'index.php/' : Mage::getStoreConfig('web/unsecure/base_url') ?>'
+				    });
+
+			    	picker.show();
+			    	
+			    	
+				    $('options_multidate_offset').value = jstz.determine().name();
+				    
+				    var displayInfo = function(){
+						var value = $('options_<?php echo $_option->getId() ?>_multidate').value;
+						var text = '';
+						var title = '';
+						var type = '<?php echo $this->getProduct()->getAttributeText('billable_period') ?>';
+						
+						if(value == ''){
+							if(type == 'Session'){
+				 				title = '<?php echo Mage::helper('bookme')->__('No selected session.')?>';
+								text = '<?php echo Mage::helper('bookme')->__('Please select date and session to book this product.')?>';
+								$('pikaday_info_text_qty').innerHTML = '';	
+							}else{
+								title = '<?php echo Mage::helper('bookme')->__('No selected date.')?>';
+								text = '<?php echo Mage::helper('bookme')->__('Please select date or day range to book this product.')?>';
+								$('pikaday_info_text_qty').innerHTML = '';	
+							}
+						}else{
+							if(type == 'Session'){
+								title = '<?php echo Mage::helper('bookme')->__('Your selected session:')?>';
+								var arr = value.split(",");
+								for(var index = 0; index < arr.length - 1; index++){
+									if(index > 4)
+									{
+										text += "...<br />";
+										break;
+									}
+									var date = new Date(parseInt(arr[index], 10));
+									text += date.toLocaleDateString()+" "+date.toLocaleTimeString()+"<br />";	
+								}
+							}else{
+								title = '<?php echo Mage::helper('bookme')->__('Your selected dates:')?>';
+								var arr = value.split(",");
+								text += 'From : ';
+								text += new Date(parseInt(arr[0], 10)).toLocaleDateString()+"<br />";
+								text += 'To : ';
+								text += new Date(parseInt(arr[arr.length - 2], 10)).toLocaleDateString()+"<br />";
+							}
+						}
+						
+						$('pikaday_info_title').innerHTML = title;
+						$('pikaday_info_text').innerHTML = text;
+						$('pikaday_info').className = 'notice-msg';
+					};
+
+					var addMaxQty = function(){
+						if($('options_<?php echo $_option->getId() ?>_multidate').value != '')
+							$('pikaday_info_text_qty').innerHTML = '<br /><?php echo Mage::helper('bookme')->__('Maximal bookable quantity: ')?>'+ $('pikaday_max_qty').value;
+					}
+				    //]]>
+				    </script>
+
+        		</div>
+        		<div id="pikaday_info" class="notice-msg no-display" style="float: right; <?php echo ($this->getProduct()->getAttributeText('billable_period') == 'Session')? 'width: 165px' : 'width: 300px'?>">
+        			<p><span><div id="pikaday_info_title" style="margin-left: 10px"></div></span></p>
+        			<div id="pikaday_info_text" style="margin-left: 10px"></div>
+        			<div id="pikaday_info_text_qty" style="margin-left: 10px"></div>
+        		</div>
+        		
+
+    </div>
+    
+
+<?php if($this->getProduct()->getData('price_rule')): ?>
+    	<?php $bookme = Mage::helper('bookme');?>
+    	<div id="pikaday_info" class="notice-msg">
+    		<?php echo $bookme->__('Availible discounts for checkout: ').'<br />'?>
+        	<?php foreach ($this->getProduct()->getData('price_rule') as $rule): ?>
+        	<?php 
+         	$out = '';
+         	$value = $rule['value'];
+         	
+        	if($rule['type'] != 3)
+        		$value = strtotime(date('Y-m-d')) + VDesign_Bookme_Model_Product_Type_Booking_Price::getDifferention($rule);
+        	 
+         	switch ($rule['type']){
+         		case '1' : 
+         			$out .= $bookme->__('For reservations after ') . Mage::helper('core')->formatDate(date('Y-m-d', $value), 'medium', false) . $bookme->__(' there is First Moment');
+         			break;
+         		case '2' : 
+         			$out .= $bookme->__('For reservations before ') . Mage::helper('core')->formatDate(date('Y-m-d', $value), 'medium', false) . $bookme->__(' there is Last Minute');
+         			break;
+         		case '3' : 
+         			$out .= $bookme->__('For reservations of more than ') . $value . (($this->getProduct()->getAttributeText('billable_period') == 'Session')? $bookme->__(' sessions') : $bookme->__(' days')) . $bookme->__(' there is ');
+         			break;
+         	}
+         	
+         	$out .= (($rule['move'] == 1)? $bookme->__(' mark-up by ') : $bookme->__(' discount by ')).$rule['amount'];
+         	$out .= ($rule['amount_type'] == 1)? '%.' : Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol().'.';
+        	echo $out. '<br />';
+        	?>
+        	
+        	
+        	<?php endforeach;?>
+        </div>
+    
+    <?php endif;?>
+    
+    
+    
+</dd>

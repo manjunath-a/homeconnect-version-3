@@ -1,0 +1,242 @@
+<?php
+
+
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $this->getElement()->getClass() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_readonly    = $this->getElement()->getReadonly() ?>
+<?php $helper = Mage::helper('bookme');?>
+
+<tr>
+    <td class="label"><?php echo $helper->__($this->getElement()->getLabel()) ?></td>
+    <td colspan="10" class="grid">
+    <table cellspacing="0" class="data border" id="exday_table">
+        
+        <col width="135" />
+        <col width="170" />
+        
+        <col width="1" />
+        <thead>
+            <tr class="headings">
+                
+                <th><?php echo Mage::helper('bookme')->__('Period type') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Period / Date') ?></th>
+                <th class="last"><?php echo Mage::helper('bookme')->__('Action') ?></th>
+            </tr>
+        </thead>
+        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+        </tfoot>
+    </table>
+
+<script type="text/javascript">
+//<![CDATA[
+           		var daysTemplate_a = 
+	'<tr>'+
+		'<td><select id="exclude_day_row_{{index}}_period_type" name="<?php echo $_htmlName ?>[{{index}}][period_type]" onchange="dayItems_.changePeriodType(this.value, {{index}})">'+
+		'<option value="1"><?php echo $helper->__('Period from, to') ?></option><option value="2"><?php echo $helper->__('Specific date') ?></option><option value="3"><?php echo $helper->__('Every day of week') ?></option><option value="4"><?php echo $helper->__('Every day of month') ?></option></select>'+
+		'<input type="hidden" id="exclude_day_row_{{index}}_deleted" name="<?php echo $_htmlName ?>[{{index}}][deleted]" value="0" />'+
+		'<input type="hidden" id="exclude_day_row_{{index}}_exday_id" name="<?php echo $_htmlName ?>[{{index}}][exday_id]" value="{{exday_id}}" /></td>'+
+		'<td id="exclude_day_row_{{index}}">';
+		
+		var daysTemplate_b = '</td>'+
+		'<td><button title="<?php echo $helper->__("Delete Ex Days") ?>" type="button" class="scalable delete icon-btn delete-product-option" '+
+		'id="exclude_day_row_{{index}}_delete_button" onclick="return dayItems_.deleteItem(event, {{index}});" >'+
+		'<span>Remove</span></button></td>'+
+		
+	'</tr>';
+
+    var periodTypePeriod_ ='<input id="exclude_day_row_{{index}}[from_date]" name="<?php echo $_htmlName ?>[{{index}}][from_date]" type="text" value="{{from_date}}" style="width:80px" />'+
+    '<img style="" title="Select Date" id="date_select_trig_{{index}}_from" class="v-middle" alt="" src="<?php echo $this->getSkinUrl("images/grid-cal.gif");?> "/>'+
+    '<input id="exclude_day_row_{{index}}[to_date]" name="<?php echo $_htmlName ?>[{{index}}][to_date]" type="text" value="{{to_date}}" style="width:80px" />'+
+    '<img style="" title="Select Date" id="date_select_trig_{{index}}_to" class="v-middle" alt="" src="<?php echo $this->getSkinUrl("images/grid-cal.gif");?>"/>'+
+	'<script type="text/javascript">'+
+	'Calendar.setup({inputField : "exclude_day_row_{{index}}[from_date]",ifFormat: "<?php echo Mage::app()->getLocale()->getDateStrFormat('short')?>",button : "date_select_trig_{{index}}_from",align : "Bl",singleClick : true});'+
+	'Calendar.setup({inputField : "exclude_day_row_{{index}}[to_date]",ifFormat: "<?php echo Mage::app()->getLocale()->getDateStrFormat('short')?>",button : "date_select_trig_{{index}}_to",align : "Bl",singleClick : true});'+
+	'<'+'/script>';
+
+	var periodTypeSpecific_ ='<input id="exclude_day_row_{{index}}[value]" name="<?php echo $_htmlName ?>[{{index}}][value]" type="text" value="{{value}}" style="width:80px" />'+
+	'<img style="" title="Select Date" id="date_select_trig_{{index}}_value" class="v-middle" alt="" src="<?php echo $this->getSkinUrl("images/grid-cal.gif");?>"/>'+
+	'<script type="text/javascript">'+
+	'Calendar.setup({inputField : "exclude_day_row_{{index}}[value]",ifFormat: "<?php echo Mage::app()->getLocale()->getDateStrFormat('short')?>",button : "date_select_trig_{{index}}_value",align : "Bl",singleClick : true});'+
+	'<'+'/script>';
+
+	var periodTypeDayOfWeek_ ='<select id="exclude_day_row_{{index}}_day_of_week" name="<?php echo $_htmlName ?>[{{index}}][value]" />'+
+		'<option value="1"><?php echo $helper->__('Monday')?></option><option value="2"><?php echo $helper->__('Tuesday') ?></option><option value="3"><?php echo $helper->__('Wednesday') ?></option>'+
+		'<option value="4"><?php echo $helper->__('Thuersday') ?></option><option value="5"><?php echo $helper->__('Friday') ?></option><option value="6"><?php echo $helper->__('Saturday') ?></option>'+
+		'<option value="7"><?php echo $helper->__('Sunday') ?></option></select>';
+
+	var periodTypeDayOfMonth_ ='<select id="exclude_day_row_{{index}}_day_of_month" name="<?php echo $_htmlName ?>[{{index}}][value]" />'+
+		'<option value="1"><?php echo $helper->__('first...')?></option>'+
+		<?php for ($i = 2; $i <= 31; $i++): ?>
+			'<option value="<?php echo $i?>"><?php echo $i?></option>'+
+		<?php endfor;?>
+		'<option value="32"><?php echo $helper->__('last...')?></option></select>';
+
+	var dayItems_ = {
+		    tbody : $('<?php echo $_htmlId ?>_container'),
+		    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+		    
+		    itemCount : 0,
+		    add : function() {
+		        alertAlreadyDisplayed = false;
+
+		        var templateText = '';
+		        
+				if(arguments.length == 0)
+					templateText = daysTemplate_a + periodTypePeriod_ + daysTemplate_b;
+				else{
+					if(arguments[0] == 1){
+						templateText = daysTemplate_a + periodTypePeriod_ + daysTemplate_b;
+					}
+					if(arguments[0] == 2){
+						templateText = daysTemplate_a + periodTypeSpecific_ + daysTemplate_b;
+					}
+					if(arguments[0] == 3){
+						templateText = daysTemplate_a + periodTypeDayOfWeek_ + daysTemplate_b;
+					}
+					if(arguments[0] == 4){
+						templateText = daysTemplate_a + periodTypeDayOfMonth_ + daysTemplate_b;
+					}
+				}
+					
+		        this.template = new Template(templateText, this.templateSyntax);
+
+		        var data = {
+				        period_type: '1',
+		        		from_date: '',
+		        		to_date: '',
+		        		value: '',
+		                index: this.itemCount++
+		            };
+
+	            if(arguments.length != 0){
+					data.period_type = arguments[0];
+					data.index = arguments[1];
+					data.from_date = arguments[3];
+					data.to_date = arguments[4];
+					data.value = arguments[2];
+					data.exday_id = arguments[5];
+		        }
+				
+				data.id = this.itemCount;
+		        Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
+					
+			    this.bindRemoveButtons();
+
+				$('exclude_day_row_'+data.index+'_period_type').value = data.period_type;
+				var week = $('exclude_day_row_'+data.index+'_day_of_week');
+				var month = $('exclude_day_row_'+data.index+'_day_of_month');
+				if(week != null)
+					week.value = data.value;
+				if(month != null)
+					month.value = data.value;
+				
+		    },
+		    remove : function(event){
+		        var element = $(Event.findElement(event, 'tr'));
+		        alertAlreadyDisplayed = false;
+		        if(element){
+		            //element.down('input[type="hidden"].__delete__').value = '1';
+		            Element.select(element, 'div.flex').each(function(elm){
+		                elm.remove();
+		            });
+		            element.addClassName('no-display');
+		            element.addClassName('ignore-validate');
+		            element.hide();
+		        }
+		    },
+		    bindRemoveButtons : function(){
+		        var buttons = $$('tbody#link_items_body .delete-link-item');
+		        for(var i=0;i<buttons.length;i++){
+		            if(!$(buttons[i]).binded && !$(buttons[i]).hasClassName('disabled')){
+		                $(buttons[i]).binded = true;
+		                Event.observe(buttons[i], 'click', this.remove.bind(this));
+		            }
+		        }
+		    },
+		    deleteItem: function(event) {
+		        var tr = Event.findElement(event, 'tr');
+		        var index = arguments[1];
+		        if (tr) {
+			        $('exclude_day_row_'+index+'_deleted').value = '1';
+		            Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+		            Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+		            Element.hide(tr);
+		            Element.addClassName(tr, 'no-display template');
+		        }
+		        return false;
+		    },
+		    changePeriodType : function(){
+		    	var sel = arguments[0];
+			    var index = arguments[1];
+			    
+			    var element = $('exclude_day_row_'+index);
+			    
+		    	if(sel == 1){
+		    		var ts = /(^|.|\r|\n)({{(\w+)}})/;
+				    var tt = periodTypePeriod_;
+				    var temp = new Template(tt, ts);
+		    		var data2 = {
+			        		from_date: '',
+			        		to_date: '',
+			                index: index
+			            };
+					element.innerHTML = '';
+					Element.insert(element, {'bottom':temp.evaluate(data2)});
+				}else{
+					if(sel == 2){
+						
+						var ts = /(^|.|\r|\n)({{(\w+)}})/;
+					    var tt = periodTypeSpecific_;
+					    var temp = new Template(tt, ts);
+			    		var data2 = {
+				        		value: arguments[2],
+				                index: index
+				            };
+						element.innerHTML = '';
+						Element.insert(element, {'bottom':temp.evaluate(data2)});
+						
+					}else{
+						if(sel == 3){
+							var ts = /(^|.|\r|\n)({{(\w+)}})/;
+						    var tt = periodTypeDayOfWeek_;
+						    var temp = new Template(tt, ts);
+				    		var data2 = {
+				    				value: arguments[2],
+					                index: index
+					            };
+							element.innerHTML = '';
+							Element.insert(element, {'bottom':temp.evaluate(data2)});
+							
+						}else{
+							var ts = /(^|.|\r|\n)({{(\w+)}})/;
+						    var tt = periodTypeDayOfMonth_;
+						    var temp = new Template(tt, ts);
+				    		var data2 = {
+				    				value: arguments[2],
+					                index: index
+					            };
+							element.innerHTML = '';
+							Element.insert(element, {'bottom':temp.evaluate(data2)});
+						}
+					}
+				}
+		    }
+		};
+
+	dayItems_.bindRemoveButtons();
+	<?php $i = 0; foreach ($this->getValues() as $item): ?>
+		<?php if($item['period_type'] == 1):?>
+			dayItems_.add('<?php echo $item['period_type'] ?>', '<?php echo $i++ ?>', '<?php echo (isset($item['value']))? $item['value'] : "" ?>', '<?php echo $this->getDateInFormat($item['from_date']) ?>', '<?php echo $this->getDateInFormat($item['to_date']) ?>', '<?php echo $item['exday_id'] ?>');
+		<?php else: ?>
+			dayItems_.add('<?php echo $item['period_type'] ?>', '<?php echo $i++ ?>', '<?php echo (isset($item['value']))? $item['value'] : "" ?>', '', '', '<?php echo $item['exday_id'] ?>');
+		<?php endif; ?>
+	<?php endforeach; ?>
+//]]>
+</script>
+</td></tr>

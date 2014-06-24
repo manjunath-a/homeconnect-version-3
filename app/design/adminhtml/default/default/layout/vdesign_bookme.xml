@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<layout>
+	<default>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>bookme_calendar/pikaday.js</name><params/></action>
+			<action method="addItem"><type>js_css</type><name>bookme_calendar/pikaday.css</name><params/></action>
+			<action method="addItem"><type>js</type><name>bookme_calendar/jstz-1.0.4.min.js</name><params/></action>
+		</reference>
+	</default>
+  <!--    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>Booking Setup</name>
+                <block>bookme/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+    
+    <adminhtml_bookme_book_index>
+        <reference name="content">
+            <block type="awesome/adminhtml_sales_book" name="book" />
+        </reference>
+    </adminhtml_bookme_book_index>
+ 
+     <adminhtml_bookme_book_edit>
+        <reference name="content">
+            <block type="bookme/adminhtml_sales_book_edit" name="book_edit" />
+        </reference>
+    </adminhtml_bookme_book_edit>
+-->
+    
+    <ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+        <reference name="product.composite.fieldset.options">
+            <action method="addOptionRenderer"><type>multidate</type><block>bookme/adminhtml_catalog_product_view_options_type_multidate</block><template>vdesign_bookme/view/options/type/multidate.phtml</template></action>
+        </reference>
+    </ADMINHTML_CATALOG_PRODUCT_COMPOSITE_CONFIGURE>
+    
+</layout>

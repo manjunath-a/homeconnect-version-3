@@ -1,0 +1,185 @@
+<?php
+
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $this->getElement()->getClass() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_readonly    = $this->getElement()->getReadonly() ?>
+<?php $helper = Mage::helper('bookme') ?>
+
+<tr>
+    <td class="label"><?php echo $helper->__($this->getElement()->getLabel()) ?></td>
+    <td colspan="10" class="grid">
+    <table cellspacing="0" class="data border" id="pricerule_table">
+        
+        <col width="70" />
+        <col width="170" />
+        <col width="120" />
+        <thead>
+            <tr class="headings">
+                <th><?php echo Mage::helper('bookme')->__('Day') ?></th>
+                <th><?php echo Mage::helper('bookme')->__('Starting times') ?></th>
+                <th class="last"><?php echo Mage::helper('bookme')->__('Action') ?></th>
+            </tr>
+        </thead>
+        <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+        </tfoot>
+    </table>
+<script type="text/javascript">// <![CDATA[
+
+var session_day_Template = 
+	'<tr>'+
+	'<td><p><select id="custom_session_{{index}}_day" name="<?php echo $_htmlName ?>[{{index}}][day]" onchange="return sessionItems.checkSelect(event, {{index}})">'+
+	'<option value="1"><?php echo $helper->__('Monday') ?></option><option value="2"><?php echo $helper->__('Tuesday') ?></option><option value="3"><?php echo $helper->__('Wednesday') ?></option>'+
+	'<option value="4"><?php echo $helper->__('Thuersday') ?></option><option value="5"><?php echo $helper->__('Friday') ?></option><option value="6"><?php echo $helper->__('Saturday') ?></option>'+
+	'<option value="7"><?php echo $helper->__('Sunday') ?></option><option value="8"><?php echo $helper->__('Business day') ?></option><option value="9"><?php echo $helper->__('Weekend') ?></option>'+
+	'<option value="10"><?php echo $helper->__('Every day') ?></option><option value="11"><?php echo $helper->__('Specific date') ?></option></select></p>'+
+	'<input id="custom_session_{{index}}_spec_day_input" class="no-display" name="<?php echo $_htmlName ?>[{{index}}][specific_date]" type="text" value="{{specific_date}}" style="width:100px" />'+
+	'<img style="" title="Select Date" id="custom_session_{{index}}_spec_day_img" class="v-middle no-display" alt="" src="<?php echo $this->getSkinUrl("images/grid-cal.gif");?>"/>'+
+	'<script type="text/javascript">'+
+	'Calendar.setup({inputField : "custom_session_{{index}}_spec_day_input",ifFormat: "<?php echo Mage::app()->getLocale()->getDateStrFormat('short')?>",button : "custom_session_{{index}}_spec_day_img",align : "Bl",singleClick : true});'+
+	'<'+'/script>'+
+	'<input type="hidden" id="custom_session_{{index}}_deleted" name="<?php echo $_htmlName ?>[{{index}}][deleted]" value="{{deleted}}"/>'+
+	'<input type="hidden" id="custom_session_{{index}}_session_id" name="<?php echo $_htmlName ?>[{{index}}][session_id]" value="{{session_id}}"/>'+
+	'</td>'+
+	'<td id="custom_session_{{index}}_container"><input type="hidden" id="custom_session_{{index}}_count" name="<?php echo $_htmlName ?>[{{index}}][count]" value="0"/>'+
+	'</td>'+
+	'<td><div><button title="add session" type="button" class="add" onclick="return sessionItems.addSession(event, {{index}});"><span><?php echo $helper->__('add session') ?></span></button>'+
+	'<button title="remove" type="button" class="delete" style="float:right"'+
+	'id="custom_session_{{index}}_delete_button" onclick="return sessionItems.remove(event, {{index}});" >'+
+	'<span><?php echo $helper->__('remove day') ?></span></button></div></td>'+	
+	'</tr>';
+
+var simple_session_template = '<div style="margin-bottom: 5px"><select style="width: 60px" id="custom_session_{{index}}_session_times_{{session_index}}_hour" name="<?php echo $_htmlName ?>[{{index}}][session_times][{{session_index}}][hour]">'+
+'<?php for ($i = 0; $i < 24; $i++): echo '<option value="'.$i.'">'.(($i < 10)? "0".$i : $i).'</option>'; endfor; ?></select>'+
+'<span style="margin-left: 5px; margin-right: 5px">:</span>'+
+'<select style="width: 60px" id="custom_session_{{index}}_session_times_{{session_index}}_minute" name="<?php echo $_htmlName ?>[{{index}}][session_times][{{session_index}}][minute]">'+
+'<?php for ($i = 0; $i < 60; $i++): echo '<option value="'.$i.'">'.(($i < 10)? "0".$i : $i).'</option>'; endfor; ?></select>'+
+'<span style="margin-left: 25px; margin-right: 5px"><?php echo $helper->__('hours') ?> : <?php echo $helper->__('minutes') ?></span>'+
+'<input type="hidden" id="custom_session_{{index}}_session_times_{{session_index}}_deleted" name="<?php echo $_htmlName ?>[{{index}}][session_times][{{session_index}}][deleted]" value="{{session_time_deleted}}"/>'+
+'<input type="hidden" id="custom_session_{{index}}_session_times_{{session_index}}_session_time_id" name="<?php echo $_htmlName ?>[{{index}}][session_times][{{session_index}}][session_time_id]" value="{{session_time_id}}"/>'+
+'<button title="remove session" type="button" class="delete" style="float:right" onclick="return sessionItems.removeSession(event, {{index}}, {{session_index}});"><span></span></button></div>';
+
+
+	var sessionItems = {
+		    tbody : $('<?php echo $_htmlId ?>_container'),
+		    templateSyntax : /(^|.|\r|\n)({{(\w+)}})/,
+		    templateText : session_day_Template,
+		    itemCount : 0,
+		    add : function() {
+		        alertAlreadyDisplayed = false;
+		        this.template = new Template(this.templateText, this.templateSyntax);
+
+		        var data = {
+				        session_id: '',
+		        		from_date: '',
+		        		to_date: '',
+		        		discount_type: '',
+		        		discount_amount: '',
+		                index: this.itemCount++
+		            };
+				
+	            if(arguments.length > 0){
+					data.session_id = arguments[0];
+					data.day = arguments[1];
+					data.specific_date = arguments[2];
+		        }
+		        data.id = this.itemCount;
+		        
+		        Element.insert(this.tbody, {'bottom':this.template.evaluate(data)});
+		        this.bindRemoveButtons();
+
+		        $('custom_session_'+data.index+'_day').value = data.day;
+		        if(data.day == 11){
+		        	$('custom_session_'+data.index+'_spec_day_input').className = "";
+					$('custom_session_'+data.index+'_spec_day_img').className = "v-middle";
+			    }
+		    },
+		    addSession : function(event){
+		    	var index = arguments[1];
+		    	var element = $('custom_session_'+index+'_container');
+		    	
+		    	sessionTemplate = new Template(simple_session_template, this.templateSyntax);
+		    	var data = {
+						session_index : $('custom_session_'+index+'_count').value,
+						index : index
+				    	};
+				if(arguments.length == 5){
+					data.session_time_id = arguments[2];
+					data.hour = arguments[3];
+					data.minute = arguments[4];
+				}
+				
+		    	Element.insert(element, {'bottom':sessionTemplate.evaluate(data)});
+				var session_index = $('custom_session_'+index+'_count').value;
+		    	if(arguments.length == 5){
+					$('custom_session_'+index+'_session_times_'+session_index+'_minute').value = data.minute;
+					$('custom_session_'+index+'_session_times_'+session_index+'_hour').value = data.hour;
+				}
+		    	
+		        this.bindRemoveButtons();
+		        $('custom_session_'+index+'_count').value++;
+		    },
+		    removeSession : function(event){
+		    	var element = $(Event.findElement(event, 'div'));
+		    	element.addClassName('no-display');
+		    	$('custom_session_'+arguments[1]+'_session_times_'+arguments[2]+'_deleted').value = 1;
+			},
+		    remove : function(event){
+		        var element = $(Event.findElement(event, 'tr'));
+		        alertAlreadyDisplayed = false;
+		        var index = arguments[1];
+		        if(element){
+		        	$('custom_session_'+index+'_deleted').value = 1;
+		            Element.select(element, 'div.flex').each(function(elm){
+		                elm.remove();
+		            });
+		            element.addClassName('no-display');
+		            element.addClassName('ignore-validate');
+		            element.hide();
+		        }
+		    },
+		    checkSelect : function(event){
+			    
+			    var index = arguments[1];
+				var cinput = $('custom_session_'+index+'_spec_day_input');
+				var cimg = $('custom_session_'+index+'_spec_day_img');
+				var element = $(Event.findElement(event, 'select'));
+				
+				if(element.value == 11){
+					
+					cinput.className = "";
+					cimg.className = "v-middle";
+				}else{
+					cinput.className = "no-display";
+					cimg.className = "no-display";
+				}
+			},
+		    bindRemoveButtons : function(){
+		        var buttons = $$('tbody#link_items_body .delete-link-item');
+		        for(var i=0;i<buttons.length;i++){
+		            if(!$(buttons[i]).binded && !$(buttons[i]).hasClassName('disabled')){
+		                $(buttons[i]).binded = true;
+		                Event.observe(buttons[i], 'click', this.remove.bind(this));
+		            }
+		        }
+		    }
+		    
+		};
+	
+	<?php $index = 0; foreach ($this->getValues() as $item): ?>
+		sessionItems.add('<?php echo $item['session_id']?>', '<?php echo $item['session_day'] ?>', '<?php echo $this->getDateInFormat($item['spec_day']) ?>');
+		<?php if(isset($item['sessions'])): ?>
+			<?php foreach ($item['sessions'] as $session):?>
+				sessionItems.addSession('', '<?php echo $index ?>', '<?php echo $session['time_id']?>', '<?php echo $session['hour'] ?>', '<?php echo $session['minute'] ?>');
+			<?php endforeach; ?>
+		<?php endif; ?>
+		<?php $index++;?>
+	<?php endforeach;?>
+// ]]></script>
+	</td>
+</tr>
