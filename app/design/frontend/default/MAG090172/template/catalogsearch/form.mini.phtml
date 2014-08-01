@@ -42,5 +42,15 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
     </div>
 </form>
 <!--The External code added-->
-<div style="float:left;margin-top:30px;padding-left:50px;"><p style="color:#E76453;font-weight:bold;font-size:15px;">1 City, 77 Partners, 300 Services</p></div>
+<div style="float:left;margin-top:30px;padding-left:50px;">
+<!--<p style="color:#E76453;font-weight:bold;font-size:15px;">1 City, 77 Partners, 300 Services</p>-->
+<?php
+
+//Custom variable code
+ //echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('sentence')->getValue('html');
+ echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('total_services')->getValue('html');
+
+//custom variable code ends
+?>
+</div>
 <!--Code Ends-->
