@@ -41,16 +41,20 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
         </script>
     </div>
 </form>
-<!--The External code added-->
-<div style="float:left;margin-top:30px;padding-left:50px;">
-<!--<p style="color:#E76453;font-weight:bold;font-size:15px;">1 City, 77 Partners, 300 Services</p>-->
-<?php
+<!--<div style="margin-top:15px;">-->
 
-//Custom variable code
- //echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('sentence')->getValue('html');
- echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('total_services')->getValue('html');
-
-//custom variable code ends
-?>
+<!-- div code changes to adjust the margin top-->
+<div style="margin-top:20px;">
+	<?php
+		echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('total_services')->getValue('html');
+	?>
 </div>
-<!--Code Ends-->
+<!-- div code changes to adjust the margin top-->
+<!-- Phone Number code-->
+<div style="margin-top:-120px;float:right;">
+	<?php
+		echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('phno')->getValue('html');
+	?>
+</div>
+<!-- Phone Number Code Ends-->
+

@@ -729,7 +729,11 @@ tr.summary-details-excluded { font-style:italic; }
 
 /* Header ================================================================================ */
 .logo { float:left; }
-.header .logo { float:left; margin:32px 0 10px; text-decoration:none !important; }
+
+/* Hco  The margin code changes*/
+.header .logo { float:left; /*margin:32px 0 10px;*/ margin:25px 10px 1px; text-decoration:none !important; }
+/* Hco  The margin code changes ends */
+
 .header .logo strong { position:absolute; top:-999em; left:-999em; width:0; height:0; font-size:0; line-height:0; text-indent:-999em; overflow:hidden; }
 .header h1.logo { margin:0; }
 .header .quick-access { float:right; width:770px; padding:0px 0px 0 0;}
@@ -740,16 +744,25 @@ background:url(../images/sprite.png) -216px -350px no-repeat;}
 .header .welcome-msg { margin:10px 0 0;  float:right; color:#E76453 }
 .header .welcome-msg a { color:#E76453; }
 .header .form-search { position:relative; float:right; clear:both; height:30px; 
-     margin-top:15px;
-	background:#C2D82E;
+/*  Hco  Margin-top code changes
+	margin-top:15px;*/
+     margin-top:10px;
+/*Hco  margin-top code changes ends*/
+        background:#C2D82E;
 	padding:8px;
-	width:305px;
+	/*width:305px;*/
+/* Hco  The width is expanded
+	width:305px;*/
+	  width:770px;
+/* Hco  The width is expanded*/
 	-webkit-border-radius:5px 5px 0 0;
 	-moz-border-radius:5px 5px 0 0;
 	border-radius:5px 5px 0 0;
     }
 .header .form-search label { float:left; width:24px; height:21px; text-align:left; text-indent:-999em; overflow:hidden; display: none;}
-.header .form-search input.input-text { float:left; border:none;width:220px;    font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+/* Hco Input text field width is expanded*/
+.header .form-search input.input-text { float:left; border:none;/*width:220px; */width:680px;    font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+/* Hco  Input text field width is expanded code changes end*/
 	 border: 1px solid #A3B338;
 	padding-right: 5px;
 	-webkit-border-radius:5px;
