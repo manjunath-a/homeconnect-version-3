@@ -1383,7 +1383,8 @@ a.product-image { display:block;  margin:0 0 10px; }
     text-align: center;
     text-transform: capitalize;
 	background-color:#C2D82E;
-	color:#fff; 
+	/*color:#fff; Commented : Compassites - Shan */
+        color:#000;
 	font-size:14px; 
 	 border-radius:50%;
 	-moz-border-radius:50%;
