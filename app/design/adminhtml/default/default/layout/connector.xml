@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Connector
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <name>simi/connector/style.css</name>
+            </action>
+            
+        </reference>
+    </default>
+    <connectoradmin_adminhtml_connector_index>
+        <reference name="content">
+            <block type="connector/adminhtml_web_switcher" name="connector_web_switcher" as="connector_web_switcher">
+                <action method="setUseConfirm">
+                    <params>0</params>
+                </action>                
+            </block>
+            <block type="connector/adminhtml_key" name="connector_key" tempale="simi/connector/key/key.phtml"/>
+            <block type="connector/adminhtml_connector" name="connector" />
+        </reference>
+    </connectoradmin_adminhtml_connector_index>
+    
+    <connectoradmin_adminhtml_connector_edit>        
+        
+        <reference name="left">
+            <!--block type="connector/adminhtml_store_switcher" name="connector_store_switcher" before="-" /-->
+            <block type="connector/adminhtml_connector_edit_tabs" name="connector.edit.tabs">
+                <!--block type="connector/adminhtml_connector_edit_tab_form" name="connector.edit.tab.form"/>
+                <block type="connector/adminhtml_connector_edit_tab_design" name="connector.edit.tab.design">
+                    <block type="connector/adminhtml_connector_edit_tab_design_accordion" name="connector.edit.tab.design.accordion" as="connector_design_accordion">
+                        <block type="connector/adminhtml_connector_edit_tab_design_accordion_images" name="connector.edit.tab.design.accordion.images" />
+                        <block type="connector/adminhtml_connector_edit_tab_design_accordion_themes" name="connector.edit.tab.design.accordion.themes" />
+                        <action method="addAccordionItem">
+                            <name>images</name>
+                            <block>connector.edit.tab.design.accordion.images</block>
+                        </action>
+                        <action method="addAccordionItem">
+                            <name>themes</name>
+                            <block>connector.edit.tab.design.accordion.themes</block>
+                        </action>
+                    </block>
+                    <block type="connector/adminhtml_connector_edit_tab_design_preview" name="connector.edit.tab.design.preview" as="connector_design_preview" />
+                </block>                
+                <block type="connector/adminhtml_connector_edit_tab_plugin" name="connector.edit.tab.plugin"/-->
+                <!--action method="addTab">
+                    <id>form_section</id>
+                    <block>connector.edit.tab.form</block>
+                </actio>
+                <action method="addTab">
+                    <id>design_section</id>
+                    <block>connector.edit.tab.design</block>
+                </action-->
+            </block>
+        </reference>
+        <reference name="content">
+            <block type="connector/adminhtml_connector_edit" name="connector.edit"/>
+        </reference>
+       
+    </connectoradmin_adminhtml_connector_edit>
+    
+    <connectoradmin_adminhtml_connector_plugin>
+        <block type="core/text_list" name="root">
+            <block type="connector/adminhtml_connector_edit_tab_plugin" name="connector.edit.tab.plugin"/>
+            <block type="adminhtml/widget_grid_serializer" name="related_grid_serializer">
+                <action method="initSerializerBlock">
+                    <grid_block_name>connector.edit.tab.plugin</grid_block_name>
+                    <data_callback>getSelectedRelatedProducts</data_callback>
+                    <hidden_input_name>connector_plugin</hidden_input_name>
+                    <reload_param_name>oplugin</reload_param_name>
+                </action>
+                <action method="addColumnInputName">
+                    <input_name>plugin</input_name>
+                </action>
+            </block>
+        </block>
+    </connectoradmin_adminhtml_connector_plugin>
+    <connectoradmin_adminhtml_connector_plugingrid>
+        <block type="core/text_list" name="root">
+            <block type="connector/adminhtml_connector_edit_tab_plugin" name="connector.edit.tab.plugin"/>
+        </block>
+    </connectoradmin_adminhtml_connector_plugingrid>
+    <connectoradmin_adminhtml_banner_index>
+        <reference name="content">
+            <block type="connector/adminhtml_web_switcher" name="connector_web_switcher" as="connector_web_switcher">
+                <action method="setUseConfirm">
+                    <params>0</params>
+                </action>
+            </block>
+            <block type="connector/adminhtml_banner" name="connector_banner"/>
+        </reference>
+    </connectoradmin_adminhtml_banner_index>   
+    <connectoradmin_adminhtml_notice_index>
+        <reference name="content">
+            <block type="connector/adminhtml_notice" name="connector_notice"/>
+        </reference>
+    </connectoradmin_adminhtml_notice_index>	
+	<connectoradmin_adminhtml_cms_index>
+        <reference name="content">
+			<block type="connector/adminhtml_web_switcher" name="connector_web_switcher" as="connector_web_switcher">
+                <action method="setUseConfirm">
+                    <params>0</params>
+                </action>
+            </block>
+            <block type="connector/adminhtml_cms" name="connector_cms"/>
+        </reference>
+    </connectoradmin_adminhtml_cms_index>
+	<connectoradmin_adminhtml_cms_edit>
+		<reference name="head">
+			<action method="setCanLoadTinyMce"><flag>1</flag></action>
+			<action method="addJs"><script>mage/adminhtml/variables.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
+			<action method="addJs"><script>lib/flex.js</script></action>
+			<action method="addJs"><script>lib/FABridge.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
+			<action method="addJs"><script>mage/adminhtml/browser.js</script></action>
+			<action method="addJs"><script>prototype/window.js</script></action>
+			<action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+			<action method="addItem"><type>skin_css</type><name>lib/prototype/windows/themes/magento.css</name></action>
+			<action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name><params/></action>
+			<action method="addItem"><type>js</type><name>tiny_mce/tiny_mce.js</name><params/></action>
+		</reference>
+	</connectoradmin_adminhtml_cms_edit>
+</layout>

@@ -1,0 +1,108 @@
+<style>
+    /* Demo Styles */
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .swiper-container {
+        width: 660px;
+        height: 250px;
+        color: #fff;
+        text-align: center;
+    }
+    .red-slide {
+        background: #ca4040;
+    }
+    .blue-slide {
+        background: #4390ee;
+    }
+    .orange-slide {
+        background: #ff8604;
+    }
+    .green-slide {
+        background: #49a430;
+    }
+    .pink-slide {
+        background: #973e76;
+    }
+    .swiper-slide .title {
+        font-style: italic;
+        font-size: 42px;
+        margin-top: 80px;
+        margin-bottom: 0;
+        line-height: 45px;
+    }
+    .pagination {
+        position: absolute;
+        z-index: 20;
+        left: 10px;
+        bottom: 10px;
+    }
+    .swiper-pagination-switch {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 8px;
+        background: #222;
+        margin-right: 5px;
+        opacity: 0.8;
+        border: 1px solid #fff;
+        cursor: pointer;
+    }
+    .swiper-visible-switch {
+        background: #aaa;
+    }
+    .swiper-active-switch {
+        background: #fff;
+    }
+</style>
+<div class="">
+    <div class="box-title">
+        <h3><?php echo $this->__('Most Viewed') ?></h3>
+    </div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <?php if (($_products = $this->getProductCollection()) && $_products->getSize()):?>
+                <?php $i=1; foreach ($_products->getItems() as $_product): ?>
+                        <div class="swiper-slide">
+                            <a href="<?php echo $_product->getProductUrl() ?>" class="product-image ui-link" >
+                                <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(135); ?>" width="85" height="85"
+                                     alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>"
+                                     title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+                            </a>
+                            <div class="content-slide" style="width: 90%;">
+                                <p class="title">
+                                    <a href="<?php echo $_product->getProductUrl() ?>" class="ui-link">
+                                        <?php echo $this->htmlEscape($_product->getName()) ?>
+                                    </a>
+                                </p>
+                                <p class="upsell-price">
+                                    <?php echo Mage::helper('core')->currency($_product->getPrice()); ?>
+                                    <?php if($_product->isSaleable()): ?>
+                                        <button class="button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><span><?php echo $this->__('Add to Cart') ?></span></span></span></button>
+                                    <div class="clear"></div>
+                                    <?php else: ?>
+                                        <p class="availability"><span class="out-of-stock"><?php echo $this->__('Out of stock') ?></span></p>
+                                        <div class="clear"></div>
+                                    <?php endif; ?>
+                                </p>
+                            </div>
+                        </div>
+                <?php endforeach;?>
+            <?php endif; ?>
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+<script>
+
+    var mySwiper1 = jQuery('.box-up-sell .swiper-container').swiper({
+        loop: true,
+        pagination: '.pagination',
+        paginationClickable: true,
+        grabCursor: true,
+        slidesPerView: 3
+    });
+</script>

@@ -1,0 +1,1214 @@
+img.logo{
+    width: 100%;
+}
+.ui-overlay-a, .ui-page-theme-a, .ui-page-theme-a .ui-panel-wrapper{
+    background-color: #FFFFFF !important;
+    border-color: #FFF !important;
+}
+.ui-mobile-viewport{
+    height: 100% !important;
+}
+
+#popupMenu .ui-li-static
+{
+    margin: 0.5em 1.8em;
+    color: rgb(9, 192, 250);
+    border: none;
+}
+
+.regular-price{
+    font-weight: bold;
+}
+
+#shipping-new-address-form .ui-input-text{
+    width: 100%;
+}
+
+#shipping-new-address-form ul{
+    padding: 0;
+}
+
+#checkout-review-table{
+    width: 100%;
+}
+
+.my-divider{
+    background-color: #1d1d1d;
+    border-color: #1b1b1b;
+    color: #fff;
+    text-shadow: 0 1px 0 #111;
+    font-weight: 700;
+}
+/**end other**/
+
+/**sort by**/
+.sort-by label{
+    margin: 2em 1em .4em 0;
+    float: left;
+}
+
+.sort-by #sort_by-button{
+    width: 68%;
+}
+
+.sort-by{
+    margin: 0 0 3em 0;
+}
+
+.messages{
+    padding: 0;
+}
+
+.success-msg ul{
+    padding: 0;
+    color: rgb(17, 153, 11);
+    font-weight: bold;
+}
+
+.wl-button{
+    width: 30% !important;
+    display: inline-block;
+    padding: 0.4em;
+}
+/**end sort by**/
+
+/**breadcrums**/
+.breadcrumbs ul{
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumbs{
+    font-size: 0.9em;
+}
+
+.addto{
+    font-size: 0.8em;
+}
+
+.btn-cart span span{
+    font-size: 0.6em;
+}
+
+.breadcrumbs ul li{
+    display: inline-block;
+}
+/**end breadcrums**/
+
+
+/**begin css footer**/
+/* Basic settings */
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    border-bottom-width: 0;
+}
+/* collapse vertical borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-last-child,
+.ui-li-static.ui-collapsible.ui-collapsible-collapsed > .ui-collapsible-heading > a.ui-btn {
+    border-bottom-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn {
+    border-top-width: 0;
+}
+/* Remove right borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > .ui-li-static,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-right-width: 0;
+}
+/* Remove left borders */
+/* Here, we need class ui-listview-outer to identify the outermost listview */
+.ui-listview-outer > .ui-li-static.ui-collapsible .ui-li-static.ui-collapsible.ui-collapsible,
+.ui-listview-outer > .ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-left-width: 0;
+}
+/**end css footer**/
+
+.ui-listview-inset li a{
+    padding-left: 2em;
+}
+
+.ui-body-inherit{
+    padding: 0 !important;
+}
+
+body, input, select, textarea, button, .ui-btn{
+    font-size: 0.9em;
+}
+
+.ui-input-text{
+    display: inline-block;
+    /*width: 25%;*/
+}
+
+a{
+    text-decoration: none;
+}
+
+/**header**/
+#menu, #top_cart{
+    top: 0.5em
+}
+
+#qty_cart{
+    background: none;
+    display: inline-block;
+    color: #FFC304;
+    height: auto;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 14px;
+    position: absolute;
+    text-indent: 0;
+    margin: 0 0 0 -0.5em;
+    top: 1px;
+    z-index: 100;
+    text-shadow: 0 1px 0 #444;
+}
+
+.ui-header {
+    height: 3.5em;
+}
+
+.topsearch{
+    width: 70%;
+    float: right;
+    margin: 0.2em 0.5em 0 0;
+}
+/**end header**/
+
+/*checkout cart*/
+.cart table{
+    width: 100%;
+}
+.cart table .product-name{
+    font-size: 1.1em !important;
+}
+#shopping-cart-table tr {
+    /*height: 12em;*/
+}
+
+#shopping-cart-table .price-box .cart-price-box{
+    float: right;
+    font-weight: bold;
+    margin: 1em 0.5em;
+}
+
+th
+{
+    border-bottom: 1px solid #d6d6d6;
+}
+tr:nth-child(even)
+{
+    background:#e9e9e9;
+}
+
+a.btn-remove, .btn-remove2{
+    background: url(../images/btn_remove.png) no-repeat center !important;
+    display: inline-block;
+    overflow: hidden;
+    text-indent: -100%;
+    height: 25px;
+    width: 25px;
+}
+
+.cart-table .btn-remove{
+    float: right;
+    position: relative;
+}
+
+.cart-table h2{
+    font-size: 1.3em;
+    margin: 0.1em 1em 1em 1em;
+}
+
+.cart-table .price-box{
+    margin: 0 0 0 1.5em;
+}
+
+.cart-table .item-options dt{
+    font-weight: bold;
+}
+.cart-table .item-options dd{
+    margin: 0.5em 0;
+}
+
+.cart-table .product-options span{
+    color: #059;
+    cursor: pointer;
+}
+
+.cart-table .ui-input-text{
+    width: 36%;
+}
+
+.discount h2{
+    font-size: 1.3em !important;
+}
+
+.discount .discount-form label{
+    font-size: 1em;
+}
+
+.cart  .discount h2{
+    margin: 1.5em 0 0.5em 0;
+}
+
+.cart .discount-form .ui-input-text{
+    width: 100%;
+}
+
+.cart .totals{
+    float: right;
+    margin: 1.5em 0 1.5em 0;
+    width: 100%;
+}
+
+.checkout-types li{
+    list-style: none;
+}
+
+.cart .checkout-types{
+    padding: 0;
+}
+
+#shopping-cart-table .qty-wrap{
+    display: inline;
+}
+.cart-price-box-first{
+    display: inline-block;
+}
+
+#checkoutSteps{
+    padding: 0;
+}
+
+.opc li{
+    padding: 0.5em;
+}
+
+ul.form-list{
+    padding: 0;
+}
+
+#login-form .ui-input-text{
+    width: 100%;
+}
+
+.customer-name .ui-input-text, #billing-new-address-form .ui-input-text{
+    width: 100%;
+}
+
+.c-list{
+    padding: 0;
+}
+
+.category-image img{
+    width: 100%;
+}
+/*end checkout cart*/
+
+/***footer***/
+.block-subscribe .block-title{
+    display: none;
+}
+/****end footer****/
+
+.up-sell td{
+    /*width: 25%;*/
+}
+
+/**detail product**/
+.product-essential .product-collateral{
+    margin: 0;
+}
+.ui-block-b .product-options .last{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-block-b .product-options .last select{
+    font-size: 1em;
+}
+/**end detail product**/
+
+/***login, create page**/
+li{
+    list-style: none;
+}
+
+.account-login .ui-input-text,.account-create .ui-input-text {
+    width: 100%;
+}
+
+.account-login h2,.account-create h2 {
+    margin: 0;
+    font-size: 1.6em;
+}
+
+.account-login .content h2, .account-create .content h2{
+    font-size: 1.3em;
+    margin: 1em 0;
+}
+
+.account-login .content label, .account-create .content label{
+    font-size: 1em;
+}
+button{
+    font-size: 1em !important;
+}
+/***end login, create page**/
+
+
+/***onepage success**/
+.checkout-success h2{
+    font-size: 1.25em;
+    color: rgb(12, 173, 51);
+}
+/***end onepage success**/
+
+/***my account**/
+.myaccount .page-title h2{
+    margin: 0 !important;
+}
+
+.myaccount a{
+    font-size: 1em;
+}
+
+.content .ui-input-text{
+    width: 100%;
+}
+
+.myaccount .info h2{
+    font-size: 1.3em;
+}
+.myaccount .info label{
+    font-size: 1.1em;
+}
+
+.newsletter .page-title h2{
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.newsletter .content h2{
+    font-size: 1.3em;
+}
+
+.newsletter .content label{
+    font-size: 1em;
+}
+
+.required_field {
+    float: right;
+}
+
+em{
+    color: rgb(243, 0, 0);
+    margin: 0 0.2em 0 0;
+}
+
+.content .last{
+    margin: 2em 0;
+}
+
+.content .last .field{
+    margin: 1em 0;
+}
+
+h3{
+    color: rgb(253,183,23) !important;
+    margin: 0.6em 0;
+}
+
+.ui-listview dt h2{
+    display: inline;
+}
+
+.ui-listview dt{
+    margin: 0 1em;
+}
+
+.ui-listview dd{
+    margin: 1em 1em;
+}
+
+.title{
+    color: rgb(196, 12, 12);
+    margin: 0.8em 0.5em;
+}
+
+.empty{
+    margin: 1em 0.8em;
+}
+
+.form-wishlist .ui-input-text {
+    width: 11%;
+}
+
+.form-wishlist td a{
+    margin: 0 1em;
+}
+
+.form-wishlist td button{
+    width: 30%;
+    display: inline-block;
+    font-size: 0.8em !important;
+}
+
+.form-wishlist .product-name{
+    display: inline-block;
+    font-size: 1em;
+    margin: 0;
+}
+
+.form-wishlist .price-box{
+    display: inline-block;
+}
+
+.form-wishlist .product-name a{
+    margin: 0 1em 0 0;
+}
+
+.form-wishlist .buttons-set{
+    margin: 1em;
+}
+
+.form-wishlist textarea{
+    height: 3em !important;
+    width: 100% !important;
+}
+
+.addressbook .ui-listview
+{
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.vieworder .page-title h2{
+    font-size: 1.1em;
+    margin: 0 0 0.5em 0 !important;
+}
+
+.addressbook .info .ui-table-reflow tbody th {
+    margin-top: 0 !important;
+}
+
+.order_total{
+    margin: 1em 0;
+    background: rgb(226, 223, 223);
+    padding: 0.5em;
+}
+
+.order_total label{
+    display: inline-block;
+}
+
+.order_total span{
+    float: right;
+}
+/***end my account**/
+
+/**list product**/
+.product-shop .ui-block-a{
+    width: 40% !important;
+}
+.product-shop .ui-block-b{
+    width: 59% !important;
+}
+
+.product-collateral{
+    margin: 0 0.5em 1em 0.5em;
+}
+
+.list-product .page-title h2{
+    margin: 1em 0.5em !important;
+}
+
+.list-product h5{
+    margin: 0 0 1em 1em;
+}
+
+.list-product .ui-block-a{
+    width: 45%;
+    padding: 0.5em 1em;
+}
+
+.list-product .ui-block-b button{
+    padding: 0.3em 1em;
+}
+
+.list-product li .ui-grid-b{
+    white-space: pre-line;
+    font-size: 1em;
+    margin: 0 0 0 0.5em;
+}
+
+.add_other div{
+    margin: 1em 0;
+}
+
+.add_other{
+    font-size: 0.9em;
+}
+/**end list product**/
+
+/**checkout**/
+#co-billing-form ul{
+    padding: 0 !important;
+}
+
+#checkout-shipping-method-load dd, .ui-collapsible dd{
+    margin: 0;
+}
+
+#checkout-shipping-method-load ul, .ui-collapsible ul{
+    padding: 0;
+}
+
+.ui-collapsible-content{
+    padding: 0;
+}
+
+td .cart-price{
+    /*margin-left: 0.5em;*/
+}
+
+.field textarea{
+    height: 5em !important;
+}
+
+.fields .btn-remove{
+    float: right;
+}
+
+.fields{
+    margin: 1em 0;
+}
+
+/**end checkout**/
+
+/**product review**/
+
+dt h3{
+    margin: 0 0.5em 1em 0;
+    display: inline-block;
+    font-size: 1.3em !important;
+}
+
+.product-review dt{
+    font-size: 0.9em;
+    color: #666;
+    margin: 2em 0 0 0;
+}
+
+.product-review dd{
+    margin: 0;
+    font-size: 1.2em;
+    border-bottom: 1px solid #D6D6D6;
+    padding: 0 0 1em 0
+}
+
+.product-review small{
+    display: block;
+    font-size: 0.7em;
+    color: #666;
+}
+
+.rating-box{
+    width: 69px;
+    height: 13px;
+    font-size: 0;
+    line-height: 0;
+    background: url(../images/bkg_rating.gif) 0 0 repeat-x;
+    text-indent: -999em;
+    overflow: hidden;
+}
+.rating-box .rating {
+    float: left;
+    height: 13px;
+    background: url(../images/bkg_rating.gif) 0 100% repeat-x;
+}
+.ratings-table tr, #product-review-table tr{
+    background: none !important;
+}
+
+#product-review-table thead th{
+    text-align: center;
+}
+
+.ratings-table th, #product-review-table th{
+    border-bottom: none;
+    text-align: left;
+}
+
+.ratings-table{
+    height: 8em;
+}
+
+#product-review-table td input{
+    /*background: url(../images/bkg_rating.gif) no-repeat center;*/
+    border: none;
+    display: inline-block;
+    height: 18px;
+    width: 20px;
+    opacity: 0.6;
+    left: 45%;
+    /*-webkit-appearance: none;*/
+    /*-webkit-transition: all 100ms ease-in-out;*/
+}
+
+#review-form ul{
+    padding: 0;
+}
+
+#review-form ul .ui-input-text{
+    width: 100%;
+}
+
+#review-form textarea{
+    height: 5em !important;
+}
+
+.page-title h2{
+    margin: 0;
+    color: rgb(200, 208, 92);
+}
+
+h2{
+    color: rgb(200, 208, 92) !important;
+}
+
+#review-form h3{
+    margin: 0;
+}
+/**end product review**/
+
+/***footer***/
+.ui-footer ul li{
+    display: inline-block;
+    font-size: 0.9em;
+    margin: 0.5em 0.5em 0 0.5em;
+}
+
+.ui-footer ul{
+    padding: 0em 0.1em;
+    text-align: center;
+    display: inline;
+}
+
+.block-subscribe{
+    margin: 3em 0.5em;
+    text-align: center;
+}
+
+.block-subscribe .ui-input-text{
+    width: 100%;
+    float: left;
+}
+
+.block-subscribe button{
+    height: 2.2em;
+    padding: 0 1em;
+    width: 100% !important;
+}
+
+.block-subscribe .input-box{
+    width: 60%;
+    float: left;
+    display: inline-block;
+}
+
+.block-subscribe .actions{
+    width: 38%;
+    display: inline-block;
+}
+/***end footer***/
+
+/**header**/
+.ui-header .ui-btn-right {
+    position: relative;
+    margin: 0 0 0 3.2em;
+}
+/**end header**/
+
+/**error message**/
+.validation-advice{
+    color: rgb(216, 15, 15);
+}
+/**end error message**/
+
+/*begin new*/
+.ui-listview li.my-divider a{
+    background-color: #1d1d1d !important;
+    border-color: #1b1b1b !important;
+    color: #fff !important;
+    text-shadow: 0 1px 0 #111 !important;
+    font-weight: 700 !important;
+}
+.ui-panel .ui-panel-inner{
+    padding: 0;
+}
+
+.ui-panel .ui-panel-inner .ui-listview {
+    margin: 0;
+}
+
+a.link-menu{
+    margin: 0.2em 0 !important;
+}
+
+img.logo{}
+
+ul{
+    padding: 0;
+}
+
+.arrow-left {
+    background: url(../images/arrows.png) no-repeat left top;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.arrow-right {
+    background: url(../images/arrows.png) no-repeat left bottom;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+
+.ui-header{
+    background-color: rgb(54,142,169) !important;
+    border-color: rgb(54,142,169) !important;
+}
+
+.btn-cart, button{
+    width: 100%;
+    height: 40px;
+    background: rgb(253,183,23) !important;
+    border-radius: 5px;
+    border: none;
+    margin-top: 15px;
+    float: right;
+    text-align: center;
+    color: #ffffff !important;
+    border-color: rgb(253,183,23) !important;
+    padding: 0 !important;
+    font-size: 1.3em !important;
+}
+
+.btn-cart span{
+    font-size: 1.7em;
+    color: #fff;
+    height: 40px;
+    font-weight: bold;
+    width: 100%;
+    padding: 0;
+    line-height: 0.8em;
+    font-family: sans-serif;
+}
+.ui-input-text, .ui-input-search{
+    /*border-width: 0.5em !important;*/
+}
+
+.add-to-box .qty-box .ui-input-text{
+    width: 99%;
+    margin-left: 0.2em;
+}
+
+.btn-cart .mleft{
+    height: 100%;
+    width: 50%;
+    float: left;
+    border-right: 1px solid white;
+    padding: 0.6em 0;
+}
+
+.btn-cart .mleft a,.btn-cart .mright a,.btn-cart .mfull a{
+    color: #ffffff;
+    font-size: 1.2em;
+}
+.btn-cart .mright{
+    height: 100%;
+    padding: 0.6em 0;
+}
+
+.btn-cart .mfull{
+    height: 100%;
+    padding: 0.6em 0;
+}
+
+.detail_product h3{
+    float: left;
+}
+
+.default .price-box, .default p{
+    display: inline-block;
+}
+
+.default{
+    float: right;
+    margin: 0.9em 0;
+}
+
+dd.last,dd{
+    margin: 0 !important;
+}
+
+
+.ui-page-theme-a  .ui-btn select,.ui-page-theme-a  .ui-btn select:hover{
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.product-options-bottom .ui-input-text{
+    width: 95%;
+    margin: 1em 0 0 0.5em;
+}
+
+.ui-content .breadcrumbs,.ui-content .filters-block, .ui-content .filters-block,.ui-content .toolbar ,.ui-content .page-title,
+.ui-content .product-view, .ui-content .std, .ui-content .cart{
+    padding: 0.5em 1em 0 0;
+}
+
+a:hover{
+    /*background-color: #ffffff !important;*/
+}
+
+.category-products .wrap .product-image{
+    float: left;
+    margin-right: 1em;
+}
+
+.category-products .wrap .product-shop{
+    white-space: normal;
+    word-wrap: break-word;
+    font-size: 0.9em;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 600;
+}
+
+li,h2,h3{
+    font-family: 'Open Sans', sans-serif !important;
+    text-shadow: none !important;
+}
+
+span,address,button{
+    text-shadow: none !important;
+}
+
+.ui-li-count{
+    border-style: none !important;
+    background: none !important;
+    color: #068EE9 !important;
+}
+
+.ui-content .ui-listview, .ui-panel-inner>.ui-listview{
+    margin: 0 !important;
+}
+
+.ui-footer{
+    background-color: #666666 !important;
+    border-color: #666666 !important;
+    color: #ffffff !important;
+}
+
+.ui-footer a{
+    color: #00D6FF !important;
+}
+
+.copyright{
+    color: #BBBBBB;
+    font-weight: normal;
+    font-style: normal;
+    margin: 3em 0 0 0;
+    border-top: 1px solid rgb(131, 131, 131);
+    padding: 0.5em 0 0 0;
+}
+
+h1{
+    font-size: 1.8em;
+    margin: 0;
+    padding: 0;
+}
+
+#contactForm{
+    margin: 1em;
+}
+
+.field{
+    margin: 1em 0;
+}
+
+#shopping-cart-totals-table tr{
+    text-align: left;
+}
+
+.item-options dd{
+    margin: 0 0 1em 0!important;
+}
+
+.item-options{
+    font-style: italic;
+    padding: 0 1em;
+}
+
+.step-title{
+    box-shadow: 5px 5px 5px #ccc;
+    padding: 0.1em;
+    background: gray;
+    border-radius: 10px;
+}
+
+.step-title h3{
+    margin: 0.5em 1em;
+    color: white;
+}
+
+#checkout-step-login h3{
+    margin: 1em 0 0 0.5em;
+}
+
+#checkout-step-login fieldset p,#checkout-step-login .col-2 p{
+    margin: 0 0 0.5em 0.5em;
+}
+
+#billing-new-address-form .fields{
+    margin: 0 !important;
+}
+
+#checkout-shipping-method-load, #checkout-step-payment, #checkout-step-review,.checkout-success,#login-form ,#form-validate,
+.my-account,.cart-empty,#co-billing-form{
+    margin: 1em;
+}
+
+#checkout-shipping-method-load .sp-methods li span, #checkout-shipping-method-load .sp-methods li label,#checkout-payment-method-load dt input,
+#checkout-payment-method-load dt label{
+    display: inline-block;
+}
+
+#payment_form_ccsave input{
+    width: 100%;
+    margin: 0;
+    min-height: 2.2em;
+    text-align: left;
+    border: 1px solid rgb(216, 216, 216);
+    background: transparent none;
+    -webkit-appearance: none;
+    -webkit-border-radius: inherit;
+    border-radius: inherit;
+}
+
+#payment_form_ccsave select{
+    width: 100%;
+    margin: 0;
+    min-height: 3em;
+    text-align: center;
+    border: 1px solid rgb(216, 216, 216) !important;
+    background: transparent none;
+    -webkit-appearance: none;
+    -webkit-border-radius: inherit;
+    border-radius: inherit;
+}
+
+.my-account .page-title{
+    padding: 0 !important;
+}
+
+.my-account #form-validate{
+    margin: 0 !important;
+}
+
+.error-msg{
+    color: rgb(231, 108, 108);
+}
+
+.ui-collapsible-content, .info .ui-li-static{
+    margin: 1em 0.5em !important;
+    line-height: 1.8em;
+}
+
+.ui-panel-inner li.ui-li-static{
+    /*margin: 0.5em;*/
+    /*padding: 0 1.2em !important;*/
+    /*border: none !important;*/
+    /*color: rgb(0, 214, 255);*/
+}
+
+#my-orders-table tbody th, #my-orders-table tbody h3{
+    margin: 0 !important;
+}
+
+#my-orders-table tbody td{
+    font-style: italic;
+}
+
+address{
+    line-height: 1.8em;
+}
+
+#checkout-step-login .col-2 p{
+    margin: 1em;
+}
+
+#checkout-step-login .col-2 ul#register_recommened{
+    margin: 1em 2em;
+}
+
+.my-account .box-title{
+    margin: 1em 0;
+}
+
+.my-account .box-content{
+    margin: 0 1em;
+}
+/*end new*/
+
+/**css last**/
+a{
+    text-shadow: none !important;
+    background: none !important;
+}
+
+.ui-content{
+    padding: 0 !important;
+}
+
+.ui-content .breadcrumbs,.ui-content .filters-block, .ui-content .filters-block,.ui-content .toolbar ,.ui-content .page-title,
+.ui-content .product-view, .ui-content .std, .ui-content .cart{
+    padding: 0.5em 1em 0 1em;
+}
+
+a:hover{
+    background: none !important;
+}
+/**end last**/
+
+/* Basic settings */
+/* Basic settings */
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    border-bottom-width: 0;
+}
+/* collapse vertical borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-last-child,
+.ui-li-static.ui-collapsible.ui-collapsible-collapsed > .ui-collapsible-heading > a.ui-btn {
+    border-bottom-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li.ui-first-child > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn {
+    border-top-width: 0;
+}
+/* Remove right borders */
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > .ui-li-static,
+.ui-li-static.ui-collapsible > .ui-collapsible-content > .ui-listview > li > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-right-width: 0;
+}
+/* Remove left borders */
+/* Here, we need class ui-listview-outer to identify the outermost listview */
+.ui-listview-outer > .ui-li-static.ui-collapsible .ui-li-static.ui-collapsible.ui-collapsible,
+.ui-listview-outer > .ui-li-static.ui-collapsible > .ui-collapsible-heading > a.ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-left-width: 0;
+}
+.ui-collapsible-heading a{
+    width: 82%;
+}
+
+.ui-listview-outer li,.ui-listview-outer a{
+    border: none !important;
+}
+
+.ui-listview-outer div.ui-collapsible-content{
+    margin: 0 0 1em 2em !important;
+}
+
+.ui-listview-outer .ui-listview li a{
+    padding: 1em 0 !important;
+}
+
+li.my-menu{
+    text-align: center !important;
+}
+
+.ui-listview-outer .delete-menu{
+    margin: 1em 0.2em 1em 0;
+}
+
+.ui-listview-outer .delete-menu a{
+    height: 1em;
+}
+
+.ui-listview-outer ul.ui-listview-inset li a{
+    padding: 0.5em !important;
+}
+
+.my-account h4 a, .addressbook .info h4.ui-collapsible-heading a{
+    width: 91% !important;
+}
+
+#product-attribute-specs-table td{
+    padding: 0 !important;
+}
+
+.box-up-sell .swiper-container{
+    width: 100% !important;
+    max-height: 14em;
+}
+
+.box-up-sell .title{
+    padding-bottom: 2em ;
+}
+
+.availability .out-of-stock {
+    font-size: 1.5em;
+    color: rgb(184, 13, 13);
+    font-weight: initial;
+}
+
+#product-review-table tr td{
+    text-align: center;
+}
+
+#customer-reviews dd{
+    margin-bottom: 1em !important;
+    border-bottom: 1px solid rgb(213, 213, 213);
+    padding-bottom: 1em;
+}
+
+#checkoutSteps .active{
+	background: none !important;
+}

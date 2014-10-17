@@ -1,0 +1,21 @@
+<?php $theme_color = $this->getThemeColorValue();?>
+<div class="entry-edit">    
+    <div class="fieldset" id="connector_form">
+        <div class="hor-scroll">
+            <table class="form-list" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td class="label"><label for="<?php echo $this->__('theme_color') ?>"><?php echo $this->__('Theme Color') ?></label></td>
+                        <td class="value" style="clear:both;">
+                            <label class="field_label" for="<?php echo $this->__('theme_color') ?>">
+                                <span id="box_theme_color" class="color" style="background:<?php echo $theme_color ?>;display:block;width:20px;height:20px;">&nbsp;</span>
+                            </label>
+                            <input style="background:#fff !important;color:#000 !important;margin:1px 0 0 6px;width:75px;float:left;height:17px" autocomplete="off" id="theme_color" name="theme_color" value="<?php echo $theme_color; ?>" class="color {required:false,hash:true} input-text" type="text">
+                        </td>
+                    </tr>                                                           
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--/form-->         

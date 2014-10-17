@@ -1,0 +1,46 @@
+<?php if (($_products = $this->getProductCollection()) && $_products->getSize()): ?>
+    <div class="page-title">
+        <h2><?php echo $this->__('Best Seller Products') ?></h2>
+    </div>
+    <?php $_collectionSize = count($_products->getItems()) ?>
+    <table class="products-grid" id="products-grid-table">
+        <?php $i=1; foreach ($_products->getItems() as $_product): ?>
+            <?php if ($i%1!==0): ?>
+                <tr>
+            <?php endif ?>
+            <td id="td_<?php echo $i;?>" <?php if($i%3==0 or $i==$_collectionSize){echo 'class="last"';} ?> >
+                <div id="cont_<?php echo $i;?>">
+                    <h3 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>"><?php echo $this->htmlEscape($_product->getName()) ?></a></h3>
+                    <a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>">
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(122, 109); ?>" width="122" height="109" alt="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" title="<?php echo $this->htmlEscape($this->getImageLabel($_product, 'small_image')) ?>" />
+                    </a>
+                    <div class="a-center">
+                        <?php if($_product->getRatingSummary()): ?>
+                            <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                        <?php endif; ?>
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                        <?php if($_product->isSaleable()): ?>
+                            <button class="button" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><span><?php echo $this->__('Add to Cart') ?></span></span></span></button>
+                            <div class="clear"></div>
+                        <?php else: ?>
+                            <p class="availability"><span class="out-of-stock"><?php echo $this->__('Out of stock') ?></span></p>
+                            <div class="clear"></div>
+                        <?php endif; ?>
+                        <ul class="add-to-links">
+                            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                                <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <?php endif; ?>
+                            <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                                <li class="last"><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>"><?php echo $this->__('Add to Compare') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                        <?php if($_product->getevent_date()) {echo $_product->getevent_date();} ?>
+                    </div>
+                </div>
+            </td>
+            <?php if ($i%3==0 or $i==$_collectionSize): ?>
+                </tr>
+            <?php endif ?>
+            <?php $i++; endforeach; $kol = $_collectionSize; ?>
+    </table>
+<?php endif; ?>

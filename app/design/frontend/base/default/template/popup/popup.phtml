@@ -1,0 +1,42 @@
+<?php $url = Mage::getStoreConfig("popup/general/link_alert");?>
+<?php $message = Mage::getStoreConfig("popup/general/content_alert"); ?>
+<?php $typeShow = Mage::getStoreConfig("popup/general/show_type"); ?>
+<?php if(Mage::getStoreConfig("popup/general/enable") == 1 && $url != '' && $message != ''):?>
+<?php if ($typeShow == 2):?>
+<div id="simi-popup">	
+		<div id="simi-box">
+		<div id="simi-message">
+			<span><?php echo $message;?></span>
+			<span><a href="<?php echo $url ?>"><?php  echo $this->__('Download here');?></a></span>
+		</div>	
+		<div id="simi-close" onclick="hidePop()">X</div>	
+		</div>
+</div>
+
+<style type="text/css">	
+	@media screen and (min-width: 0px) and (max-width: 479px) {
+		#simi-popup{width:100%;}
+	}
+</style>
+<script>	
+	function hidePop(){
+		$('simi-popup').hide();
+	}
+	window.onresize=function(){		
+		$('simi-popup').setStyle({width: "100%", });
+	}
+</script>
+<?php else: ?>
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        // initially hide all containers for tab content
+        var r=confirm("<?php echo $message;?>");
+        if (r==true)
+        {
+            setLocation('<?php echo $url; ?>');
+        }       
+    });            
+
+</script>
+<?php endif; ?>
+<?php endif; ?>

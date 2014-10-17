@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Spotproduct
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+    <modules>
+        <Simi_Spotproduct>
+            <version>0.1.0</version>
+        </Simi_Spotproduct>
+    </modules>
+    <frontend>
+        <routers>
+            <spotproduct>
+                <use>standard</use>
+                <args>
+                    <module>Simi_Spotproduct</module>
+                    <frontName>spotproduct</frontName>
+                </args>
+            </spotproduct>
+        </routers>
+        <layout>
+            <updates>
+                <spotproduct>
+                    <file>spotproduct.xml</file>
+                </spotproduct>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Simi_Spotproduct>
+                    <files>
+                        <default>Simi_Spotproduct.csv</default>
+                    </files>
+                </Simi_Spotproduct>
+            </modules>
+        </translate>
+    </frontend>
+    <admin>
+        <routers>
+            <spotproductadmin>
+                <use>admin</use>
+                <args>
+                    <module>Simi_Spotproduct</module>
+                    <frontName>spotproductadmin</frontName>
+                </args>
+            </spotproductadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <spotproduct>
+                    <file>spotproduct.xml</file>
+                </spotproduct>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Simi_Spotproduct>
+                    <files>
+                        <default>Simi_Spotproduct.csv</default>
+                    </files>
+                </Simi_Spotproduct>
+            </modules>
+        </translate>
+    </adminhtml>   
+    <global>
+        <models>
+            <spotproduct>
+                <class>Simi_Spotproduct_Model</class>
+                <resourceModel>spotproduct_mysql4</resourceModel>
+            </spotproduct>
+            <spotproduct_mysql4>
+                <class>Simi_Spotproduct_Model_Mysql4</class>
+                <entities>
+                    <spotproduct>
+                        <table>spotproduct</table>
+                    </spotproduct>
+                </entities>
+            </spotproduct_mysql4>
+        </models>
+        <resources>
+            <spotproduct_setup>
+                <setup>
+                    <module>Simi_Spotproduct</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </spotproduct_setup>
+            <spotproduct_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </spotproduct_write>
+            <spotproduct_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </spotproduct_read>
+        </resources>
+        <blocks>
+            <spotproduct>
+                <class>Simi_Spotproduct_Block</class>
+            </spotproduct>
+        </blocks>
+        <helpers>
+            <spotproduct>
+                <class>Simi_Spotproduct_Helper</class>
+            </spotproduct>
+        </helpers>
+        <!-- <events>
+                             			<controller_action_predispatch>
+                                                    				<observers>
+                                                                           					<spotproduct_observers>
+                                                                                                  						<class>spotproduct/observer</class>
+                                                                                                  						<method>controllerActionPredispatch</method>
+                                                                           					</spotproduct_observers>
+                                                    				</observers>
+                             			</controller_action_predispatch>
+      		</events> -->
+    </global>
+    <default>
+        <spotproduct>
+            <general>
+                <enable>1</enable>
+                <best_seller>1</best_seller>  
+				<most_view>0</most_view>
+				<new_update>0</new_update>  
+				<recent_add>1</recent_add>  
+            </general>
+        </spotproduct>                             
+    </default>
+</config>

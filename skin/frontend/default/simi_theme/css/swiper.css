@@ -1,0 +1,83 @@
+.device {
+    width: 100%;
+    height: 15em;
+    position: relative;
+}
+.swiper-slide a{
+    float: left;
+    /*margin: 0 1em 0 1em;*/
+}
+.content-slide span span{
+    margin: 0 0 0 1em;
+}
+.device .arrow-left {
+    background: url(../images/arrows-3.png) no-repeat left top !important;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.device .arrow-right {
+    background: url(../images/arrows-3.png) no-repeat left bottom !important;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    margin-top: -15px;
+    width: 17px;
+    height: 30px;
+}
+.swiper-container {
+    height: 60%;
+    width: 70%;
+}
+.content-slide {
+    font-weight: bold;
+    display: inline-block;
+    width: 53%;
+}
+.swiper-slide {
+    float: left;
+    /*margin-left: 1%;*/
+}
+.title {
+    margin: 0;
+}
+.pagination {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    bottom:5px;
+    width: 100%;
+}
+.swiper-pagination-switch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background: #DDDCDC;
+    margin: 0 3px;
+    cursor: pointer;
+}
+.swiper-active-switch {
+    background: #F8E50E;
+    width: 1em;
+    height: 1em;
+}
+
+.content-slide .price-box .minimal-price-link{
+    display: none;
+}
+
+.product-image-wrap .swiper-slide a{
+    /*margin-left: 30%;*/
+}
+
+.product-image-wrap{
+    height: 7em;
+}
+
+.product-image-wrap .swiper-container{
+    height: 100% !important;
+}

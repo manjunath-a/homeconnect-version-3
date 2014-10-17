@@ -1,0 +1,34 @@
+<table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td style="width:540px">
+            <?php echo $this->getChildHtml('connector_design_accordion'); ?>            
+        </td>
+        <td style="width:115px">&nbsp;</td>
+        <td style="width:350px">        
+            <?php echo $this->getChildHtml('connector_design_preview') ?>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+// <![CDATA[
+jscolor.dir = '<?php echo $this->getJsUrl(); ?>jscolor/';
+// ]]>
+</script>
+<script type="text/javascript">
+    //<![CDATA[
+    Event.observe(document, 'dom:loaded', function() {
+        $('theme_color').observe('change', function() {
+            changeColorListener('theme_color');
+        });          
+    });
+    
+    function changeColorListener(id){
+        if ($(id).value == ''){
+            $(id).value = '_';
+        }
+        $(id).color.exportColor();
+        $('box_'+id).style.background = $(id).value;
+        $('background-iphone').style.background = $(id).value;
+    }
+    //]]>
+</script>

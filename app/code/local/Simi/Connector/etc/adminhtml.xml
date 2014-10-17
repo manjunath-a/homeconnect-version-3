@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Connector
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+    <menu>
+        <connector module="connector" translate="title">
+            <title>Simicart Connector</title>
+            <sort_order>71</sort_order>               
+            <children>
+                <connector module="connector" translate="title">
+                    <title>Manage Apps</title>
+                    <sort_order>0</sort_order>
+                    <action>connectoradmin/adminhtml_connector</action>
+                </connector>
+                <banner module="connector" translate="title">
+                    <title>Manage Banners</title>
+                    <sort_order>10</sort_order>
+                    <action>connectoradmin/adminhtml_banner</action>
+                </banner>
+                <notice module="connector" translate="title">
+                    <title>Manage Notifications</title>
+                    <sort_order>100</sort_order>
+                    <action>connectoradmin/adminhtml_notice</action>
+                </notice>
+				<cms module="connector" translate="title">
+                    <title>CMS</title>
+                    <sort_order>150</sort_order>
+                    <action>connectoradmin/adminhtml_cms</action>
+                </cms>
+                <settings module="connector" translate="title">
+                    <title>Settings</title>
+                    <sort_order>1000</sort_order>
+                    <action>adminhtml/system_config/edit/section/connector</action>
+                </settings>
+            </children>
+        </connector>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <connector module="connector" translate="title">
+                                        <title>Simicart Connector</title>
+                                        <sort_order>71</sort_order>									
+                                    </connector>								
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <connector module="connector" translate="title">
+                        <title>Simicart Connector</title>
+                        <sort_order>71</sort_order>               
+                        <children>
+                            <connector module="connector" translate="title">
+                                <title>Manage Apps</title>
+                                <sort_order>0</sort_order>
+                            </connector>
+                            <banner module="connector" translate="title">
+                                <title>Manage Banners</title>
+                                <sort_order>10</sort_order>
+                                <action>connectoradmin/adminhtml_banner</action>
+                            </banner>
+                            <notice module="connector" translate="title">
+                                <title>Manage Notifications</title>
+                                <sort_order>100</sort_order>
+                                <action>connectoradmin/adminhtml_notice</action>
+                            </notice>
+							<cms module="connector" translate="title">
+								<title>CMS</title>
+								<sort_order>150</sort_order>
+								<action>connectoradmin/adminhtml_cms</action>
+							</cms>
+                            <settings module="connector" translate="title">
+                                <title>Settings</title>
+                                <sort_order>1000</sort_order>
+                            </settings>
+                        </children>
+                    </connector>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

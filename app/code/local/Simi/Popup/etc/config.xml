@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Popup
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+    <modules>
+        <Simi_Popup>
+            <version>0.2.0</version>
+        </Simi_Popup>
+    </modules>
+    <frontend>
+        <routers>
+            <popup>
+                <use>standard</use>
+                <args>
+                    <module>Simi_Popup</module>
+                    <frontName>popup</frontName>
+                </args>
+            </popup>
+        </routers>
+        <layout>
+            <updates>
+                <popup>
+                    <file>popup.xml</file>
+                </popup>
+            </updates>
+        </layout>
+		<translate>
+            <modules>
+                <Simi_Popup>
+                    <files>
+                        <default>Simi_Popup.csv</default>
+                    </files>
+                </Simi_Popup>
+            </modules>
+        </translate>
+    </frontend>
+    <admin>
+        <routers>
+			<popupadmin>
+				<use>admin</use>
+				<args>
+					<module>Simi_Popup</module>
+					<frontName>popupadmin</frontName>
+				</args>
+			</popupadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+		<layout>
+			<updates>
+				<popup>
+					<file>popup.xml</file>
+				</popup>
+			</updates>
+		</layout>
+		<translate>
+            <modules>
+                <Simi_Popup>
+                    <files>
+                        <default>Simi_Popup.csv</default>
+                    </files>
+                </Simi_Popup>
+            </modules>
+        </translate>
+    </adminhtml>   
+    <global>
+        <models>
+            <popup>
+                <class>Simi_Popup_Model</class>
+                <resourceModel>popup_mysql4</resourceModel>
+            </popup>
+            <popup_mysql4>
+                <class>Simi_Popup_Model_Mysql4</class>
+                <entities>
+                    <popup>
+                        <table>popup</table>
+                    </popup>
+                </entities>
+            </popup_mysql4>
+        </models>
+        <resources>
+            <popup_setup>
+                <setup>
+                    <module>Simi_Popup</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </popup_setup>
+            <popup_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </popup_write>
+            <popup_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </popup_read>
+        </resources>
+        <blocks>
+            <popup>
+                <class>Simi_Popup_Block</class>
+            </popup>
+        </blocks>
+        <helpers>
+            <popup>
+                <class>Simi_Popup_Helper</class>
+            </popup>
+        </helpers>
+		<!-- <events>
+			<controller_action_predispatch>
+				<observers>
+					<popup_observers>
+						<class>popup/observer</class>
+						<method>controllerActionPredispatch</method>
+					</popup_observers>
+				</observers>
+			</controller_action_predispatch>
+		</events> -->
+    </global>
+	<default>
+        <popup>
+            <general>
+                <enable>0</enable>
+                <show_type>2</show_type>
+                <link_alert></link_alert>      
+				<link_android></link_android>      
+				<link_ipad></link_ipad>      
+				<content_alert></content_alert>      
+            </general>
+        </popup>                             
+    </default>
+</config>

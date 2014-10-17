@@ -1,0 +1,113 @@
+/* 
+    Document   : style
+    Created on : 21-Jan-2014, 11:05:27
+    Author     : xu
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.field_label {
+    float: left;
+    display: block;
+    border: 1px solid #c6cbc7;
+    width: 20px;
+    height: 20px;
+    padding: 1px;
+}
+
+#box-iphone{
+    background-image: url('images/simi-iphone.png');
+    width: 190px;
+    height: 400px;
+    position: relative;
+}
+#background-iphone{    
+    width: 164px;
+    height: 288px;
+    position: absolute;	
+    top: 56px;	
+    right: 13px;
+}
+
+#iphone-face{
+    background-image: url('images/iphone-home.png');
+    width: 164px;
+    height: 263px;
+    position: absolute;	
+    top: 58px;	
+    right: 13px;
+}
+#iphone-logo{    
+    width: 57px;
+    height: 16px;
+    position: absolute;	
+    top: 69px;	
+    right: 67px;
+}
+#iphone-banner{
+    background-image: url('images/iphone-banner.png');
+    width: 164px;
+    height: 36px;
+    position: absolute;	
+    top: 133px;	
+    right: 13px;
+}
+#iphone-tabs{
+    background-image: url('images/iphone-bottom-1.png');
+    width: 164px;
+    height: 25px;
+    position: absolute;	
+    right: 13px;
+    bottom: 55px;
+}
+.iphone-button{
+    width: 34px;
+    height: 25px;
+    float: left;
+}
+.iphone-button.last{
+    width: 28px;	
+}
+
+#loading-mask-notice .loader{
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    width: 150px;
+    margin-left: -105px;
+    padding: 15px 30px;
+    background: #fff4e9;
+    border: 2px solid #f1af73;
+    color: #d85909;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1000;
+}
+
+.div_key {
+    margin-bottom: 10px;
+    border: 1px solid #cddddd;
+    background: #e7efef;
+    padding: 10px;
+    height: 28px;
+    padding-top: 14px;
+}
+.keyleft{
+    float: left;
+    margin-right: 20px;
+}
+#key_app{
+    width: 400px;
+}
+
+#note_key_app{
+    margin: 0;
+    padding: 0 0 0 13px;
+    background: url(images/note_bg.gif) 1px 6px no-repeat;
+    font-size: 11px;
+}
+
+div.keyright {
+    float: left;
+    margin-right: 25px;
+}

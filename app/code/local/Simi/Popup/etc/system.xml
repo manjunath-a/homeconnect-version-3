@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Popup
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+	<tabs>
+        <simi translate="label">
+            <label>Simi Extension</label>
+            <sort_order>400</sort_order>
+        </simi>
+    </tabs>
+	<sections>
+		<popup translate="label" module="popup">
+			<class>separator-top</class>
+			<label>Promote your app</label>
+			<tab>simi</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>299</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<general translate="label">
+					<label>General Configuration</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>		
+						<enable translate="label">
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<sort_order>1</sort_order>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<comment></comment>
+						</enable>			
+						<show_type translate="label">
+                            <label>Choose types to show</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>2</sort_order>
+							<source_model>popup/config</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </show_type>		
+						<link_alert translate="label">
+                            <label>Link download app for Iphone/Ipod</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>                           
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </link_alert>  
+						<link_android translate="label">
+                            <label>Link download app for android</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>                           
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </link_android>  						
+						<link_ipad translate="label">
+                            <label>Link download app for ipad</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>                           
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </link_ipad>  
+                        <content_alert translate="label">
+                            <label>Content</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>                           
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment></comment>
+                        </content_alert>   						
+					</fields>				
+				</general>
+			</groups>
+		</popup>
+	</sections>
+</config>

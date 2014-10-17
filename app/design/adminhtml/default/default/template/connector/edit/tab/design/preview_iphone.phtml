@@ -1,0 +1,65 @@
+<div id="box-iphone">
+    <div id="background-iphone" style="background-color: <?php echo $this->getThemeColorValue();?>"></div>
+    <div id="iphone-face"></div>
+    <div id="iphone-logo"><img style="width:57px; height: 16px"src="<?php echo $this->getLogoImage();?>"/></div>
+    <div id="iphone-banner"></div>
+    <div id="iphone-tabs">
+        <ul style="width:164px; height:25px">
+            <li id="iphone-button-home" class="iphone-button"></li>
+            <li id="iphone-button-category" class="iphone-button"></li>
+            <li id="iphone-button-search" class="iphone-button"></li>
+            <li id="iphone-button-cart" class="iphone-button"></li>
+            <li id="iphone-button-more" class="iphone-button last"></li>
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.observe("dom:loaded", function() {
+        path_home= '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-home.png';        
+        path_category = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-category.png';
+        path_cart = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-cart.png';
+        path_search = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-search.png';
+        path_more = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-more.png';
+        
+        path_home_tab = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-bottom-1.png';
+        path_category_tab = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-bottom-2.png';
+        path_search_tab = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-bottom-3.png';
+        path_cart_tab = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-bottom-4.png';
+        path_more_tab = '<?php echo $this->getSkinUrlSimi(); ?>'+'iphone-bottom-5.png';
+        $('iphone-button-home').observe('click', function() {
+            $('iphone-logo').show();
+            $('iphone-banner').show();
+            changeStyle(path_home, path_home_tab);
+        });
+        $('iphone-button-category').observe('click', function() {   
+            changeStyle(path_category, path_category_tab);
+            hideBaLo();
+        });
+        $('iphone-button-search').observe('click', function() {   
+            changeStyle(path_search, path_search_tab);
+            hideBaLo();
+        });
+        $('iphone-button-cart').observe('click', function() {   
+            changeStyle(path_cart, path_cart_tab);
+            hideBaLo();
+        });
+        $('iphone-button-more').observe('click', function() {   
+            changeStyle(path_more, path_more_tab);
+            hideBaLo();
+        });
+    });
+    
+    function hideBaLo(){
+        $('iphone-logo').hide();
+        $('iphone-banner').hide();
+    }
+    function showBaLo(){
+        $('iphone-logo').show();
+        $('iphone-banner').show();
+    }
+    function changeStyle(path_content, path_tab){
+        $('iphone-face').setStyle({backgroundImage: 'url('+ path_content +')'});
+        $('iphone-tabs').setStyle({backgroundImage: 'url('+ path_tab +')'});
+    }
+</script>
