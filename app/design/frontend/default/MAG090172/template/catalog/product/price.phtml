@@ -383,10 +383,14 @@
         <?php else:?>
         <span class="minimal-price-link">
         <?php endif?>
+            <!-- To hide As low as -->
+            <div style="display:none;">
             <span class="label"><?php echo $this->__('As low as:') ?></span>
             <span class="price" id="product-minimal-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
                 <?php echo $_coreHelper->currency($_minimalPriceDisplayValue, true, false) ?>
             </span>
+            </div>
+            <!-- End hide div -->
         <?php if ($this->getUseLinkForAsLowAs()):?>
         </a>
         <?php else:?>
