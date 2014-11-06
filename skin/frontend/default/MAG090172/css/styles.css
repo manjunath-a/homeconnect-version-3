@@ -764,7 +764,8 @@ background:url(../images/sprite.png) -216px -350px no-repeat;}
 /* Hco Input text field width is expanded*/
 .header .form-search input.input-text { float:left; border:none;/*width:220px; */width:680px;    font-family: 'Open Sans',Arial,Helvetica,sans-serif;
 /* Hco  Input text field width is expanded code changes end*/
-	 border: 1px solid #A3B338;
+/*	 border: 1px solid #A3B338; */
+         border: 1px solid #5C3D2b;
 	padding-right: 5px;
 	-webkit-border-radius:5px;
 	-moz-border-radius:5px;
@@ -1383,7 +1384,8 @@ a.product-image { display:block;  margin:0 0 10px; }
     left: 5px;
     text-align: center;
     text-transform: capitalize;
-	background-color:#C2D82E;
+    background-color:#F0E509;
+	/*background-color:#C2D82E;*/
 	/*color:#fff; Commented : Compassites - Shan */
         color:#000;
 	font-size:14px; 
