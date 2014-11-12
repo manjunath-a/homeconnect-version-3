@@ -1,0 +1,221 @@
+<?php
+
+
+if($this->customerHasBookings()):
+
+$product_model = Mage::getModel('catalog/product');
+
+?>
+
+
+<div class="box-account booking-info">
+
+<div class="box-head">
+    <h2><?php echo $this->__('My Bookings') ?></h2>
+</div>
+	
+	<table id="my-days-orders-table" class="data-table" style="margin-bottom:20px;">
+		<colgroup>
+		    <col>
+		    <col width="1">	    
+		    <col width="1">	    
+		    <col width="1">		    
+		</colgroup>
+		<thead>
+		    <tr class="first last">
+			<th><?php echo $this->__('Product')?></th>
+			<th><?php echo $this->__('Reserved Days')?></th>
+			<th><?php echo $this->__('Price')?></th>
+			<th><?php echo $this->__('Status')?></th>
+			
+		    </tr>
+		</thead>
+		<tbody>
+		    
+		    <?php foreach($this->getCustomerDaysBookings() as $booking_row): ?>
+			    <tr class="first odd">
+				<td><?php echo $product_model->load($booking_row['product_id'])->getName(); ?></td>
+				
+				<?php $res_days_arr = explode(',', $booking_row['days_booking']); ?>
+				<td><span class="nobr"><?php foreach($res_days_arr as $days): echo $days.'<br>'; endforeach; ?></span></td>
+				
+				<?php $cus_options = unserialize($booking_row['reserve_options']); ?>
+				<td><span class="nobr"><?php echo Mage::helper('core')->currency($cus_options['info_buyRequest']['product-booking-price']);?></span></td>
+				
+				<?php $b_order = Mage::getModel('sales/order')->load($booking_row['booking_order_id']); ?>
+				<?php if($booking_row['status'] == 'complete'): ?>
+				    
+				    <?php if($b_order->getTotalRefunded() >= 0): ?> <!--the case, where a part of amount is refunded/ this dont chanage the order status to 'closed'-->
+				        <td><em><?php echo $this->__('closed'); ?></em></td> 
+				    <?php else: ?>
+				        <td><em><?php echo $booking_row['status']; ?></em></td>
+				    <?php endif; ?>
+				
+				<?php else: ?>
+				    <td><em><?php echo $booking_row['status']; ?></em></td>
+				<?php endif; ?>
+				
+			    </tr>
+		    <?php endforeach; ?>
+		    
+		</tbody>
+	</table>
+	
+	
+    
+	<table id="my-orders-table" class="data-table">
+		<colgroup>
+		    <col>
+		    <col width="1">	    
+		    <col width="1">	    
+		    <col width="1">
+		    <col width="1">
+		    <col width="1">
+		</colgroup>
+		<thead>
+		    <tr class="first last">
+			<th><?php echo $this->__('Product')?></th>
+			<th><?php echo $this->__('Date')?></th>
+			<th><?php echo $this->__('From Time')?></th>
+			<th><?php echo $this->__('To Time')?></th>
+			<th><?php echo $this->__('Price')?></th>
+			<th><?php echo $this->__('Status')?></th>
+			
+		    </tr>
+		</thead>
+		<tbody>
+		
+		
+		    <?php foreach($this->getCustomerBookings() as $booking_row): ?>
+			
+			<?php if($booking_row['days_booking'] != ''): continue; endif; //because this is time-booking ?>
+			
+			<?php $cus_options = unserialize($booking_row['reserve_options']); ?>
+			<?php
+			    
+			    $_product = $product_model->load($booking_row['product_id']);
+			    $dropdownAttributeObj = $_product->getResource()->getAttribute("booking_type");
+			    
+			    $dropdown_option_label = '';
+			    if ($dropdownAttributeObj->usesSource()) {
+				  
+				    $dropdown_option_label = $dropdownAttributeObj->getSource()->getOptionText($_product->getData('booking_type'));
+				    
+			    }
+			?>
+			
+			
+			<?php// if($dropdown_option_label == "Mobile Booking"): ?>
+			    
+			    <tr class="first odd">
+				<td><?php echo $product_model->load($booking_row['product_id'])->getName(); ?></td>
+				<td><span class="nobr"><?php echo $booking_row['reserve_day']; ?></span></td>
+				<td><span class="nobr"><?php echo $booking_row['reserve_from_time']; ?></span></td>
+				
+			       
+				<?php $to_time = $cus_options['info_buyRequest']['fme_booking_time_to']['hours'].':'.$cus_options['info_buyRequest']['fme_booking_time_to']['minutes'].' '.$cus_options['info_buyRequest']['fme_booking_time_to']['daypart'];  ?>
+				
+				<?php
+				    
+				    $new_to_time = $this->helper('bookingreservation')->conv($booking_row['reserve_to_time']);
+				    $new_to_time = $new_to_time-$booking_row['buffer_period'];
+				    $new_to_time = $this->helper('bookingreservation')->toConv($new_to_time);
+				    
+				?>
+				
+				<td><span class="nobr"><?php echo $new_to_time; ?></span></td>			    
+				
+				
+				<?php $b_order = Mage::getModel('sales/order')->load($booking_row['booking_order_id']); ?>    				
+		
+				
+				<?php if( $cus_options['info_buyRequest']['fme-use-home-service'] == 'yes' && $b_order->getHomeserviceAmount() > 0 ): ?>								    
+				    <td><span class="nobr">
+					<?php echo Mage::helper('core')->currency($cus_options['info_buyRequest']['product-booking-price'] + $b_order->getHomeserviceAmount()); ?>					
+				    </span></td>				    
+				<?php else: ?>
+				    <td><span class="nobr"><?php echo Mage::helper('core')->currency($cus_options['info_buyRequest']['product-booking-price']);?></span></td>
+				<?php endif; ?>
+				
+				
+				
+				
+				<?php if($booking_row['status'] == 'complete'): ?>
+				    
+				    <?php if($b_order->getTotalRefunded() >= 0): ?> <!--the case, where a part of amount is refunded/ this dont chanage the order status to 'closed'-->
+				        <td><em><?php echo $this->__('closed'); ?></em></td> 
+				    <?php else: ?>
+				        <td><em><?php echo $booking_row['status']; ?></em></td>
+				    <?php endif; ?>
+				    
+				<?php else: ?>
+				    <td><em><?php echo $booking_row['status']; ?></em></td>
+				<?php endif; ?>
+				
+				
+				
+				<td class="a-center last" style="display:none;">
+				
+				<?php $cancel_type = Mage::helper('bookingreservation')->canCancelTheBooking($booking_row['booking_order_id'],$booking_row['product_id'],$booking_row['reserve_day'],$booking_row['reserve_from_time']); ?>
+				<?php if($cancel_type != 'expired_cancel'): ?>
+				    
+				    <?php if($booking_row['status'] == 'complete' || $booking_row['status'] == 'processing' ): ?>
+					
+					<?php if($b_order->getTotalRefunded() == '' || $b_order->getTotalRefunded() == null): ?>
+					    <span class="nobr"><a class="link-reorder" onclick="bookingCancelationProcess('<?php echo $this->getBookingCancelUrl($booking_row['booking_order_id'],$booking_row['bookingreservation_id'],$cancel_type) ?>','<?php echo $cancel_type; ?>' )" href="javascript:"><?php echo $this->__('Cancel'); ?></a></span>
+					<?php else: ?>
+					    <span class="nobr"></span>
+					<?php endif; ?>
+				    
+				    <?php else: ?>
+					<span class="nobr"></span>
+				    <?php endif; ?>
+				    
+				<?php endif; ?>	
+				</td>
+			    </tr>	    
+			    
+			<?php //endif; ?>
+		    <?php endforeach; ?>
+			
+		</tbody>
+	    </table>
+	    
+
+
+</div>
+
+<?php $booking_cancel_charges = Mage::helper('bookingreservation')->getOrignalBookingCancelCharges(); ?>
+
+<script type="text/javascript">
+
+    
+    bookingCancelationProcess = function(url,booking_cancel){
+	
+	var confirm_text = 'Would you like to Cancel Booking ? ';
+	
+	if(booking_cancel == 'charge_cancel'){
+	    
+	    var c_charges = '<?php echo $booking_cancel_charges ?>';
+	    
+	    if(c_charges != '' && c_charges != 0){
+		
+		confirm_text = 'Would you like to Cancel Booking ? Cancelation Charges '+'<?php echo $booking_cancel_charges ?>'+' Apply  ';
+	    }
+	    
+	}
+	
+	if(confirm(confirm_text)){	    
+	    
+	    setLocation(url);
+	    
+	}
+	
+	
+    }
+    
+
+</script>
+
+
+<?php endif; ?>

@@ -1,0 +1,68 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<div class="box-collateral box-up-sell">
+   <div class="category-title"><h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2></div>
+    <div class="products-grid" id="upsell-product-table">
+    <?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>  
+	<?php  
+		$_collectionSize = count($this->getItemCollection()->getItems());
+	?> 
+	<?php 
+		$sliderFor = 4;
+		$productCount = $_collectionSize; 
+	?>
+	
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>	 
+	 <ul class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>" id="<?php if ($productCount >= $sliderFor){?>upsell-carousel<?php }else{?>upsell-grid<?php }?>">		 
+			<?php $this->resetItemsIterator() ?>
+			<?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>        
+				<?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+					<?php if($_link=$this->getIterableItem()): ?>
+					 <li class="item <?php if ($productCount >= $sliderFor){?>slider-item<?php }else{?>product-items<?php }?>">
+						<div class="product-block">
+						<div class="product-block-inner">
+						<a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize(165) ?>" width="165" height="165" alt="<?php echo $this->escapeHtml($_link->getName()) ?>" /></a>
+						<h3 class="product-name"><a href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>"><?php echo $this->escapeHtml($_link->getName()) ?></a></h3>
+						<?php echo $this->getPriceHtml($_link, true, '-upsell') ?>
+						<?php echo $this->getReviewsSummaryHtml($_link) ?>
+						</div>
+						</div>					
+					</li>
+					<?php endif; ?>
+				<?php endfor; ?>        
+			<?php endfor; ?>
+		</ul>
+		<span style="display: none; visibility: hidden;" class="upsell_default_width"></span>
+    </div>	
+</div>
+<?php endif ?>
