@@ -1,0 +1,28 @@
+<?php
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+/* @var $this Aitoc_Aitsys_Block_Notification */
+?>
+<div class="fieldset">
+  <div class="news">
+      <?php foreach ($this->getNews() as $item) { ?>
+          <dl class="item">
+            <dt>
+                <?php if (isset($item['title']) && $item['title']) { ?>
+                    <h2><?php echo $item['title']?></h2>
+                <?php } ?>
+            </dt>
+            <dd>
+              <?php echo $item['content']?>
+            </dd>
+          </dl>
+      <?php } ?>
+  </div>
+</div>

@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Aitoc_Aitpermissions>
+            <version>2.8.1</version>
+			<platform>community</platform>
+        </Aitoc_Aitpermissions>
+    </modules>
+    <frontend>
+        <translate>
+            <modules>
+                <Aitoc_Aitpermissions>
+                    <files>
+                        <default>Aitoc_Aitpermissions.csv</default>
+                    </files>
+                </Aitoc_Aitpermissions>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <aitpermissions>
+                    <file>aitpermissions.xml</file>
+                </aitpermissions>
+            </updates>
+        </layout>
+    </frontend>
+
+    <admin>
+        <routers>
+            <aitpermissions>
+                <use>admin</use>
+                <args>
+                    <module>Aitoc_Aitpermissions</module>
+                    <frontName>aitpermissions</frontName>
+                </args>
+            </aitpermissions>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <translate>
+            <modules>
+                <Aitoc_Aitpermissions>
+                    <files>
+                        <default>Aitoc_Aitpermissions.csv</default>
+                    </files>
+                </Aitoc_Aitpermissions>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <aitpermissions>
+                    <file>aitpermissions.xml</file>
+                </aitpermissions>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <aitpermissions translate="title">
+                            <title>Advanced Permissions Tab</title>
+                            <sort_order>10</sort_order>
+                        </aitpermissions>
+                        <system>
+                            <children>
+                                <aitpermissions translate="title" module="aitpermissions">
+                                    <title>Advanced Permissions</title>
+                                    <sort_order>0</sort_order>
+                                </aitpermissions>
+                                <config>
+                                    <children>
+                                        <aitpermissions translate="title" module="aitpermissions">
+                                            <title>Advanced Permissions</title>
+                                        </aitpermissions>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+
+    <global>
+        <resources>
+             <aitpermissions_setup>
+                <setup>
+                   <module>Aitoc_Aitpermissions</module>
+                   <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+                <connection>
+                   <use>core_setup</use>
+                </connection>
+             </aitpermissions_setup>
+             <aitpermissions_write>
+                <connection><use>core_write</use></connection>
+             </aitpermissions_write>
+             <aitpermissions_read>
+                <connection><use>core_read</use></connection>
+             </aitpermissions_read>
+        </resources>
+
+        <models>
+            <aitpermissions>
+                <class>Aitoc_Aitpermissions_Model</class>
+                <resourceModel>aitpermissions_mysql4</resourceModel>
+            </aitpermissions>
+            <aitpermissions_mysql4>
+                <class>Aitoc_Aitpermissions_Model_Mysql4</class>
+                <entities>
+                    <advancedrole>
+                        <table>aitoc_aitpermissions_advancedrole</table>
+                    </advancedrole>
+                    <approve>
+                        <table>aitoc_aitpermissions_approvedproducts</table>
+                    </approve>
+                    <approvecategory>
+                        <table>aitoc_aitpermissions_approvedcategories</table>
+                    </approvecategory>
+                </entities>
+            </aitpermissions_mysql4>
+            <catalog_resource_eav_mysql4>
+                <rewrite>
+                    <category_tree>Aitoc_Aitpermissions_Model_Rewrite_CatalogModelResourceEavMysql4CategoryTree</category_tree>
+                </rewrite>
+            </catalog_resource_eav_mysql4>
+            <catalog>
+                <rewrite>
+                    <category>Aitoc_Aitpermissions_Model_Rewrite_CatalogCategory</category>
+                    <product>Aitoc_Aitpermissions_Model_Rewrite_CatalogProduct</product>
+                    <product_status>Aitoc_Aitpermissions_Model_Rewrite_CatalogProductStatus</product_status>
+                    <product_action>Aitoc_Aitpermissions_Model_Rewrite_CatalogProductAction</product_action>
+                </rewrite>
+            </catalog>
+            <adminhtml>
+                <rewrite>
+                    <system_config_source_website>Aitoc_Aitpermissions_Model_Rewrite_AdminSystemConfigSourceWebsite</system_config_source_website>
+                    <system_store>Aitoc_Aitpermissions_Model_Rewrite_AdminSystemStore</system_store>
+                    <sales_order_create>Aitoc_Aitpermissions_Model_Rewrite_AdminSalesOrderCreate</sales_order_create>
+                    <config_data>Aitoc_Aitpermissions_Model_Rewrite_AdminhtmlConfigData</config_data>
+                </rewrite>
+            </adminhtml>
+            <core_mysql4>
+                <rewrite>
+                    <website_collection>Aitoc_Aitpermissions_Model_Rewrite_CoreWebsiteCollection</website_collection>
+                </rewrite>
+            </core_mysql4>
+        </models>
+
+        <blocks>
+            <aitpermissions>
+                <class>Aitoc_Aitpermissions_Block</class>
+            </aitpermissions>
+            <adminhtml>
+                <rewrite>
+                    <permissions_editroles>Aitoc_Aitpermissions_Block_Rewrite_AdminPermissionsEditroles</permissions_editroles>
+                    <permissions_buttons>Aitoc_Aitpermissions_Block_Rewrite_AdminPermissionsButtons</permissions_buttons>
+                    <catalog_product_edit_tab_websites>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogProductEditTabWebsites</catalog_product_edit_tab_websites>
+                    <catalog_product_edit_tab_categories>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogProductEditTabCategories</catalog_product_edit_tab_categories>
+                    <store_switcher>Aitoc_Aitpermissions_Block_Rewrite_AdminStoreSwitcher</store_switcher>
+                    <tag_store_switcher>Aitoc_Aitpermissions_Block_Rewrite_AdminTagStoreSwitcher</tag_store_switcher>
+                    <sales_order_create_store_select>Aitoc_Aitpermissions_Block_Rewrite_AdminSalesOrderCreateStoreSelect</sales_order_create_store_select>
+                    <catalog_product_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogProductGrid</catalog_product_grid>
+                    <catalog_product_edit_action_attribute_tab_websites>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogProductEditActionAttributeTabWebsites</catalog_product_edit_action_attribute_tab_websites>
+                    <sales_order_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminSalesOrderGrid</sales_order_grid>
+                    <customer_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminCustomerGrid</customer_grid>
+                    <customer_online_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminCustomerOnlineGrid</customer_online_grid>
+                    <catalog_product_helper_form_gallery>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogProductHelperFormGallery</catalog_product_helper_form_gallery>
+                    <system_config_switcher>Aitoc_Aitpermissions_Block_Rewrite_AdminSystemConfigSwitcher</system_config_switcher>
+                    <catalog_category_edit_form>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogCategoryEditForm</catalog_category_edit_form>
+                    <catalog_category_tree>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogCategoryTree</catalog_category_tree>
+                    <cms_page_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminCmsPageGrid</cms_page_grid>
+                    <cms_page_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminCmsPageEdit</cms_page_edit>
+                    <cms_block_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminCmsBlockGrid</cms_block_grid>
+                    <cms_block_edit_form>Aitoc_Aitpermissions_Block_Rewrite_AdminCmsBlockEditForm</cms_block_edit_form>
+                    <cms_block_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminCmsBlockEdit</cms_block_edit>
+                    <poll_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminPollGrid</poll_grid>
+                    <poll_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminPollEdit</poll_edit>
+                    <catalog_category_widget_chooser>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogCategoryWidgetChooser</catalog_category_widget_chooser>
+                    <promo_quote_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminPromoQuoteEdit</promo_quote_edit>
+                    <promo_catalog_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminPromoCatalogEdit</promo_catalog_edit>
+                    <promo_quote_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminPromoQuoteGrid</promo_quote_grid>
+                    <promo_catalog_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminPromoCatalogGrid</promo_catalog_grid>
+                    <report_product_viewed_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportProductViewedGrid</report_product_viewed_grid>
+                    <report_review_customer_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportReviewCustomerGrid</report_review_customer_grid>
+                    <report_sales_bestsellers_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesBestsellersGrid</report_sales_bestsellers_grid>
+                    <report_sales_coupons_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesCouponsGrid</report_sales_coupons_grid>
+                    <report_sales_invoiced_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesInvoicedGrid</report_sales_invoiced_grid>
+                    <report_sales_refunded_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesRefundedGrid</report_sales_refunded_grid>
+                    <report_sales_sales_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesSalesGrid</report_sales_sales_grid>
+                    <report_sales_shipping_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesShippingGrid</report_sales_shipping_grid>
+                    <report_sales_tax_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportSalesTaxGrid</report_sales_tax_grid>
+                    <report_shopcart_product_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportShopcartProductGrid</report_shopcart_product_grid>
+                    <report_shopcart_abandoned_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminReportShopcartAbandonedGrid</report_shopcart_abandoned_grid>
+                    <catalog_form_renderer_fieldset_element>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlCatalogFormRendererFieldsetElement</catalog_form_renderer_fieldset_element>
+                    <catalog_product_edit_action_attribute_tab_attributes>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlCatalogProductEditActionAttributeTabAttributes</catalog_product_edit_action_attribute_tab_attributes>
+                    <catalog_product_edit_action_attribute_tab_inventory>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlCatalogProductEditActionAttributeTabInventory</catalog_product_edit_action_attribute_tab_inventory>
+                    <catalog_form_renderer_attribute_urlkey>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlCatalogFormRendererAttributeUrlkey</catalog_form_renderer_attribute_urlkey>
+                    <catalog_product_edit_tab_inventory>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlCatalogProductEditTabInventory</catalog_product_edit_tab_inventory>
+                    <newsletter_subscriber_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminNewsletterSubscriberGrid</newsletter_subscriber_grid>
+                    <catalog_category_tab_attributes>Aitoc_Aitpermissions_Block_Rewrite_AdminCatalogCategoryTabAttributes</catalog_category_tab_attributes>
+                </rewrite>
+            </adminhtml>
+            <bundle>
+                <rewrite>
+                    <adminhtml_catalog_product_edit_tab_attributes_extend>Aitoc_Aitpermissions_Block_Rewrite_BundleAdminhtmlCatalogProductEditTabAttributesExtend</adminhtml_catalog_product_edit_tab_attributes_extend>
+                    <adminhtml_catalog_product_edit_tab_attributes_special>Aitoc_Aitpermissions_Block_Rewrite_BundleAdminhtmlCatalogProductEditTabAttributesSpecial</adminhtml_catalog_product_edit_tab_attributes_special>
+                </rewrite>
+            </bundle>
+            <downloadable>
+                <rewrite>
+                    <adminhtml_catalog_product_edit_tab_downloadable_links>Aitoc_Aitpermissions_Block_Rewrite_DownloadableAdminhtmlCatalogProductEditTabDownloadableLinks</adminhtml_catalog_product_edit_tab_downloadable_links>
+                </rewrite>
+            </downloadable>
+            <widget>
+                <rewrite>
+                    <adminhtml_widget_instance_grid>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlWidgetInstanceGrid</adminhtml_widget_instance_grid>
+                    <adminhtml_widget_instance_edit>Aitoc_Aitpermissions_Block_Rewrite_AdminhtmlWidgetInstanceEdit</adminhtml_widget_instance_edit>
+                </rewrite>
+            </widget>
+        </blocks>
+        
+        <helpers>
+            <aitpermissions>
+                <class>Aitoc_Aitpermissions_Helper</class>
+            </aitpermissions>
+        </helpers>
+
+        <events>
+            <model_save_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onModelSaveBefore</method>
+                    </aitpermissions>
+                </observers>
+            </model_save_before>
+
+            <cms_page_prepare_save>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCmsPagePrepareSave</method>
+                    </aitpermissions>
+                </observers>
+            </cms_page_prepare_save>
+
+            <adminhtml_cms_page_edit_tab_main_prepare_form>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminhtmlCmsPageEditTabMainPrepareForm</method>
+                    </aitpermissions>
+                </observers>
+            </adminhtml_cms_page_edit_tab_main_prepare_form>
+
+            <cms_page_load_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCmsPageLoadAfter</method>
+                    </aitpermissions>
+                </observers>
+            </cms_page_load_after>
+
+            <customer_load_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCustomerLoadAfter</method>
+                    </aitpermissions>
+                </observers>
+            </customer_load_after>
+
+            <sales_order_load_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onSalesOrderLoadAfter</method>
+                    </aitpermissions>
+                </observers>
+            </sales_order_load_after>
+
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onEavCollectionAbstractLoadBefore</method>
+                    </aitpermissions>
+                </observers>
+            </eav_collection_abstract_load_before>
+
+            <core_collection_abstract_load_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCoreCollectionAbstractLoadBefore</method>
+                    </aitpermissions>
+                </observers>
+            </core_collection_abstract_load_before>
+
+            <catalog_product_collection_load_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogProductCollectionLoadBefore</method>
+                    </aitpermissions>
+                </observers>
+            </catalog_product_collection_load_before>
+
+            <catalog_product_validate_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogProductValidateBefore</method>
+                    </aitpermissions>
+                </observers>
+            </catalog_product_validate_before>
+			
+            <catalog_product_save_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogProductSaveAfter</method>
+                    </aitpermissions>
+                </observers>
+            </catalog_product_save_after>
+
+            <catalog_product_prepare_save>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogProductPrepareSave</method>
+                    </aitpermissions>
+                </observers>
+            </catalog_product_prepare_save>
+
+            <catalog_product_edit_action>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogProductEditAction</method>
+                    </aitpermissions>
+                </observers>
+            </catalog_product_edit_action>
+
+            <adminhtml_catalog_category_tree_can_add_sub_category>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onCatalogCategoryTreeCanAddSubCategory</method>
+                    </aitpermissions>
+                </observers>
+            </adminhtml_catalog_category_tree_can_add_sub_category>
+
+            <admin_roles_save_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminRolesSaveBefore</method>
+                    </aitpermissions>
+                </observers>
+            </admin_roles_save_before>
+
+            <admin_roles_save_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminRolesSaveAfter</method>
+                    </aitpermissions>
+                </observers>
+            </admin_roles_save_after>
+
+            <admin_roles_delete_after>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminRolesDeleteAfter</method>
+                    </aitpermissions>
+                </observers>
+            </admin_roles_delete_after>
+
+            <controller_action_predispatch_adminhtml_catalog_product_review_massDelete>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminhtmlCatalogProductReviewMassDeletePredispatch</method>
+                    </aitpermissions>
+                </observers>
+            </controller_action_predispatch_adminhtml_catalog_product_review_massDelete>
+            <controller_action_postdispatch_adminhtml_catalog_category_save>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onAdminhtmlCatalogCategorySavePostdispatch</method>
+                    </aitpermissions>
+                </observers>
+            </controller_action_postdispatch_adminhtml_catalog_category_save>
+
+            <review_delete_before>
+                <observers>
+                    <aitpermissions>
+                        <class>aitpermissions/observer</class>
+                        <method>onReviewDeleteBefore</method>
+                    </aitpermissions>
+                </observers>
+            </review_delete_before>
+        </events>
+        
+        <template>
+            <email>
+                <admin_su_template translate="label" module="aitpermissions">
+                    <label>Approve new product</label>
+                    <file>aitpermissions_su.html</file>
+                    <type>html</type>
+                </admin_su_template>
+                <admin_sucategory_template translate="label" module="aitpermissions">
+                    <label>Approve new category</label>
+                    <file>aitpermissions_sucategory.html</file>
+                    <type>html</type>
+                </admin_sucategory_template>
+            </email>
+        </template>
+    </global>
+    <default>
+        <admin>
+            <general>
+                <showallproducts>0</showallproducts>
+                <showallcustomers>1</showallcustomers>
+                <allowdelete>0</allowdelete>
+                <allowdelete_perwebsite>0</allowdelete_perwebsite>
+                <show_admin_on_product_grid>0</show_admin_on_product_grid>
+            </general>
+            <su>
+                <enable>0</enable>
+                <email></email>
+                <template>admin_su_template</template>
+            </su>
+            <sucategories>
+                <enable>0</enable>
+                <email></email>
+                <template>admin_sucategory_template</template>
+            </sucategories>
+        </admin>
+    </default>
+</config>
+<!--
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->
