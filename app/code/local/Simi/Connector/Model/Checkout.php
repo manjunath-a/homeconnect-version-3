@@ -98,12 +98,9 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
         }
 
         $billing_address = $this->_helperCheckout()->convertBillingAddress($data);
-
         $address_cache = null;
-        $shipping_address = $this->_helperCheckout()->convertShippingAddress($data);
-        // Zend_debug::dump($shipping_address);
-        // Zend_debug::dump($billing_address);
-        // die();
+        $shipping_address = $this->_helperCheckout()->convertShippingAddress($data); 
+		
         if (version_compare(Mage::getVersion(), '1.4.0.1', '=') === true) {
             $address_cache = array(
                 'checkout_method' => $this->_getOnepage()->getCheckoutMehod(),
@@ -121,11 +118,13 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
         $result = array();
         try {
             $result_billing = $this->_getOnepage()->saveBilling($billing_address, $billing_address['customer_address_id']);
-            $result_shipping = $this->_getOnepage()->saveShipping($shipping_address, $shipping_address['customer_address_id']);
-
-            $result = array_merge($result_billing['message'], $result_shipping['message']);
-            $result = array_unique($result);
-            $this->_getCheckoutSession()->getQuote()->getShippingAddress()->collectShippingRates()->save();
+            $result_shipping = $this->_getOnepage()->saveShipping($shipping_address, $shipping_address['customer_address_id']);			 
+            if(isset($result_billing['message']) && isset($result_shipping['message']) ){
+				$result = array_merge($result_billing['message'], $result_shipping['message']);
+				$result = array_unique($result);
+			}  
+			
+            $this->getAddress()->collectShippingRates()->save();
         } catch (Exception $e) {
             if (is_array($e->getMessage())) {
                 $information = $this->statusError($e->getMessage());
@@ -135,17 +134,18 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
             return $information;
         }
 
-         if (count($result)) {
+        if (count($result)) {
               $result = array_unique($result);
               $information = $this->statusError($result);
               return $information;
-          }
-        Mage::getSingleton('core/session')->setSimiAddress($address_cache);
-
-        $shipping = $this->_getCheckoutSession()->getQuote()->getShippingAddress();
-
-        $tax = 0;
-
+        }
+		
+	
+		
+        Mage::getSingleton('core/session')->setSimiAddress($address_cache);			
+		
+        $shipping = $this->getAddress();
+        $tax = 0;			
         $methods = $shipping->getGroupedAllShippingRates();
         //list shipping methods
         $list = array();
@@ -186,9 +186,9 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
                
             }
         }
-		$this->_getCheckoutSession()->getQuote()->collectTotals()->save();
-        $total = $this->_getCheckoutSession()->getQuote()->getTotals();
+		// $this->_getCheckoutSession()->getQuote()->collectTotals()->save();        
         //total    
+		$total = $this->_getCheckoutSession()->getQuote()->getTotals();
         $grandTotal = $total['grand_total']->getValue();
         $subTotal = $total['subtotal']->getValue();
         $discount = 0;
@@ -212,7 +212,14 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
         $list_payment = array();
         foreach ($paymentMethods as $method) {
             $list_payment[] = $payment->getDetailsPayment($method);
-        }
+        }		
+		//update hai.ta 19/11/2014
+		$event_name = 'simicart_change_payment_detail';
+		$event_value = array(
+				'object' => $this,								
+		);
+		$list_payment = $this->changeData($list_payment, $event_name, $event_value);
+		//end update
         //coupon code (maybe)
         $coupon = '';
         if ($this->_getCheckoutSession()->getQuote()->getCouponCode())
@@ -243,8 +250,7 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
             'object' => $this,
         );
         $data_change = $this->changeData($total_data, $event_name, $event_value);
-        $data_return['fee'] = $data_change;
-		// $data_return['shipping_other'] = "For deliveries to non-EU countries, customs duties, taxes or fees may anfallen.Diese payable to the customs and tax authorities competent there. This should be requested before the order to the customs and tax authorities.";
+        $data_return['fee'] = $data_change;		
         $information = $this->statusSuccess();
         $information['data'] = array($data_return);
         return $information;
@@ -308,7 +314,8 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
 		} 
 		
         $informtaion['data'] = array($data_return);
-        
+        $message_success = Mage::helper('checkout')->__("Thank you for your purchase!");
+        $informtaion['message'] = array($message_success);
         Mage::getSingleton('core/session')->unsSimiAddress();
         Mage::getSingleton('core/session')->unsSimiShippingMethod();
         $this->cleanSession();
@@ -344,5 +351,13 @@ class Simi_Connector_Model_Checkout extends Simi_Connector_Model_Abstract {
         $this->_getOnepage()->initCheckout();
         return $message;
     }
-
+	
+	public function getAddress()
+    {
+        if (empty($this->_address)) {
+            $this->_address = $this->_getCheckoutSession()->getQuote()->getShippingAddress();
+        }
+        return $this->_address;
+    }
+	protected $_address;
 }

@@ -102,7 +102,7 @@ class Simi_Connector_IndexController extends Mage_Core_Controller_Front_Action {
     }
 	
 	public function installDbAction(){
-		$setup = new Mage_Core_Model_Resource_Setup();
+		$setup = new Mage_Core_Model_Resource_Setup('core_setup');
         $installer = $setup;
         $installer->startSetup();
 		$installer->run("

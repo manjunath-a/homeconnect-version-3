@@ -47,10 +47,7 @@ class Simi_Connector_Block_Adminhtml_Connector_Edit_Tab_Categories extends Mage_
     }
 
     public function getIdsString()
-    {
-		if(Mage::registry('simi_categories')){
-			$categories = Mage::registry('simi_categories');
-		}
-        return $categories;//Mage::registry('bannerslider_data')->getCategories();//implode(',', $this->getCategoryIds());
+    {		
+        return Mage::registry('simi_categories');//Mage::registry('bannerslider_data')->getCategories();//implode(',', $this->getCategoryIds());
     }
 }

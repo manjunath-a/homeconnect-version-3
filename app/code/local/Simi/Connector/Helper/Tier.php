@@ -36,10 +36,12 @@ class Simi_Connector_Helper_Tier extends Mage_Core_Helper_Abstract {
     }
 
     public function processTierPrices($product, &$tierPrices, $includeIndex = true) {
+		$weeeAmount = Mage::helper('weee')->getAmountForDisplay($product);
+		$weeeAmountInclTax = $weeeAmount;
         if (version_compare(Mage::getVersion(), '1.9.0.0', '>=') === true) {
             $weeeAmountInclTax = Mage::helper('weee')->getAmountForDisplayInclTaxes($product);
         }
-        $weeeAmount = Mage::helper('weee')->getAmountForDisplay($product);
+        
         $store = Mage::app()->getStore();
         foreach ($tierPrices as $index => &$tier) {
             $html = $store->formatPrice($store->convertPrice(
@@ -73,9 +75,9 @@ class Simi_Connector_Helper_Tier extends Mage_Core_Helper_Abstract {
             $this->processTierPrices($_product, $_tierPrices);
 
             foreach ($_tierPrices as $_index => $_price) {
-                $price['formated_price_incl_weee'] = Mage::app()->getStore()->formatPrice($price['formated_price_incl_weee'], false, false);
-                $price['formated_price_incl_weee_only'] = Mage::app()->getStore()->formatPrice($price['formated_price_incl_weee_only'], false, false);
-                $price['formated_weee'] = Mage::app()->getStore()->formatPrice($price['formated_weee'], false, false);
+                $_price['formated_price_incl_weee'] = Mage::app()->getStore()->formatPrice($_price['formated_price_incl_weee'], false, false);
+                $_price['formated_price_incl_weee_only'] = Mage::app()->getStore()->formatPrice($_price['formated_price_incl_weee_only'], false, false);
+                $_price['formated_weee'] = Mage::app()->getStore()->formatPrice($_price['formated_weee'], false, false);
                 if ($_catalogHelper->canApplyMsrp($_product)) {
                     if ($_product->isGrouped()) {
                         $stringHt = Mage::helper('catalog')->__('Buy %1$s for', $_price['price_qty']);

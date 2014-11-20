@@ -29,8 +29,8 @@
  */
 class Simi_Connector_Model_Simicart_Api extends Mage_Core_Model_Abstract {
 
-    const URL = 'http://www.magestore.com/simicart/usermanagement/api/';
-    const URLS = 'https://www.magestore.com/simicart/usermanagement/api/';
+    const URL = 'https://www.simicart.com/usermanagement/api/';
+    const URLS = 'https://www.simicart.com/usermanagement/api/';
     const FUNC = '';
     const GPARAM_KEY = "/key=";
 

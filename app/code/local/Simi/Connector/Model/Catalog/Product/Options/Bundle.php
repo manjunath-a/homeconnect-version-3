@@ -84,7 +84,7 @@ class Simi_Connector_Model_Catalog_Product_Options_Bundle extends Simi_Connector
             else
                 $type = 'single';
             $require = $_attribute->getRequired();
-            foreach ($_attribute->getSelections() as $_selection) {
+            foreach ($_attribute->getSelections() as $_selection) {				
                 $selectionId = $_selection->getSelectionId();
                 $selectionName = $_selection->getName();
                 $price = $product->getPriceModel()->getSelectionPreFinalPrice($product, $_selection, 1);
@@ -98,6 +98,7 @@ class Simi_Connector_Model_Catalog_Product_Options_Bundle extends Simi_Connector
                     'option_type' => $type,
                     'position' => $position,
                     'is_required' => $require == 1 ? 'YES' : 'No',
+					'is_default' => $_selection->getData("is_default"),
                 );
                 $this->formatPriceString($price, $product, $infor);
                 $information[] = $infor;

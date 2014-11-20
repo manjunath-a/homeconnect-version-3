@@ -125,10 +125,20 @@ class Simi_Spotproduct_Model_Spotproduct extends Simi_Connector_Model_Abstract {
             $information = $this->statusError(array('Extesnion was disabled'));
             return $information;
         }
-        $this->_limit = $data->limit;
-        $this->_width = $data->width;
-        $this->_height = $data->height;
-		$style = $data->style;		
+		if(isset($data->limit)){
+			$this->_limit = $data->limit;
+		}
+        if(isset($data->_height)){
+			$this->_height = $data->height;
+		}
+		if(isset($data->_width)){
+			$this->_width = $data->width;
+		}
+		$style = "none";
+		if(isset($data->_width)){
+			$style = $data->style;		
+		}
+		
 		$information = $this->statusSuccess();
 		$productlist = array();
 		if (!isset($style) || !$style || $style == "none"){
@@ -201,7 +211,7 @@ class Simi_Spotproduct_Model_Spotproduct extends Simi_Connector_Model_Abstract {
 		$productList = array();
 		if ($productCollection && $productCollection->getSize()) {			
             $productCollection->addUrlRewrite(0);
-            $productCollection->setPageSize($limit);
+            $productCollection->setPageSize($this->_limit);
             $check_limit = 0;            
             foreach ($productCollection as $product) {
 				$_currentProduct = Mage::getModel('catalog/product')->load($product->getId());

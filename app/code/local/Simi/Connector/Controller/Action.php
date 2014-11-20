@@ -65,8 +65,13 @@ abstract class Simi_Connector_Controller_Action extends Mage_Core_Controller_Fro
         return $this->getFullActionName() . $last;
     }
 
-    public function praseJsonToData($json) {
-        $data = json_decode($json);
+    public function praseJsonToData($json) {  
+		$data = json_decode($json);    
+		if(!$data){		
+			$json = urldecode($json);	
+			$data = json_decode($json);    
+		}		
+		$data = json_decode($json);    
         $this->setData($data);
         $this->eventChangeData($this->getEventName(), $data);
         $this->_data = $this->getData();
@@ -81,9 +86,11 @@ abstract class Simi_Connector_Controller_Action extends Mage_Core_Controller_Fro
     }
 
     public function _printDataJson($data) {
+        ob_start();		
         echo $this->convertToJson($data);
         header("Content-Type: application/json");
         exit();
+		ob_end_flush();
     }
 
     public function getDeviceId() {

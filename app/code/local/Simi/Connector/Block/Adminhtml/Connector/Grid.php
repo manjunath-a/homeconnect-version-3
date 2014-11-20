@@ -86,6 +86,10 @@ class Simi_Connector_Block_Adminhtml_Connector_Grid extends Mage_Adminhtml_Block
             'header' => Mage::helper('connector')->__('App name'),
             'index' => 'app_name',
         ));
+		// $this->addColumn('app_id', array(
+            // 'header' => Mage::helper('connector')->__('App Id'),
+            // 'index' => 'app_id',
+        // ));
 
         // $this->addColumn('expired_date', array(
         // 'header' => Mage::helper('connector')->__('Expiration date'),
@@ -115,15 +119,16 @@ class Simi_Connector_Block_Adminhtml_Connector_Grid extends Mage_Adminhtml_Block
             'getter' => 'getId',
             'actions' => array(
                 array(
-                    'caption' => Mage::helper('connector')->__('Edit'),
-                    'url' => array('base' => '*/*/edit/website/' . $webId),
-                    'field' => 'id',
-                    'field' => 'device_id'
+                  //  'caption' => Mage::helper('connector')->__('Edit'),
+                    // 'url' => array('base' => '*/*/edit/website/' . $webId),
+                    // 'field' => 'app_id',
+                    // 'field' => 'device_id'
             )),
             'filter' => false,
             'sortable' => false,
             'index' => 'stores',
             'is_system' => true,
+			'renderer' => 'connector/adminhtml_grid_renderer_edit',
         ));
 
         // $this->addExportType('*/*/exportCsv', Mage::helper('connector')->__('CSV'));

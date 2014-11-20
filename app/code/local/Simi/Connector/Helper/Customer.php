@@ -66,6 +66,7 @@ class Simi_Connector_Helper_Customer extends Mage_Core_Helper_Abstract {
             'prefix' => $data->getPrefix() != NULL ? $data->getPrefix() : "",
             'suffix' => $data->getSuffix() != NULL ? $data->getSuffix() : "",
             'taxvat' => $data->getVatId() != NULL ? $data->getVatId() : "",
+			'vat_id' => $data->getVatId() != NULL ? $data->getVatId() : "",
             'street' => $street[0],
             'city' => $data->getCity(),
             'state_name' => $data->getRegion(),
@@ -98,6 +99,11 @@ class Simi_Connector_Helper_Customer extends Mage_Core_Helper_Abstract {
         $address['prefix'] = isset($data->prefix) == true ? $data->prefix : '';
         $address['suffix'] = isset($data->suffix) == true ? $data->suffix : '';
         $address['dob'] = isset($data->dob) == true ? $data->dob : '';
+		if(isset($data->vat_id)){
+			$address['vat_id'] = isset($data->vat_id) == true ? $data->vat_id : '';
+		}else{
+			$address['vat_id'] = isset($data->taxvat) == true ? $data->taxvat : '';
+		}		
         $address['gender'] = isset($data->gender) == true ? $data->gender : Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getOptionId('Male');
         $address['month'] = isset($data->month) == true ? $data->month : '';
         $address['day'] = isset($data->day) == true ? $data->day : '';
@@ -125,6 +131,7 @@ class Simi_Connector_Helper_Customer extends Mage_Core_Helper_Abstract {
     }
 
     public function showTotalOrder($order, &$data) {
+					
         if ($this->displayTypeSubOrder() == 3) {
             $data['subtotal_excl_tax'] = $order->getSubtotal();
             $data['subtotal_incl_tax'] = $order->getSubtotalInclTax();
@@ -166,6 +173,11 @@ class Simi_Connector_Helper_Customer extends Mage_Core_Helper_Abstract {
         } else {
             $data['grand_total'] = $order->getGrandTotal();
         }
+		if(Mage::app()->getLocale()->currency($order->getOrderCurrency()->getCurrencyCode())->getSymbol() != null){
+			$data['currency_symbol'] = Mage::app()->getLocale()->currency($order->getOrderCurrency()->getCurrencyCode())->getSymbol();
+		}else{
+			$data['currency_symbol'] = $order->getOrderCurrency()->getCurrencyCode();
+		}		
     }
 
 }

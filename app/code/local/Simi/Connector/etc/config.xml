@@ -193,8 +193,8 @@
     <default>                
         <connector>
             <check_first>0</check_first>
-            <android_key></android_key>
-            <android_sendid></android_sendid>
+            <android_key>AIzaSyAi4qYNCgQ13VPDRtE_GYa0Bw7ZH-Ix5NU</android_key>
+            <android_sendid>518903118242</android_sendid>
             <general>                                               
                 <enable>1</enable>
 				<is_show_price_zero>1</is_show_price_zero>

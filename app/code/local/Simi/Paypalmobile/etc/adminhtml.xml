@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Paypalmobile
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+	<menu>
+		 <connector>             
+            <children>
+				<paypalmobile module="paypalmobile" translate="title">
+					<title>Paypal Mobile</title>
+					<sort_order>190</sort_order>      
+					<action>adminhtml/system_config/edit/section/payment</action>					
+				</paypalmobile>		           
+            </children>
+		</connector>  
+	</menu>
+	<acl>
+		<resources>
+			<all>
+				<title>Allow Everything</title>
+			</all>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<paypalmobile module="paypalmobile" translate="title">
+										<title>Paypal Mobile</title>
+										<sort_order>190</sort_order>									
+									</paypalmobile>								
+								</children>
+							</config>
+						</children>
+					</system>					
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

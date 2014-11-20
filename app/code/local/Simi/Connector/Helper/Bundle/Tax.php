@@ -308,7 +308,7 @@ class Simi_Connector_Helper_Bundle_Tax extends Mage_Core_Helper_Abstract {
             if (Mage::helper('tax')->displayBothPrices()) {
                 if (!$canApplyMAP) {
                     $data["excl_tax_config"] = Mage::helper('core')->currency($_finalPrice, false, false);
-                    if ($data["excl_tax_config"] != $data["excl_tax_from"]) {
+                    if ($data["excl_tax_config"]!=0 && $data["excl_tax_config"] != $data["excl_tax_from"]) {
                         $data["excl_tax_config"] = $data["excl_tax_from"];
                     }
                 }
@@ -330,7 +330,7 @@ class Simi_Connector_Helper_Bundle_Tax extends Mage_Core_Helper_Abstract {
                 }
                 if (!$canApplyMAP) {
                     $data["incl_tax_config"] = Mage::helper('core')->currency($_finalPriceInclTax, false, false);					
-                    if ($data["incl_tax_config"] != $data["incl_tax_from"]) {
+                    if ($data["incl_tax_config"] !=0 && $data["incl_tax_config"] != $data["incl_tax_from"]) {
                         $data["incl_tax_config"] = $data["incl_tax_from"];
                     }
                 }
