@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Magento
  *
@@ -32,10 +33,9 @@
  * @package    Mage_Checkout
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_Form_Container
-{
-    public function getQuote()
-    {
+class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_Form_Container {
+
+    public function getQuote() {
         return Mage::getSingleton('checkout/session')->getQuote();
     }
 
@@ -45,8 +45,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * @param Mage_Payment_Model_Method_Abstract|null
      * @return bool
      */
-    protected function _canUseMethod($method)
-    {
+    protected function _canUseMethod($method) {
         return $method && $method->canUseCheckout() && parent::_canUseMethod($method);
     }
 
@@ -55,8 +54,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      *
      * @return mixed
      */
-    public function getSelectedMethodCode()
-    {
+    public function getSelectedMethodCode() {
         if ($method = $this->getQuote()->getPayment()->getMethod()) {
             return $method;
         }
@@ -67,9 +65,8 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * Payment method form html getter
      * @param Mage_Payment_Model_Method_Abstract $method
      */
-    public function getPaymentMethodFormHtml(Mage_Payment_Model_Method_Abstract $method)
-    {
-         return $this->getChildHtml('payment.method.' . $method->getCode());
+    public function getPaymentMethodFormHtml(Mage_Payment_Model_Method_Abstract $method) {
+        return $this->getChildHtml('payment.method.' . $method->getCode());
     }
 
     /**
@@ -77,8 +74,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      *
      * @param Mage_Payment_Model_Method_Abstract $method
      */
-    public function getMethodTitle(Mage_Payment_Model_Method_Abstract $method)
-    {
+    public function getMethodTitle(Mage_Payment_Model_Method_Abstract $method) {
         $form = $this->getChild('payment.method.' . $method->getCode());
         if ($form && $form->hasMethodTitle()) {
             return $form->getMethodTitle();
@@ -90,10 +86,35 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * Payment method additional label part getter
      * @param Mage_Payment_Model_Method_Abstract $method
      */
-    public function getMethodLabelAfterHtml(Mage_Payment_Model_Method_Abstract $method)
-    {
+    public function getMethodLabelAfterHtml(Mage_Payment_Model_Method_Abstract $method) {
         if ($form = $this->getChild('payment.method.' . $method->getCode())) {
             return $form->getMethodLabelAfterHtml();
         }
     }
+
+    /*
+     * To get the cash on delivery attribute in checkout page
+     */
+
+    public function getCashOnDelivery() {
+        $cashdeliverymessage = "no_message";
+        $cashdeliverynomessage = "no_message";
+        $cart = Mage::getSingleton('checkout/session')->getQuote();
+        foreach ($cart->getAllItems() as $item) {
+            $productId = $item->getProduct()->getId();
+            $productDetails = Mage::getModel('catalog/product')->load($productId);
+            if (isset($productDetails['cash_on_delivery'])) {
+                $cashondelivery = 'cashondelivery';
+                $cashdeliverymessage = "showmessage";
+            } else {
+                $cashondelivery = 'No';
+                $cashdeliverynomessage = "showmessage";
+            }
+        }
+        $cashinfo=array('cashondelivery'=>$cashondelivery,
+                                    'cashondeliverymessage'=>$cashdeliverymessage,
+                                    'cashdeliverynomessage'=>$cashdeliverynomessage);
+                                return $cashinfo;
+    }
+
 }
