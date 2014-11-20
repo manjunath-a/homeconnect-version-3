@@ -133,7 +133,7 @@ $numColumns = sizeof($this->getColumns());
                 <?php if ($this->getFilterVisibility()): ?>
                     <tr class="filter">
                     <?php $i=0;foreach ($this->getColumns() as $_column): ?>
-                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php echo $_column->getFilterHtml() ?></th>
+                        <th<?php echo $_column->getHeaderHtmlProperty() ?>><?php //echo $_column->getFilterHtml() ?></th>
                     <?php endforeach; ?>
                     </tr>
                 <?php endif ?>

@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Codewix_Adminhints>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Codewix_Adminhints>
+    </modules>
+</config> 
