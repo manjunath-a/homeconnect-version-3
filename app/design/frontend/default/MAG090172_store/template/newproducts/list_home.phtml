@@ -1,0 +1,106 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<div class="new-products">
+<div class="category-title"><h2><a href="<?php echo $this->getUrl('') ?>newproducts"><?php echo $this->getHeading(); ?></a></h2></div>
+
+<?php $_productCollection=$this->getProductCollection() ?>
+
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+
+	<?php $_collectionSize = $_productCollection->count() ?>
+	<?php 
+		$sliderFor = 5;
+		$productCount = $_collectionSize; 
+	?>	
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>	 
+    
+	<ul class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>" id="<?php if ($productCount >= $sliderFor){?>newproduct-carousel<?php }else{?>newproduct-grid<?php }?>"> 
+		
+    <?php $i=0; foreach ($_productCollection as $_product):  $i++;?>
+
+             <li class="item <?php if ($productCount >= $sliderFor){?>slider-item<?php }else{?>product-items<?php }?>">
+				<div class="product-block">
+				<div class="product-block-inner">
+					
+					<?php if($this->helper('framework')->isNewProduct($_product)):?>
+						<div class="new-label"><?php echo $this->__('New') ?></div>
+					<?php endif; ?>
+					
+					<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
+                                        <?php
+                                            //Modified by : Compassites - Shanmuga Prabu
+                                            //To display "Offer" instead of "Sale" over all products with discounted price
+                                            //Original was - echo $this->__('Sale')
+                                            //Changed to - echo $this->__('Offer')
+                                        ?>
+						<div class="sale-label"><?php echo $this->__('Offer') ?></div>
+					<?php endif; ?>
+					
+					<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(165); ?>" width="165" height="165" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+					
+						<h2 class="product-name" ><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName())?></a></h2> 
+				
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display custom Per Unit value next to price
+                                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                                    //Original was - $this->getPriceHtml($_product, true)
+                                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                                ?>
+                                <?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit'); ?> 
+				  
+				    <?php if($_product->getRatingSummary()): ?>
+						<div class="description grid_rating">
+							<?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+						</div>
+               		 <?php endif; ?>
+				 		
+					 
+						<?php if($_product->isSaleable()): ?>
+                                                <?php
+                                                    //Modified by : Compassites - Shanmuga Prabu
+                                                    //To display custom text on Add to Cart button
+                                                    //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+                                                    //Original was - echo $this->__('Add to Cart')
+                                                    //Changed to - echo $_product->getData('hco_addtocartlabel');
+                                                ?>
+                                                <button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button>
+						<?php else: ?>
+							<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>   
+						
+						<ul class="add-to-links">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    	</ul>  
+						                 
+					 
+					
+				</div><!-- End div class product-block-->
+				</div><!-- End div class product-block-inner -->			
+            </li>
+
+        <?php endforeach ?>
+        
+        </ul>
+	<span style="display: none; visibility: hidden;" class="newproduct_default_width"></span>
+ 
+ <?php endif; ?>
+
+</div>

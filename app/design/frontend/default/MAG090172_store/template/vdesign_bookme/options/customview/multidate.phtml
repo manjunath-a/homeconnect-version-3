@@ -1,0 +1,16 @@
+<?php $data = $this->getInfo(); ?>
+<?php 
+	date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/timezone'));
+
+	$values = explode(",", $data['value']);
+	$from = date("d-m-Y", $values[0]/1000);
+	
+	if(count($values) == 1 || strtotime($from) < $values[0] / 1000){
+		for($i = 0; $i < count($values) - 1; $i++)
+			echo Mage::helper('core')->formatDate(date("d-m-Y H:i:s", $values[$i]/1000), 'medium', true).'<br />';
+	}else{
+		$to = date("d-m-Y", $values[count($values)-2]/1000);
+
+		echo Mage::helper('core')->formatDate($from, 'medium', false).' - '.Mage::helper('core')->formatDate($to, 'medium', false);	
+	}
+?>

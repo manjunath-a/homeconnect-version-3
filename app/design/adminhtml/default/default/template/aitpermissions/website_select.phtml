@@ -1,0 +1,24 @@
+<?php
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+if ($websites = $this->getWebsites()): ?>
+<span class="field-row">
+
+    <label for="website_switcher"><?php echo $this->__('Website') ?> <span class="required">*</span></label>
+
+    <select name="website_switcher[]" id="website_switcher" class="left-col-block" multiple="multiple">
+        <?php foreach ($websites as $website): ?>
+            <option value="<?php echo $website->getId() ?>" 
+<?php if ((is_array($this->getCurrentWebsiteIds()) && in_array($website->getId(), $this->getCurrentWebsiteIds())) || $website->getId() == $this->getCurrentWebsiteIds()): ?>selected="selected"<?php endif; ?>><?php echo $website->getName(); ?></option>
+        <?php endforeach; ?>
+    </select>
+<?php echo $this->__('ctrl+click to select multiple websites') ?>    
+</span>
+<?php endif; ?>

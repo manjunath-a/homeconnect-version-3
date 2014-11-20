@@ -1,0 +1,168 @@
+<?php
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+?>
+<script type="text/javascript">
+    Validation.add('validate-one-required-by-name-ait', 'Please select one of the options.', function(v,elm){
+                var inputs = $$('input[name*="' + elm.name.replace(/([\\"])/g, '\\$1').replace(/[0-9\[\]]/g,'') + '"]');
+                var error = 1;
+                for(var i=0;i<inputs.length;i++) {
+                    if((inputs[i].type == 'checkbox' || inputs[i].type == 'radio') && inputs[i].checked == true) {
+                        error = 0;
+                    }
+                    if(Validation.isOnChange && (inputs[i].type == 'checkbox' || inputs[i].type == 'radio')) {
+                        Validation.reset(inputs[i]);
+                    }
+                }
+                if( error == 0 ) {
+                    return true;
+                } else {
+                    return false;
+                }
+    });
+</script>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('aitpermissions')->__('Advanced Permissions') ?></h4>
+    </div>
+    <fieldset id="grop_fields">
+        <span>
+            <input type="radio" name="access_scope" id="access_scope_disabled" 
+                      value="disabled" <?php if ('disabled' == $this->getScope()): ?>checked="checked"<?php endif; ?> onclick="javascript: aitpermissionsSetScope('disabled');" />
+					  <input type="hidden" id="aitpermissions_disable" name="aitpermissions_disable" value="1" disabled="disabled" />
+            <label for="access_scope_disabled"><?php echo $this->__('Disabled'); ?></label>
+        </span>
+        <br />
+        <span>
+            <input type="radio" name="access_scope" id="access_scope_store" 
+                      value="store" <?php if ('store' == $this->getScope()): ?>checked="checked"<?php endif; ?> onclick="javascript: aitpermissionsSetScope('store');" />
+            <label for="access_scope_store"><?php echo $this->__('Limit Access to Store Views/Categories'); ?></label>
+        </span>
+        <br />
+        <span>
+            <input type="radio" name="access_scope" id="access_scope_website" 
+                      value="website" <?php if ('website' == $this->getScope()): ?>checked="checked"<?php endif; ?> onclick="javascript: aitpermissionsSetScope('website');" />
+            <label for="access_scope_website"><?php echo $this->__('Limit Access to Websites'); ?></label>
+        </span>
+        <div id="aitpermissions_sett_block_stores" style="margin-top: 10px;">
+            <?php echo $this->getChildHtml('stores'); ?>
+        </div>
+        <div id="aitpermissions_sett_block_websites" style="margin-top: 10px;">
+            <?php echo $this->getChildHtml('websites'); ?>
+        </div>
+        <div id="aitpermissions_sett_block_options" style="margin-top: 10px;">
+            <?php echo $this->getChildHtml('options'); ?>
+        </div>
+        
+    </fieldset>
+</div>
+
+<script type="text/javascript">
+aitpermissionsSetScope = function(scope)
+{
+    switch (scope)
+    {
+        case 'store':
+        $('aitpermissions_sett_block_websites').hide();
+        $('aitpermissions_sett_block_stores').show();
+        $$('input[name*="store_switcher"]').each(function(checkbox){ checkbox.addClassName('validate-one-required-by-name-ait');});
+        $('aitpermissions_sett_block_options').show();
+		$('aitpermissions_disable').disable();
+        break;
+        
+        case 'website':
+        $('aitpermissions_sett_block_stores').hide();
+        $$('input[name*="store_switcher"]').each(function(checkbox){ checkbox.removeClassName('validate-one-required-by-name-ait');});
+        $('aitpermissions_sett_block_websites').show();
+        $('aitpermissions_sett_block_options').show();
+		$('aitpermissions_disable').disable();
+        break;
+        
+        case 'disabled':
+        $('aitpermissions_sett_block_stores').hide();
+        $$('input[name*="store_switcher"]').each(function(checkbox){ checkbox.removeClassName('validate-one-required-by-name-ait');});
+        $('aitpermissions_sett_block_websites').hide();
+        $('aitpermissions_sett_block_options').hide();
+		$('aitpermissions_disable').enable();
+        break;
+    }
+}
+aitpermissionsSetScope('<?php echo $this->getScope(); ?>');
+
+roleForm.submit = function() 
+{
+    if (!($('access_scope_disabled').checked))
+    {
+        var selected = false;
+        var storesSelected = [];
+        var categoriesSelected = [];
+        
+        if ($('access_scope_store').checked)
+        {
+            $$('div.storeview-select').each(function(store)
+            {
+                var storeSelected = false;
+                store.select('input[type="checkbox"]').each(function(checkbox)
+                {
+                    selected = (selected || checkbox.checked);
+                    storeSelected = (storeSelected || checkbox.checked);
+                });
+                storesSelected[storesSelected.length] = storeSelected;
+            });
+
+            $$('div.store-categories-tree').each(function(tree)
+            {
+                var storeCategoriesSelected = false;
+                tree.select('input[type="checkbox"]').each(function(checkbox)
+                {
+                    storeCategoriesSelected = (storeCategoriesSelected || checkbox.checked);
+                });
+                categoriesSelected[categoriesSelected.length] = storeCategoriesSelected;
+            });
+        }
+
+        if ($('access_scope_website').checked)
+        {
+            selected = Boolean($F('website_switcher').length);
+        }
+        
+        if (!selected)
+        {
+            if (confirm('<?php echo Mage::helper('aitpermissions')->__('No store-views or websites are chosen for the Role. If you proceed the advanced permissions settings will be disabled for the Role. Are you sure?') ?>'))
+            {
+                $('access_scope_disabled').checked = 'checked';
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else if (selected && $('access_scope_store').checked)
+        {
+            var allow = true;
+            for (var i = 0; i < storesSelected.length; i++)
+            {
+                allow = (allow && (!storesSelected[i] || categoriesSelected[i]));
+            }
+
+            if (!allow)
+            {
+                alert('<?php echo Mage::helper('aitpermissions')->jsQuoteEscape(Mage::helper('aitpermissions')->__('Please, assign at least one category for each checked store.')) ?>');
+                return false;
+            }
+        }
+    }
+
+    if (this.validator.validate())
+    {
+        this._submit();
+    }
+}
+</script>

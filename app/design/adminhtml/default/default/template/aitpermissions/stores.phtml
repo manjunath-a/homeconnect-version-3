@@ -1,0 +1,39 @@
+<?php
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+if ($websites = $this->getWebsites()): ?>
+<span class="field-row"><label for="stores"><?php echo $this->__('Store View') ?> <span class="required">*</span></label>
+<select name="stores[]" id="stores" size="10" style="width:280px;" class="required-entry select multiselect" multiple="multiple">
+<?php if ($this->hasDefaultOption()): ?>
+    <option value=""><?php echo $this->getDefaultStoreName() ?></option>
+<?php endif; ?>
+    <?php foreach ($websites as $website): ?>
+        <?php $showWebsite=false; ?>
+        <?php foreach ($website->getGroups() as $group): ?>
+            <?php $showGroup=false; ?>
+            <?php foreach ($this->getStores($group) as $store): ?>
+                <?php if ($showWebsite == false): ?>
+                    <?php $showWebsite = true; ?>
+                    <optgroup label="<?php echo $website->getName() ?>"></optgroup>
+                <?php endif; ?>
+                <?php if ($showGroup == false): ?>
+                    <?php $showGroup = true; ?>
+                    <optgroup label="&nbsp;&nbsp;&nbsp;<?php echo $group->getName() ?>">
+                <?php endif; ?>
+                <option value="<?php echo $store->getId() ?>"<?php if($this->getStoreId() == $store->getId()): ?> selected="selected"<?php endif; ?>>&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $store->getName() ?></option>
+            <?php endforeach; ?>
+            <?php if ($showGroup): ?>
+                </optgroup>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+</select>
+</span>
+<?php endif ?>

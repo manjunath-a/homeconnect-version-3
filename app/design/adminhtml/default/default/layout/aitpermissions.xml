@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+    <adminhtml_catalog_category_edit>
+        <reference name="left">
+            <block name="category.tree.aitperm" type="adminhtml/catalog_category_tree" template="aitpermissions/catalog_category_tree.phtml" after="-" />
+        </reference>
+    </adminhtml_catalog_category_edit>
+</layout>
+<!--
+/**
+ * Advanced Permissions
+ *
+ * @category:    Aitoc
+ * @package:     Aitoc_Aitpermissions
+ * @version      2.8.1
+ * @license:     Kl7jRk0he17edeJ6OS19LXc2T80wKqLuOh4O30S6vG
+ * @copyright:   Copyright (c) 2014 AITOC, Inc. (http://www.aitoc.com)
+ */
+-->
