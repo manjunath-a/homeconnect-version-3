@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <config>
+    <modules>
+        <Hco_Cashondelivery>
+            <version>0.1.0</version>
+        </Hco_Cashondelivery>
+    </modules>
+    <global>
+        <events>
+            <controller_front_init_routers>
+                <observers>
+                    <Hco_Cashondelivery_model_observer>
+                        <type>singleton</type>
+                        <class>Hco_Cashondelivery_Model_Observer</class>
+                        <method>checkForConfigRequest</method>
+                    </Hco_Cashondelivery_model_observer>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+        <blocks>
+            <cashondelivery>
+                <class>Hco_Cashondelivery_Block</class>
+            </cashondelivery>
+        </blocks>
+    </global>
+    <frontend>
+        <routers>
+            <cashondelivery>
+                <use>standard</use>
+                <args>
+                    <module>Hco_Cashondelivery</module>
+                    <frontName>cashondelivery</frontName>
+                </args>
+            </cashondelivery>
+        </routers>  
+    </frontend>
+</config> 
+
+
