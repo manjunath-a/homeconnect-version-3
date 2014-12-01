@@ -746,7 +746,7 @@ background:url(../images/sprite.png) -216px -350px no-repeat;}
 .header .form-search { position:relative; float:right; clear:both; height:30px; 
 /*  Hco  Margin-top code changes
 	margin-top:15px;*/
-     margin-top:10px;
+     margin-top:-40px;
 /*Hco  margin-top code changes ends*/
 /*        background:#C2D82E;*/
         background: #CDD0E4;

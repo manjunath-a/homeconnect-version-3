@@ -1,4 +1,5 @@
-<?php
+<?xml version="1.0"?>
+<!--
 /**
  * Magestore
  * 
@@ -14,21 +15,18 @@
  * version in the future.
  * 
  * @category 	Magestore
- * @package 	Magestore_Paypalmobile
+ * @package 	Magestore_Connector
  * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
  * @license 	http://www.magestore.com/license-agreement.html
  */
-
- /**
- * Paypalmobile Resource Model
- * 
- * @category 	Magestore
- * @package 	Magestore_Paypalmobile
- * @author  	Magestore Developer
- */
-class Simi_Paypalmobile_Model_Mysql4_Paypalmobile extends Mage_Core_Model_Mysql4_Abstract
-{
-	public function _construct(){
-		$this->_init('paypalmobile/paypalmobile', 'paypalmobile_id');
-	}
-}
+-->
+<layout version="0.1.0">
+	<default>
+		<!-- update layout for all frontend page -->
+	</default>
+	<connector_index_index>
+		<reference name="content">
+			<block type="connector/connector" name="connector" template="connector/connector.phtml" />
+		</reference>
+	</connector_index_index>
+</layout>

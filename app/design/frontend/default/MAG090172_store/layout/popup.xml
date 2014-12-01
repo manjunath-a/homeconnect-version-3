@@ -1,4 +1,5 @@
-<?php
+<?xml version="1.0"?>
+<!--
 /**
  * Magestore
  * 
@@ -14,22 +15,19 @@
  * version in the future.
  * 
  * @category 	Magestore
- * @package 	Magestore_Paypalmobile
+ * @package 	Magestore_Popup
  * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
  * @license 	http://www.magestore.com/license-agreement.html
  */
-
- /**
- * Paypalmobile Resource Collection Model
- * 
- * @category 	Magestore
- * @package 	Magestore_Paypalmobile
- * @author  	Magestore Developer
- */
-class Simi_Paypalmobile_Model_Mysql4_Paypalmobile_Collection extends Mage_Core_Model_Mysql4_Collection_Abstract
-{
-	public function _construct(){
-		parent::_construct();
-		$this->_init('paypalmobile/paypalmobile');
-	}
-}
+-->
+<layout version="0.1.0">
+    <default>
+        <!-- update layout for all frontend page -->
+        <reference name="content">
+            <block type="popup/popup" after="-" name="popup" />
+        </reference>
+    </default>
+    <popup_index_index> 
+              
+    </popup_index_index>
+</layout>

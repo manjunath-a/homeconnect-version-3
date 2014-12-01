@@ -96,7 +96,7 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
      * To get the cash on delivery attribute in checkout page
      */
 
-    public function getCashOnDelivery() {
+    /*public function getCashOnDelivery() {
         $cashdeliverymessage = "no_message";
         $cashdeliverynomessage = "no_message";
         $cart = Mage::getSingleton('checkout/session')->getQuote();
@@ -112,9 +112,9 @@ class Mage_Checkout_Block_Onepage_Payment_Methods extends Mage_Payment_Block_For
             }
         }
         $cashinfo=array('cashondelivery'=>$cashondelivery,
-                                    'cashondeliverymessage'=>$cashdeliverymessage,
-                                    'cashdeliverynomessage'=>$cashdeliverynomessage);
-                                return $cashinfo;
-    }
+                        'cashondeliverymessage'=>$cashdeliverymessage,
+                        'cashdeliverynomessage'=>$cashdeliverynomessage);
+        return $cashinfo;
+    }*/
 
 }
