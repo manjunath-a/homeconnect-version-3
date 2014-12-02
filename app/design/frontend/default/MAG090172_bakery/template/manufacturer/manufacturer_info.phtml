@@ -1,0 +1,22 @@
+<?php $manufacturer = $this->getManufacturerName() ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="category-head">
+<div class="page-title"><h2><?php echo $manufacturer->getTitle()?></h2></div>
+</div>
+
+<div class="manufacture_info">		
+<?php if ($image = $manufacturer->getFilename()): ?>
+	
+		<div class="manufacture_image">
+			<?php echo $this->getLayout()->createBlock('core/template')->setmanufacturerimage($manufacturer->getFilename())->setListPageFlag(1)->setTemplate('manufacturer/manufacturer_resize.phtml')->toHtml(); ?>		
+<?php endif ?>
+</div>
+<div class="manufacture_detail">
+<?php if ($description = $manufacturer->getDescription()): ?>
+	<?php echo $description ?>
+</div>	
+	
+<?php endif ?>
+</div>
+<div style="clear:both;"></div>
+<?php echo $this->getChildHtml('product_list');?>

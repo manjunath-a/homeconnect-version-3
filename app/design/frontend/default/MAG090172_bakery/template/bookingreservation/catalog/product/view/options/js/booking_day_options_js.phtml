@@ -1,0 +1,515 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+
+<?php
+
+$_product = $this->getProduct();
+
+$Monday_business_hrs_starts = $_product->getMondayBusinessHrsStarts();
+$Monday_business_hrs_ends = $_product->getMondayBusinessHrsEnds();
+
+$Tuesday_business_hrs_starts = $_product->getTuesdayBusinessHrsStarts();
+$Tuesday_business_hrs_ends = $_product->getTuesdayBusinessHrsEnds();
+
+$Wednesday_business_hrs_starts = $_product->getWednesdayBusinessHrsStarts();
+$Wednesday_business_hrs_ends = $_product->getWednesdayBusinessHrsEnds();
+
+$Thursday_business_hrs_starts = $_product->getThursdayBusinessHrsStarts();
+$Thursday_business_hrs_ends = $_product->getThursdayBusinessHrsEnds();
+
+$Friday_business_hrs_starts = $_product->getFridayBusinessHrsStarts();
+$Friday_business_hrs_ends = $_product->getFridayBusinessHrsEnds();
+
+$Saturday_business_hrs_starts = $_product->getSaturdayBusinessHrsStarts();
+$Saturday_business_hrs_ends = $_product->getSaturdayBusinessHrsEnds();
+
+$Sunday_business_hrs_starts = $_product->getSundayBusinessHrsStarts();
+$Sunday_business_hrs_ends = $_product->getSundayBusinessHrsEnds();
+
+
+$current_day_name = date('l');
+
+$bus_start_str = $current_day_name.'_business_hrs_starts';
+$bus_end_str = $current_day_name.'_business_hrs_ends';
+
+
+$bookingStartTime = $$bus_start_str;
+
+$isTodayClosed = '';
+
+if($bookingStartTime == "closed"){
+    
+    $isTodayClosed = 'yes';    
+    
+}else{
+    
+    $start_time_hrs = (int) substr($bookingStartTime,0,2);
+    $start_time_minutes = (int) substr($bookingStartTime,3,3);
+    $start_daypart = trim(substr($bookingStartTime,5,5));
+}
+
+
+
+$bookingEndTime = $$bus_end_str;
+
+if($bookingEndTime == "closed"){
+    
+    $isTodayClosed = 'yes';    
+    
+}else{
+
+    $end_time_hrs = (int) substr($bookingEndTime,0,2);
+    $end_time_minutes = (int) substr($bookingEndTime,3,3);
+    $end_daypart = trim(substr($bookingEndTime,5,5));
+}
+
+
+$bookingTimeSlot = (int) $_product->getBookingTimeSlot();
+
+$bufferPeriod = (int) $_product->getBufferPeriod();
+
+$customer_group_id = 0;
+$login = Mage::getSingleton('customer/session')->isLoggedIn();
+if($login){
+    $customer_group_id = Mage::getSingleton('customer/session')->getCustomerGroupId();    
+}
+$_product->setCustomerGroupId($customer_group_id);
+
+$prod_basic_price = (float) $_product->getPriceModel()->getFinalPrice(1, $_product);
+
+$booking_tire_prices = $_product->getBookingTierPrices();
+
+?>
+
+<span id="is_store_closed_today" style="display:none;"><?php echo $isTodayClosed; ?></span>
+    
+
+<p id="sorry_we_are_closed" style="display:none;"><?php echo Mage::helper('bookingreservation')->__('Sorry we are closed.'); ?></p>
+
+
+
+<div class="date-time-container" id="fme_date_time_container" style="display:none;">
+
+
+    <div class="date-time-from">
+        
+        <label style="padding-right:20px;"><strong><?php echo Mage::helper('bookingreservation')->__('Selected Days'); ?></strong></label>
+        <div id="selected_days_container">
+            
+            
+            
+        </div>      
+        
+    </div>
+    
+    <div class="clearer"></div>
+    <input type="hidden" name="product-booking-price" id="product-booking-price" value="<?php echo $prod_basic_price; ?>" />
+    <input type="hidden" name="booking-selected-days" id="booking-selected-days" value="" />
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+                       document.observe("dom:loaded", function() {
+                        
+                        
+                        
+                                    //Load business hours of 7 days
+                                    CurrentDay.swithDayHrs();
+                                    TimeDifference.calculateBookingTime(); 
+                                    
+                                    
+                                    //this is for configurable products
+                                    
+                                    $$('.super-attribute-select').each(function(element) {
+                                    
+                                            element.observe('change', function(){ bookingFilterOptionsPrice() });
+                                    
+                                    });
+                                    
+                                    //this is for custom options products
+                                    $$('.product-custom-option').each(function(element) {
+                                    
+                                            element.observe('change', function(){ bookingFilterOptionsPrice() });
+                                    
+                                    });
+                                    
+                                    
+                            
+                            
+                       });
+
+
+                        
+                        
+                        TimeDifference = {
+                            
+                            calculateBookingTime : function(minutes_difference){
+                                
+                              
+                                var booking_price = <?php echo $prod_basic_price; ?>;
+                                
+                                
+                                if(CurrentDay.selectedDays.length <= 0){
+                                    selected_slots = 1; //by default current day is selected days
+                                }else{                                    
+                                    selected_slots = CurrentDay.selectedDays.length; //total selected days
+                                }
+                                
+                                var calculated_price = booking_price*selected_slots;
+                                
+                                <?php if($booking_tire_prices): ?>
+                                    //match with tier prices, otherwise return the given calculated price
+                                    calculated_price = bookingTierPrices(selected_slots,calculated_price);
+                                <?php endif; ?>
+                                
+                                
+                                optionsPrice.productPrice = calculated_price;                                
+                                $('product-booking-price').value = calculated_price;
+                                
+                                    opConfig.reloadPrice();
+                                    
+                                    <?php if($_product->isConfigurable()): ?> // for configurable products
+                                            spConfig.reloadPrice();
+                                    <?php endif; ?>
+                                
+                                bookingFilterOptionsPrice();
+                                this.saveSelectedDays(); //embed the selected days to post field
+                            },
+                            saveSelectedDays : function(){
+                                
+                                var selected_days = '';
+                                for(var i=0; i<CurrentDay.selectedDays.length; i++){
+                                    if(i == 0)
+                                        selected_days = CurrentDay.selectedDays[i];
+                                    else
+                                        selected_days += ','+CurrentDay.selectedDays[i];                                        
+                                }
+                                
+                                $('booking-selected-days').value = selected_days;
+                            }
+                            
+                        }
+                        
+                        
+                    bookingFilterOptionsPrice = function(){
+                        
+                        if($('product-price-'+<?php echo $_product->getId() ?>+'_clone'))
+                            var final_price = $('product-price-'+<?php echo $_product->getId() ?>+'_clone').innerHTML;
+                        else
+                            var final_price = $('product-price-'+<?php echo $_product->getId() ?>).innerHTML;
+                            
+                        final_price = final_price.unescapeHTML(); //removes the html
+                        final_price = final_price.strip(); //removes the whitespaces
+                        final_price = final_price.match(/\d+\.?\d*/g); // removes the $
+                        
+                        $('product-booking-price').value = final_price;                        
+                    }
+                    
+                    
+                    
+                    
+                    var CurrentDay = {
+                            selectedDays : new Array(),
+                            
+                            swithDayHrs : function(day_name){
+                                
+                                
+                                
+                                    var date = $('fme_calendar_date').value;
+                                    
+                                    if(day_name != 'refresh')    
+                                        this.addSelectedDays(date);
+                                    
+                                    //update selected days container
+                                    var days_html = new Element('div');
+                                    for(var i=0; i<this.selectedDays.length; i++){
+                                        
+                                        var ff_day = this.selectedDays[i];
+                                        var remove_html = new Element('a', {href:'javascript: ', 'onclick':"CurrentDay.deleteSelectedDays('"+ff_day+"', 'true')"}).update('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X'); 
+                                        days_html.insert(ff_day);
+                                        days_html.insert(remove_html);
+                                        days_html.insert('<br>');
+                                    }
+                                    $('selected_days_container').update(days_html);
+                                
+                                
+                                
+                            },
+                            addSelectedDays : function(day){
+                                
+                                var already_selected = false;
+                                for(var i=0; i<this.selectedDays.length; i++){
+                                    
+                                    if(this.selectedDays[i] == day)
+                                        already_selected = true;
+                                        
+                                }
+                                
+                                if(!already_selected)
+                                    this.selectedDays.push(day);
+                                
+                            },
+                            deleteSelectedDays : function(day, refresh){
+                                
+                                for(var i = this.selectedDays.length; i>=0; i--){
+                                    
+                                    if(this.selectedDays[i] == day){
+                                        this.selectedDays.splice(i,1);
+                                        break;
+                                    }
+                                }
+                                
+                                if(refresh){
+                                    this.swithDayHrs('refresh');                                    
+                                }
+                                
+                                TimeDifference.calculateBookingTime();
+                                
+                            }
+                    }
+                
+                
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    //<![CDATA[
+           
+          
+           
+           Event.observe(window, 'load', function() {                
+               
+                
+                checkOnloadStoreIsClosed();
+                
+                
+           });
+
+
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////
+        
+        checkCalenderClickStoreIsClosed = function(){
+                    
+                    var url  = '<?php echo $this->getUrl('bookingreservation/index/getCurrentDayStoreOpen') ?>';
+                    
+                    var date = new Date(converToIE8LessDate($F('fme_calendar_date')));
+                    
+                    var test_date = new Date(converToIE8LessDate('2013-07-08')); //This is Monday
+                    if(test_date.getDay() == 0){ //Monday is the first day
+                        var current_day = Calendar.DAY_NAMES[date.getDay()+1];    
+                    }else{ //Sunday is the first day
+                        var current_day = Calendar.DAY_NAMES[date.getDay()];
+                    }
+                    
+                    //var current_day = Calendar.DAY_NAMES[date.getDay()];                   
+                    
+                    new Ajax.Request(url,{
+                        
+                        method: 'post',                        
+                        parameters : {product_id:<?php echo $_product->getId(); ?>,dayname:current_day},
+                        onLoading: function(){
+                            
+                            createWaitingOverLay();
+                            
+                        },
+                        onSuccess: function(transport) { 
+                           
+                            if(transport.responseText == 'open'){ // if store is open
+                            
+                                $('fme_date_time_container').setStyle('display:block');
+                                $('sorry_we_are_closed').setStyle('display:none');
+                                
+                                
+                                
+                                // show the time schedule after getting busy time of selected day of calender
+                                //getBookingBusyTime($F('fme_calendar_date'),<?php echo $_product->getId() ?>,<?php echo Mage::app()->getStore()->getStoreId() ?>);                   
+                                
+                                $$('.product-options-bottom').each(function(c){
+                                    c.setStyle('display:block');
+                                });
+                                
+                            }else{ // store is closed yes
+                                
+                                //$('fme_date_time_container').setStyle('display:none');
+                                $('sorry_we_are_closed').update('Sorry we are closed on '+current_day);
+                                $('sorry_we_are_closed').setStyle('display:block');
+                                
+                                //remove selected day from array
+                                CurrentDay.deleteSelectedDays($('fme_calendar_date').value, true); //true is equal to refresh
+                                
+                                //$$('.product-options-bottom').each(function(c){
+                                //    c.setStyle('display:none');
+                                //});
+                                //$('.product-options-bottom').setStyle('display:none');
+                            }                       
+                            
+                        },
+                        onComplete: function(){
+                            
+                           removeWaitingOverLay();
+                        },
+                        onFailure: function(transport) {
+                            
+                            alert('Failed to get Calender day close info');
+                            
+                        }                      
+                        
+                        
+                    });
+                    
+                }
+            
+            
+            
+            /////////////////////////////////////////////////////////////////////////////////////
+            
+            checkOnloadStoreIsClosed = function(){
+                    
+                    var url  = '<?php echo $this->getUrl('bookingreservation/index/getCurrentDayStoreOpen') ?>';
+                    
+                    var date = new Date(converToIE8LessDate($F('fme_calendar_date')));
+                    
+                    var test_date = new Date(converToIE8LessDate('2013-07-08')); //This is Monday
+                    if(test_date.getDay() == 0){ //Monday is the first day
+                        var current_day = Calendar.DAY_NAMES[date.getDay()+1];    
+                    }else{ //Sunday is the first day
+                        var current_day = Calendar.DAY_NAMES[date.getDay()];
+                    }
+                    
+                    //var current_day = Calendar.DAY_NAMES[date.getDay()];                   
+                    
+                    new Ajax.Request(url,{
+                        
+                        method: 'post',                        
+                        parameters : {product_id:<?php echo $_product->getId(); ?>,dayname:current_day},
+                        onLoading: function(){
+                            
+                            createWaitingOverLay();
+                            
+                        },
+                        onSuccess: function(transport) {                            
+                           
+                           
+                            if(transport.responseText == 'open'){ // if store is open   
+                                
+                                $('fme_date_time_container').setStyle('display:block');
+                                $('sorry_we_are_closed').setStyle('display:none');
+                                
+                                
+                                Form.reset('product_addtocart_form');
+                                // show the time schedule after getting busy time of current day
+                                //getBookingBusyTime($F('fme_calendar_date'),<?php echo $_product->getId() ?>,<?php echo Mage::app()->getStore()->getStoreId() ?>);
+                                
+                                $$('.product-options-bottom').each(function(c){
+                                    c.setStyle('display:block');
+                                });
+                                
+                            }else{ // store is closed yes
+                                
+                                //$('fme_date_time_container').setStyle('display:none');
+                                $('sorry_we_are_closed').setStyle('display:block');
+                                CurrentDay.deleteSelectedDays($('fme_calendar_date').value, true);
+                                
+                                //$$('.product-options-bottom').each(function(c){
+                                //    c.setStyle('display:none');
+                                //});
+                            }
+                            
+                        },
+                        onComplete: function(){
+                            
+                            removeWaitingOverLay();
+                        },
+                        onFailure: function(transport) {
+                            
+                            alert('Failed to get Calender day close info');
+                            
+                        }                      
+                        
+                        
+                    });
+                    
+                }
+                
+                
+                
+            /////////////////////////////////////////////////////////////////////////////////////
+            
+                
+            
+            
+            
+           //create overlay and append to given element
+        function createWaitingOverLay(){
+            
+            
+            $$('body')[0].insert(new Element("div",{id:"fme-overlay"}));
+            
+        }
+        
+        //removes overlay
+        function removeWaitingOverLay(){
+            
+            if($('fme-overlay') != null) {
+                
+                $('fme-overlay').remove();  
+            }            
+        }
+            
+        function converToIE8LessDate(dateStr){
+            
+            //var dateStr = "2011-08-03" returned form
+            
+            if(IE8d){
+                
+                var d = dateStr.split("-");            
+                var dateStr = new Date(d[0],(d[1]-1),d[2]);
+            }
+            
+            
+            return dateStr;
+        }    
+            
+    //]]>
+</script>
+
+

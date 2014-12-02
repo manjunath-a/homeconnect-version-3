@@ -1,0 +1,35 @@
+ 
+<?php if (($_products = $this->getNewProductCollection()) && $_products->getSize()): ?>
+<div class="block block-related">
+    <div class="block-title">
+      <strong><span><?php echo $this->getSidebarHeading(); ?></span></strong>
+    </div>
+    <div class="block-content">      
+        <ol class="mini-products-list" id="block-newproducts">
+        <?php foreach ($_products as $_item): ?>
+            <li class="item">                
+                <div class="product" style="margin-left: 0px;">
+                    <a href="<?php echo $_item->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_item->getName()) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->resize(50) ?>" width="50" height="50" alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></a>
+					
+                    <div class="product-details">
+                    <p class="product-name"><a href="<?php echo $_item->getProductUrl() ?>"><?php echo $this->escapeHtml($_item->getName()) ?></a></p>
+					 
+					<div class="price-box"><span class="price"><?php echo Mage::helper('core')->currency($_item->price, true, false); ?></span></div>
+				  
+						<?php if($_item->isSaleable()): ?>
+						<p><a href="<?php echo $_item->getProductUrl() ?>"  rel="nofollow" class="addto-cart"><?php echo $this->__('Add to Cart') ?></a></p>
+						<?php endif; ?>
+					 
+                    </div>
+					
+                </div>
+            </li>
+        <?php endforeach ?>
+        </ol>
+		<div class="actions"><a href="<?php echo $this->getUrl('') ?>newproducts"><?php echo $this->__('See All') ?></a></div>
+        <script type="text/javascript">decorateList('block-newproducts', 'none-recursive')</script>
+    </div>    
+</div>
+<?php endif ?>
+
+ 

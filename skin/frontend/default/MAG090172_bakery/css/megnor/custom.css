@@ -1,0 +1,264 @@
+.tm-hide { opacity: 0; filter:alpha(opacity=0); }
+.tm-checkbox {
+	background: url('../../images/sprite.png') -2px -41px no-repeat;
+	display:inline-block;
+	width:17px;
+	height:17px;vertical-align: middle;
+}
+
+.tm-radio { background: url('../../images/sprite.png') 0 -5px no-repeat;	display: inline;
+	padding:0px;
+   	height:17px; 
+    vertical-align: middle;
+   }
+
+.tm-checked { background-position:-75px -42px ; }
+.tm-selected { background-position: -73px -5px; }
+
+
+.tm-checkbox-green {
+	background: url('../../images/megnor/sprite.png') 0 1px no-repeat;
+	display:inline-block;
+	*display: inline;
+}
+.tm-checked-green { background-position: 0 -18px; }
+.tm-checkbox, .tm-radio { zoom: 1;}
+.ie7 .tm-checkbox{ display:inline; }
+/* -------------
+ * Selects
+ * ------------- */
+/* Custom Select*/
+.sbHolder{
+	 
+	border: solid 1px #ddd; 
+	position: relative;
+	width: auto; 
+	padding:5px 25px 5px 7px;
+	text-align:left;
+	border-radius:3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+.sbHolder:focus .sbSelector{
+	
+}
+.sbSelector{
+	  outline: none;
+	overflow: hidden;	 
+	top: 0;	 
+	display:block;
+}
+.sbSelector:link, .sbSelector:visited, .sbSelector:hover{
+ 
+	outline: none;
+	text-decoration: none;
+}
+.sbToggle{
+	background: url("../../images/arrow-down.png") no-repeat scroll center center transparent;
+	display: block; 
+	outline: none;
+	position: absolute;
+	right: 4px;
+    top:7px;
+	height:15px;
+	width:15px;
+ 
+}
+ 
+.sbToggleOpen{
+	background: url("../../images/arrow-up.png") no-repeat scroll center center transparent;
+} 
+.sbOptions{
+	background-color: #fff;
+	border: solid 1px #ddd;
+	list-style: none;
+	right: -1px;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 26px !important;
+  width: 100%;
+	z-index: 1;
+	overflow-y: auto;
+}
+.sbOptions li{
+	padding: 0 7px;
+	margin:0;
+}
+.sbOptions a{	 
+	display: block;
+	outline: none;
+	padding: 4px 0 4px 3px;
+	text-decoration:none;
+}
+ 
+
+/* display none until init */
+.product-carousel{
+	display: none;
+	position: relative;
+	width: 100%;
+	-ms-touch-action: pan-y;
+}
+#column-left .product-carousel, #column-right .product-carousel { display:block;}
+#column-left .customNavigation, #column-right .customNavigation { display:none;}
+.product-carousel .slider-wrapper{
+	display: none;
+	position: relative;
+	-webkit-transform: translate3d(0px, 0px, 0px);
+	-webkit-perspective: 1000;
+}
+.product-carousel .slider-wrapper-outer{
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+}
+.product-carousel .slider-wrapper-outer.autoHeight{
+	-webkit-transition: height 500ms ease-in-out;
+	-moz-transition: height 500ms ease-in-out;
+	-ms-transition: height 500ms ease-in-out;
+	-o-transition: height 500ms ease-in-out;
+	transition: height 500ms ease-in-out;
+}
+	
+.product-carousel .slider-item{
+	float: left;
+}
+.slider-controls .slider-page,
+.slider-controls .slider-buttons div{
+	cursor: pointer;
+}
+.slider-controls {
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* mouse grab icon */
+.grabbing { 
+    cursor:url("../../img/megnor/grabbing.png") 8 8, move;
+}
+
+/* fix */
+.product-carousel  .slider-wrapper,
+.product-carousel  .slider-item{
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility:    hidden;
+	-ms-backface-visibility:     hidden;
+}
+.customNavigation    { text-align: center; position:absolute;width:100%}
+.customNavigation a{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	display: block;
+    float: right;
+    height: 22px;
+    position: absolute;
+    top: -34px;
+    width: 22px;
+
+
+}
+
+.customNavigation a.prev {
+  	background: url("../../images/sprite.png") no-repeat scroll -234px 2px transparent;
+    right: 85px;
+}
+.customNavigation a.prev:hover 	{ background-position: -234px -27px; text-decoration:none;}
+.customNavigation a.next {
+	background: url("../../images/sprite.png") no-repeat scroll -204px 2px transparent;
+    right:28px;
+}
+.customNavigation a.next:hover 	{ background-position: -204px -27px; text-decoration:none;}
+ 
+
+/* Responsive menu Css Start */
+	.nav-responsive span { display:inline-block; background:none;}
+	.ie7 .nav-responsive span { display:inline;}
+	.nav-responsive { cursor:pointer; display:none;   }
+	#nav-mobile  ul  li{ list-style:none; position:relative;}
+	.nav-responsive .expandable{
+		 background: url("../../images/sprite.png") no-repeat scroll -163px -122px transparent;
+    height: 25px;
+    margin-right: 5px;
+    margin-top: 10px;
+    width: 30px; 
+	} 
+	.responsive-menu { padding:0; position:relative;}
+	
+	.responsive-menu #nav-mobile{ 
+		position:absolute; 
+		z-index:999;  
+		display:none; 
+		margin-top:-3px; 
+		padding:5px 0;
+		width:100%; 
+		list-style:none;
+		 border-radius: 0 0 5px 5px;
+	-moz-border-radius:0 0 5px 5px;
+	-webkit-border-radius:0 0 5px 5px;
+	}
+	.responsive-menu #nav-mobile li{ padding:0 0px 0 15px; }
+	.responsive-menu #nav-mobile ul{padding-left:10px;}
+	.nav-responsive div,
+	.responsive-menu .hitarea {
+		background: none;
+	height: 16px;
+		width: 16px; 
+		float: right;
+		cursor: pointer;
+		margin-right:15px;
+		 margin-top: 6px;
+	}
+	.responsive-menu .expandable .collapsable-hitarea{ 
+		background:url("../../images/sprite.png") no-repeat scroll -237px -127px transparent;		 
+	} 
+	.responsive-menu .expandable-hitarea { 
+		background:url("../../images/sprite.png") no-repeat scroll -208px -127px transparent;		 
+	} 
+	.responsive-menu .collapsable-hitarea { 
+		background: url("../../images/sprite.png") no-repeat scroll -237px -127px transparent;		
+	} 
+
+/* Responsive menu Css End */
+
+
+/*RESPONSIVE TABLE*/
+.table-responsive { display:none; visibility:hidden;}	
+.tm_responsive_container,
+.tm_responsive_container_footer{ width:auto; overflow:hidden;}
+
+.tm_responsive_group{
+	float:left; 
+    margin: 5px 0;
+    padding: 3%;
+    width: 92%; 
+	border:1px solid #E3E2E2;
+	color:#666;
+	background:#f6f6f6  
+}
+.tm_responsive_row label{
+  width: 100px;
+  display:block;
+  float:left;
+  font-weight: bold;
+}
+.tm_responsive_row span{
+  width: 250px;
+  display:block;
+  float:left;
+}
+.tm_responsive_row{
+ overflow:hidden;
+ border-bottom: 1px solid #EEEEEE;
+ padding:10px 0;
+}
+.tm_responsive_row span .separator{ display:none; }
+/*RESPONSIVE TABLE*/

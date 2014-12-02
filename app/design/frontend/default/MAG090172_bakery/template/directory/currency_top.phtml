@@ -1,0 +1,23 @@
+<?php
+/**
+ * Currency switcher
+ *
+ * @see Mage_Directory_Block_Currency
+ */
+?>
+<?php if($this->getCurrencyCount()>1): ?>
+<div class="tm_top_currency">
+
+        <select name="currency" title="<?php echo $this->__('Currency') ?>" onchange="setLocation(this.value)">
+        <?php foreach ($this->getCurrencies() as $_code => $_name): ?>
+            <option value="<?php echo $this->getSwitchCurrencyUrl($_code) ?>"<?php if($_code==$this->getCurrentCurrencyCode()): ?> selected="selected"<?php endif; ?>>
+                <?php echo $_code ?>
+            </option>
+        <?php endforeach; ?>
+        </select>
+		<label class="btn"><?php echo $this->__('Currency:') ?></label>
+</div>
+<?php endif; ?>
+
+
+ 
