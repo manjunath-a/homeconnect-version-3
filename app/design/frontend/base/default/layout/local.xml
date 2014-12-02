@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout version="0.1.0">
+       <cashondelivery_index_index>
+           <block type="cashondelivery/methods" name="root" template="hco/cashondelivery/methods.phtml"/>
+           <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+       </cashondelivery_index_index>
+       <checkout_onepage_paymentmethod>
+        <remove name="right"/>
+        <remove name="left"/>
+
+        <block type="cashondelivery/methods" name="root" output="toHtml" template="hco/cashondelivery/methods.phtml">
+            <action method="setMethodFormTemplate"><method>purchaseorder</method><template>payment/form/purchaseorder.phtml</template></action>
+        </block>
+    </checkout_onepage_paymentmethod>
+</layout>
+
+
