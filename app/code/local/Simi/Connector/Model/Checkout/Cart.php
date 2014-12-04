@@ -486,7 +486,7 @@ class Simi_Connector_Model_Checkout_Cart extends Simi_Connector_Model_Abstract {
                 'product_id' => $product->getId(),
                 'product_name' => $product->getName(),				
                 'product_price' => Mage::app()->getStore()->convertPrice($item->getPrice(), false),                
-                'product_image' => Mage::getSingleton('connector/catalog_product')->getImageProduct($product),
+                'product_image' => Mage::getSingleton('connector/catalog_product')->getImageProduct($product, null, null, null),
                 'product_qty' => $item->getQty(),
                 'product_max_qty' => Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty(),
                 'options' => $options,
@@ -513,7 +513,7 @@ class Simi_Connector_Model_Checkout_Cart extends Simi_Connector_Model_Abstract {
             foreach ($cart->getQuote()->getMessages() as $message) {
                 if ($message) {                    
                     $messages[] = $message;
-                    $message_error[] = "NOT CHECKOUT " . $message->getText();
+                    $message_error[] = Mage::helper("connector")->__("NOT CHECKOUT"). " " . $message->getText();
                 }
             }           
         }

@@ -34,6 +34,10 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
     protected function getHelper() {
         return Mage::helper('connector');
     }
+	
+	protected function _getSession() {
+        return Mage::getSingleton('customer/session');
+    }
 
     protected function getProduct($id) {
         return $this->getModel('catalog/product')->load($id);
@@ -88,9 +92,19 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
     public function getAllProducts($data) {
         $limit = $data->limit;
         $offset = $data->offset;
-        $width = $data->width;
-        $height = $data->height;
-        $sort_option = $data->sort_option;
+        $width = null;
+		$height = null;
+		if(isset($data->width)){
+			$width = $data->width;
+		}
+        if(isset($data->height)){
+			$height = $data->height;
+		}
+		$sort_option = 0;
+		if(isset($data->sort_option)){
+			$sort_option = $data->sort_option;
+		}
+        
         $collection = $this->getProductCollection();
         $sort = $this->_helperCatalog()->getSortOption($sort_option);
         if ($sort) {
@@ -135,7 +149,12 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
             $total_rating = $this->getHelper()->getTotalRate($ratings);
             $avg = $this->getHelper()->getAvgRate($ratings, $total_rating);
             $prices = $this->getOptionModel()->getPriceModel($product);
-
+			$manufacturer_name = "";
+			try{
+				$manufacturer_name = $product->getAttributeText('manufacturer') == false ? '' : $product->getAttributeText('manufacturer');
+			}catch(Exception $e){
+				
+			}
             $info_product = array(
                 'product_id' => $product->getId(),
                 'product_name' => $product->getName(),
@@ -146,7 +165,7 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
                 'stock_status' => $product->isSaleable(),
                 'product_review_number' => $ratings[5],
                 'product_image' => $this->getImageProduct($product, null, $width, $height),
-                'manufacturer_name' => $product->getAttributeText('manufacturer') == false ? '' : $product->getAttributeText('manufacturer'),
+                'manufacturer_name' => $manufacturer_name,
                 'is_show_price' => true,
             );
             if ($prices) {
@@ -192,8 +211,15 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
 
     public function getDetail($data) {
         $id = $data->product_id;
-        $width = $data->width;
-        $height = $data->height;
+		$width = null;
+		$height = null;
+		if(isset($data->width)){
+			$width = $data->width;
+		}
+        if(isset($data->height)){
+			$height = $data->height;
+		}
+        
         $product = $this->getProduct($id);
         if (!$product->getId()) {
             $information = $this->statusError();
@@ -202,10 +228,12 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
 		
         $images = $product->getMediaGallery();
         $image_url = array();
+		
         foreach ($images['images'] as $image) {		
-			if ($image['disabled'] == 0){
+			// Zend_debug::dump($image['disabled']);
+			// if ($image['disabled'] == 0){
 				 $image_url[] = $this->getImageProduct($product, $image['file'], $width, $height);
-			}           
+			// }           
         }		
         if (count($image_url) == 0) {
             $image_url[] = $this->getImageProduct($product, null, $width, $height);
@@ -215,6 +243,19 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
         $avg = $this->getHelper()->getAvgRate($ratings, $total_rating);
         $option = $this->getOptionModel()->getOptions($product);
         $prices = $this->getOptionModel()->getPriceModel($product);
+		$manufacturer_name = "";
+		$product_short_description = "";
+		try{
+			$product_short_description = $product->getShortDescription();
+			$manufacturer_name = $product->getAttributeText('manufacturer') == false ? '' : $product->getAttributeText('manufacturer');
+		}catch(Exception $e){
+				
+		}
+		
+		if($product_short_description == null){
+			$product_short_description = "";
+		}
+		
         $_product = array(
             'product_id' => $id,
             'product_name' => $product->getName(),
@@ -222,11 +263,11 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
             'product_regular_price' => Mage::app()->getStore()->convertPrice($product->getPrice(), false),
             'product_price' => Mage::app()->getStore()->convertPrice($product->getFinalPrice(), false),
             'product_description' => $product->getDescription(),
-            'product_short_description' => $product->getShortDescription(),
+            'product_short_description' => $product_short_description,
             'max_qty' => (int) Mage::getModel('cataloginventory/stock_item')->loadByProduct($product)->getQty(),
             'product_rate' => $avg,
             'product_images' => $image_url,
-            'manufacturer_name' => $product->getAttributeText('manufacturer') == false ? '' : $product->getAttributeText('manufacturer'),
+            'manufacturer_name' => $manufacturer_name,
             'product_review_number' => $ratings[5],
             '5_star_number' => $ratings[4],
             '4_star_number' => $ratings[3],
@@ -241,11 +282,7 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
 
         if ($prices) {
             $_product = array_merge($_product, $prices);
-        }
-        
-//        if($_product->getTypeId() == 'grouped'){
-//            $_product['show_price_v2']
-//        }
+        }       
 		
         Mage::helper("connector/tax")->getProductTax($product, $_product, true, false);
         $event_name = $this->getControllerName() . '_product_detail';
@@ -274,8 +311,14 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
     public function getRelatedProducts($data) {
         $product = $this->getProduct($data->product_id);
         $limit = $data->limit;
-        $width = $data->width;
-        $height = $data->height;
+		$width = null;
+		$height = null;
+		if(isset($data->width)){
+			$width = $data->width;
+		}
+        if(isset($data->height)){
+			$height = $data->height;
+		}
         $collection = $product->getRelatedProductCollection()
                 ->addAttributeToSelect($this->getProductAttributes())
                 ->addAttributeToSelect('required_options')
@@ -293,12 +336,26 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
 
     public function getSearchProducts($data) {
         $keyword = $data->key_word;
-        $category_id = $data->category_id;
-        $sort_option = $data->sort_option;
+		$category_id = null;
+		if(isset($data->category_id)){
+			$category_id = $data->category_id;
+		}
+		$sort_option = 0;
+        if(isset($data->sort_option)){
+			$sort_option = $data->sort_option;
+		}        		
         $offset = $data->offset;
         $limit = $data->limit;
         $width = $data->width;
         $height = $data->height;
+		$width = null;
+		$height = null;
+        if(isset($data->width)){
+			$width = $data->width;
+		}        
+		if(isset($data->height)){
+			$height = $data->height;
+		}  
         $_helper = Mage::helper('catalogsearch');
         $queryParam = str_replace('%20', ' ', $keyword);
         Mage::app()->getRequest()->setParam($_helper->getQueryParamName(), $queryParam);
@@ -416,6 +473,37 @@ class Simi_Connector_Model_Catalog_Product extends Simi_Connector_Model_Catalog 
             }
         }
         return $result;
+    }
+		public function getWishlistProducts($data) {
+        $limit = $data->limit;
+        $offset = $data->offset;
+        $width = $data->width;
+        $height = $data->height;
+        $sort_option = $data->sort_option;		
+		$customerId = $this->_getSession()->getCustomer()->getId();
+		$customer = Mage::getSingleton('customer/session')->getCustomer();
+		if($customerId && ($customerId!='')){	
+		$wishlist = Mage::getModel('wishlist/wishlist')->loadByCustomer($customer, true);
+		$wishListItemCollection = $wishlist->getItemCollection();
+		$itemList = array();
+		foreach ($wishListItemCollection as $item)
+		{
+			$itemList[] = $item->getProductId();           
+		}		
+		$collection = $this->getResourceModel('catalog/product_collection')
+		->addAttributeToFilter('entity_id', $itemList);
+        $collection->addAttributeToSelect($this->getProductAttributes());
+		$collection->addFinalPrice();		
+        $this->setAvailableProduct($collection);
+			
+		
+		}
+        $sort = $this->_helperCatalog()->getSortOption($sort_option);
+        if ($sort) {
+            $collection->setOrder($sort[0], $sort[1]);
+        }
+        $information = $this->getListProduct($collection, $offset, $limit, $width, $height);
+        return $information;
     }
 
 }

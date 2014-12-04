@@ -183,7 +183,7 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
         } else {
             //send all
             $collection = $collectionDevice->addFieldToFilter('website_id', array('eq' => $website));
-            $collectionDevice->addFieldToFilter('plaform_id', array('eq' => 3));
+            $collectionDevice = Mage::getModel('connector/device')->getCollection()->addFieldToFilter('plaform_id', array('eq' => 3));
             $collection->addFieldToFilter('plaform_id', array('neq' => 3));
             $resultIOS = $this->sendIOS($collection, $data);
             $resultAndroid = $this->sendAndroid($collectionDevice, $data);
@@ -197,7 +197,7 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
     public function sendIOS($collectionDevice, $data) {
         $ch = Mage::helper('connector')->getDirPEMfile();
         $dir = Mage::helper('connector')->getDirPEMPassfile();
-		$message = $data['notice_content'];
+        $message = $data['notice_content'];
 
         $body['aps'] = array(
             'alert' => $data['notice_title'],
@@ -207,20 +207,20 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
             'message' => $message,
             'url' => $data['notice_url'],
         );
-		$payload = json_encode($body);
-		$totalDevice = 0;
-		foreach ($collectionDevice as $item) {
-			$ctx = stream_context_create();
-       	 	stream_context_set_option($ctx, 'ssl', 'local_cert', $ch);
-       	 	if ((int) $data['notice_sanbox'] == 1) {
-        	    $fp = stream_socket_client('sslv3://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-       	 	} else {
-           	 $fp = stream_socket_client('sslv3://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
-       	 	}
-        	if (!$fp) {
-           	 Mage::getSingleton('adminhtml/session')->addError("Failed to connect:" . $err . $errstr . PHP_EOL . "(IOS)");
-            	return;
-        	}
+        $payload = json_encode($body);
+        $totalDevice = 0;
+        foreach ($collectionDevice as $item) {
+            $ctx = stream_context_create();
+            stream_context_set_option($ctx, 'ssl', 'local_cert', $ch);
+            if ((int) $data['notice_sanbox'] == 1) {
+                $fp = stream_socket_client('ssl://gateway.sandbox.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+            } else {
+             $fp = stream_socket_client('ssl://gateway.push.apple.com:2195', $err, $errstr, 60, STREAM_CLIENT_CONNECT | STREAM_CLIENT_PERSISTENT, $ctx);
+            }
+            if (!$fp) {
+             Mage::getSingleton('adminhtml/session')->addError("Failed to connect:" . $err . $errstr . PHP_EOL . "(IOS)");
+                return;
+            }
         
             $deviceToken = $item->getDeviceToken();
             $msg = chr(0) . pack('n', 32) . pack('H*', $deviceToken) . pack('n', strlen($payload)) . $payload;
@@ -230,8 +230,8 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
                 Mage::getSingleton('adminhtml/session')->addError('Message not delivered (IOS)' . PHP_EOL);
                 return false;
             }
-			fclose($fp);
-			$totalDevice++;
+            fclose($fp);
+            $totalDevice++;
         }
         Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Message successfully delivered to %s devices (IOS)', $totalDevice));
         return true;
@@ -262,6 +262,8 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			// Disabling SSL Certificate support temporarly
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
             $result = curl_exec($ch);
             curl_close($ch);
@@ -269,7 +271,7 @@ class Simi_Connector_Adminhtml_NoticeController extends Mage_Adminhtml_Controlle
             
         }
 		$re = json_decode($result);
-        if ($re->success == 0) {
+        if ($re == NULL || $re->success == 0) {
             Mage::getSingleton('adminhtml/session')->addError(Mage::helper('adminhtml')->__('Message not delivered (Android)'));
             return false;
         }

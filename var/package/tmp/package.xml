@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>codewix_adminhints</name>
+    <version>1.0.0.2</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Extension will help you to see template and block hints in magento admin</summary>
+    <description>Extension will help you to debug in magento admin while developing or designing something in admin.This extension will extend Magento 's System-&gt;Configuration-&gt;Developer[under advanced]-&gt;Debug</description>
+    <notes>Stable release</notes>
+    <authors><author><name>Codewix Development</name><user>codewix</user><email>codewix@gmail.com</email></author></authors>
+    <date>2013-07-04</date>
+    <time>06:30:07</time>
+    <contents><target name="magelocal"><dir name="Codewix"><dir name="Adminhints"><dir name="Helper"><file name="Data.php" hash="892bb4517362cf4b57e282ce99b0bfb8"/></dir><dir name="etc"><file name="config.xml" hash="dce5efa536bc30bc11d05056decaae33"/><file name="system.xml" hash="7ccb33b8f89c1e9bfcc1e51c47143ec0"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Codewix_Adminhints.xml" hash="4070baec566d1c586cb47b094a557faf"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

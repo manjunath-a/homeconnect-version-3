@@ -5,9 +5,10 @@ date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/tim
 //Code added - HomeConnect
 //To get the attribute no_days and add it to the current date for restricting
 //booking of product / service to the pre-defined number of days
-/*$model=Mage::getModel('catalog/product');
+$model=Mage::getModel('catalog/product');
 $_product=$model->load($_option->getId());
-$nodays=$_product['no_days'];*/
+//$nodays=$_product['no_days'];
+echo $_option->getId();
 
 //Calculate the date based on the number of days and display the JQ Calender
 $mind = str_replace(" ", " ", ($this->getProduct()->getData('bookable_from'))? $this->getProduct()->getData('bookable_from') : (date('Y/m/d'/*,strtotime('+'.$nodays.'days')*/)));

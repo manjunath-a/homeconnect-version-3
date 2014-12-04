@@ -59,8 +59,10 @@ class Simi_Connector_Model_Config_App extends Simi_Connector_Model_Abstract {
 				'currency_position' => $this->getCurrencyPosition(),
                 'store_id' => $this->getCurrentStoreId(),
                 'store_name' => Mage::app()->getStore()->getName(),
+				'store_code' => Mage::app()->getStore()->getCode(),
 				'is_show_zero_price' => Mage::getStoreConfig('connector/general/is_show_price_zero'),
 				'is_show_link_all_product' => Mage::getStoreConfig('connector/general/is_show_all_product'),
+				'use_store' => Mage::getStoreConfig('web/url/use_store'),
             ),
             'customer_address_config' => array(
                 'prefix_show' => Mage::getStoreConfig('customer/address/prefix_show'),
@@ -73,6 +75,7 @@ class Simi_Connector_Model_Config_App extends Simi_Connector_Model_Abstract {
             'checkout_config' => array(
                 'enable_guest_checkout' => Mage::getStoreConfig('checkout/options/guest_checkout'),
                 'enable_agreements' => is_null(Mage::getStoreConfig('checkout/options/enable_agreements')) ? 0 : Mage::getStoreConfig('checkout/options/enable_agreements'),
+				'taxvat_show' => Mage::getStoreConfig('customer/create_account/vat_frontend_visibility'),
             ),
             'android_sender' => Mage::getStoreConfig('connector/android_sendid'),
         );

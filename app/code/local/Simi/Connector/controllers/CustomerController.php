@@ -63,7 +63,8 @@ class Simi_Connector_CustomerController extends Simi_Connector_Controller_Action
         $this->_printDataJson($information);
     }
 
-    public function get_user_addressesAction() {        
+    public function get_user_addressesAction() {      
+		$data = $this->getData();
         $information = Mage::getModel('connector/customer')->getAddressUser($data);
         $this->_printDataJson($information);
     }

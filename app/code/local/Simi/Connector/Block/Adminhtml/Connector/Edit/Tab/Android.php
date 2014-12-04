@@ -43,15 +43,15 @@ class Simi_Connector_Block_Adminhtml_Connector_Edit_Tab_Android extends Mage_Adm
         $fieldset = $form->addFieldset('connector_android', array('legend' => Mage::helper('connector')->__('Key Notification')));
 
         $fieldset->addField('android_key', 'password', array(
-            'label' => Mage::helper('connector')->__('Key'),            
+            'label' => Mage::helper('connector')->__('Google Cloud Messaging API Key'),            
             'name' => 'android_key',
-            'note' => 'Key to send Notification Android'
+            'note' => 'Key to send Notification Android. <br>You can use SimiCart API Key is AIzaSyAi4qYNCgQ13VPDRtE_GYa0Bw7ZH-Ix5NU'
         ));
 		
 		$fieldset->addField('android_sendid', 'password', array(
-            'label' => Mage::helper('connector')->__('Sender Id'),            
+            'label' => Mage::helper('connector')->__('Google Cloud Messaging Sender ID'),            
             'name' => 'android_sendid',
-            'note' => 'Id to send Notification Android'
+            'note' => 'Id to send Notification Android. <br>You can use SimiCart Sender ID is 518903118242'
         ));
         $form->setValues($data);
         return parent::_prepareForm();

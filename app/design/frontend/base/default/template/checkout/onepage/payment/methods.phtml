@@ -41,8 +41,25 @@
         <?php echo $this->__('No Payment Methods') ?>
     </dt>
 <?php else:
+   /* echo "<pre>";
+    print_r($this->getCashOnDelivery());
+    echo "</pre>";
+    $cashinfo=$this->getCashOnDelivery();
+    $cashondelivery=$cashinfo['cashondelivery'];
+    $cashdeliverymessage=$cashinfo['cashondeliverymessage'];
+    $cashdeliverynomessage=$cashinfo['cashdeliverynomessage'];
+    if($cashdeliverymessage==$cashdeliverynomessage)
+    {
+        echo " Note: One of selected service is not eligible for cash on delivery,<br>";
+        $cashondelivery='No';
+    }*/
     foreach ($methods as $_method):
         $_code = $_method->getCode();
+        /*if($cashondelivery=='No')
+        {
+            if($_code=='cashondelivery')
+            continue;
+        }*/
 ?>
     <dt>
     <?php if(!$oneMethod): ?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Magestore
  * 
@@ -90,7 +89,8 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             $information = $this->statusSuccess(array('Login Success'));
             $result['user_id'] = $this->_getSession()->getCustomer()->getId();
             $result['user_email'] = $this->_getSession()->getCustomer()->getEmail();
-            $result['user_name'] = Mage::getSingleton('customer/customer')->load($this->_getSession()->getCustomer()->getId())->getName();
+			$reCustomer = Mage::getSingleton('customer/customer')->load($this->_getSession()->getCustomer()->getId());			
+            $result['user_name'] = $reCustomer->getFirstname() . " " . $reCustomer->getLastname();
             $information['data'] = array($result);
             return $information;
         } else {
@@ -183,7 +183,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             $this->loginCustomer($data->user_email, $data->user_password);
             $result['user_id'] = $this->_getSession()->getCustomer()->getId();
             $result['user_email'] = $this->_getSession()->getCustomer()->getEmail();
-            $result['user_name'] = $this->_getSession()->getCustomer()->getName();
+            $result['user_name'] = $this->_getSession()->getCustomer()->getFirstname() . " " . $this->_getSession()->getCustomer()->getLastname();
             //$result['token'] = $this->_getSession()->getCustomer()->getPasswordHash();
             $result['cart_qty'] = Mage::helper('checkout/cart')->getSummaryCount();
             $information = $this->statusSuccess();
@@ -236,9 +236,12 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
     public function changeUser($data) {
         $result = array();
         $customer = $this->_getSession()->getCustomer();
+		// Zend_debug::dump($customer->getData());die();
         $currPass = $data->old_password;
         $newPass = $data->new_password;
         $confPass = $data->com_password;
+		
+		
         $name = Mage::helper('connector/checkout')->soptName($data->user_name);
         $customerData = array(
             'firstname' => $name['first_name'],
@@ -287,7 +290,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
                 $customerForm->compactData($customerData);
             }
         }
-        if ($data->change_password == 1) {
+        if ($data->change_password == 1) {						
             $customer->setChangePassword(1);
             $oldPass = $this->_getSession()->getCustomer()->getPasswordHash();
             if (Mage::helper('core/string')->strpos($oldPass, ':')) {
@@ -320,7 +323,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             $customer->save();
             $this->_getSession()->setCustomer($customer);
             $result['token'] = $customer->getPasswordHash();
-            $result['user_name'] = $customer->getName();
+            $result['user_name'] = $customer->getFirstname() . " " . $customer->getLastname();
             $result['user_email'] = $customer->getEmail();
             $information = $this->statusSuccess();
             $information['data'] = array($result);
@@ -345,7 +348,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
         $result = array();
         $customer = $this->_getSession()->getCustomer();
         $result['user_id'] = $customer->getId();
-        $result['user_name'] = $customer->getName();
+        $result['user_name'] = $customer->getFirstname() . " " . $customer->getLastname();
         $result['user_email'] = $customer->getEmail();
         $event_name = $this->getControllerName() . '_detail';
         $event_value = array(
@@ -390,24 +393,24 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             }
         }
         //check addrress in orders
-        if (isset($data->is_get_order_address) && $data->is_get_order_address == "YES") {
-            $orders = Mage::getModel('sales/order')->getCollection()
-                    ->addFieldToFilter('customer_id', $this->_getSession()->getCustomer()->getId());
-            foreach ($orders as $order) {
-                $shipping = $order->getShippingAddress();
-                $item_shipping = $this->_helperCustomer()->getAddress($shipping, $customer);
-                if (!in_array($item_shipping, $list)) {
-                    $result[] = $this->_helperCustomer()->getAddressToOrder($shipping, $customer, $address_billing_id, $address_shipping_id);
-                    $list[] = $item_shipping;
-                }
-                $billing = $order->getBillingAddress();
-                $item_billing = $this->_helperCustomer()->getAddress($billing, $customer);
-                if (!in_array($item_billing, $list)) {
-                    $result[] = $this->_helperCustomer()->getAddressToOrder($billing, $customer, $address_billing_id, $address_shipping_id);
-                    $list[] = $item_billing;
-                }
-            }
-        }
+        // if (isset($data->is_get_order_address) && $data->is_get_order_address == "YES") {
+            // $orders = Mage::getModel('sales/order')->getCollection()
+                    // ->addFieldToFilter('customer_id', $this->_getSession()->getCustomer()->getId());
+            // foreach ($orders as $order) {
+                // $shipping = $order->getShippingAddress();
+                // $item_shipping = $this->_helperCustomer()->getAddress($shipping, $customer);
+                // if (!in_array($item_shipping, $list)) {
+                    // $result[] = $this->_helperCustomer()->getAddressToOrder($shipping, $customer, $address_billing_id, $address_shipping_id);
+                    // $list[] = $item_shipping;
+                // }
+                // $billing = $order->getBillingAddress();
+                // $item_billing = $this->_helperCustomer()->getAddress($billing, $customer);
+                // if (!in_array($item_billing, $list)) {
+                    // $result[] = $this->_helperCustomer()->getAddressToOrder($billing, $customer, $address_billing_id, $address_shipping_id);
+                    // $list[] = $item_billing;
+                // }
+            // }
+        // }
         $information = $this->statusSuccess();
         $information['data'] = $result;
         return $information;
@@ -518,8 +521,14 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
     }
 
     public function getCart($data) {
-        $width = $data->width;
-        $height = $data->height;
+       $width = null;
+		$height = null;
+		if(isset($data->width)){
+			$width = $data->width;
+		}
+        if(isset($data->height)){
+			$height = $data->height;
+		}
         $list = array();
         $quote = $this->_getCheckoutSession()->getQuote();
         $allItems = $quote->getAllVisibleItems();
@@ -543,12 +552,18 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
                     $options = Mage::helper('connector/checkout')->getOptions($item);
                 }
             }
+			
+			$pro_price = $item->getCalculationPrice();
+			if( Mage::helper('tax')->displayCartPriceInclTax() ||  Mage::helper('tax')->displayCartBothPrices()){
+				$pro_price = Mage::helper('checkout')->getSubtotalInclTax($item);
+			}
+			
             $list[] = array(
                 'cart_item_id' => $item->getId(),
                 'product_id' => $product->getId(),
                 'stock_status' => $product->isSaleable(),
                 'product_name' => $product->getName(),
-                'product_price' => Mage::app()->getStore()->convertPrice($item->getPrice(), false),
+                'product_price' => $pro_price,
                 'product_image' => Mage::getSingleton('connector/catalog_product')->getImageProduct($product, null, $width, $height),
                 'product_qty' => $item->getQty(),
                 'options' => $options,
@@ -591,7 +606,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             $list[] = array(
                 'order_id' => $order->getIncrementId(),
                 'order_status' => $order->getStatusLabel(),
-                'order_date' => $order->getUpdatedAt(),
+                'order_date' => $order->getCreatedAt(),
                 'recipient' => is_object($order->getShippingAddress()) == true ? $order->getShippingAddress()->getName() : "",
                 'order_items' => $this->getProductFromOrderList($order->getAllVisibleItems())
             );
@@ -616,7 +631,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
         $width = $data->width;
         $height = $data->height;
         $detail = array();
-        $order = Mage::getModel('sales/order')->loadByIncrementId($id);
+        $order = Mage::getModel('sales/order')->loadByIncrementId($id);	
         if (count($order->getData()) == 0) {
             return $this->statusError();
         }
@@ -646,7 +661,7 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
 		
         $detail[] = array(
             'order_id' => $id,
-            'order_date' => $order->getUpdatedAt(),
+            'order_date' => $order->getCreatedAt(),
             'order_code' => $order->getIncrementId(),
             'order_total' => $order->getGrandTotal(),
             'order_subtotal' => $order->getSubtotal(),
@@ -701,12 +716,13 @@ class Simi_Connector_Model_Customer extends Simi_Connector_Model_Abstract {
             }
             // Zend_debug::dump($item->getData());die();
             $image = Mage::getSingleton('connector/catalog_product')->getImageProduct($product, null, $width, $height);
+			// Zend_debug::dump($item->getData());die();
             $productInfo[] = array(
                 'product_id' => $product_id,
                 'product_name' => $item->getName(),
                 'product_price' => $item->getPrice(),
                 'product_image' => $image,
-                'product_qty' => $item->getQtyToShip(),
+                'product_qty' => $item->getQtyOrdered(),
                 'options' => $options,
             );
         }

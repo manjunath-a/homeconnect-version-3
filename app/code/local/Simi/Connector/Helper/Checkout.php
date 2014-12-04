@@ -63,6 +63,7 @@ class Simi_Connector_Helper_Checkout extends Mage_Core_Helper_Abstract {
         $billing['suffix'] = isset($data->billingAddress->suffix) == true ? $data->billingAddress->suffix : '';
         $billing['dob'] = isset($data->billingAddress->dob) == true ? $data->billingAddress->dob : '';
         $billing['taxvat'] = isset($data->billingAddress->taxvat) == true ? $data->billingAddress->taxvat : '';
+		$billing['vat_id'] = isset($data->billingAddress->vat_id) == true ? $data->billingAddress->vat_id : '';
         $billing['gender'] = isset($data->billingAddress->gender) == true ? $data->billingAddress->gender : Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getOptionId('Male');
         $billing['month'] = isset($data->billingAddress->month) == true ? $data->billingAddress->month : '';
         $billing['day'] = isset($data->billingAddress->day) == true ? $data->billingAddress->day : '';
@@ -101,6 +102,7 @@ class Simi_Connector_Helper_Checkout extends Mage_Core_Helper_Abstract {
         $shipping['suffix'] = isset($data->shippingAddress->suffix) == true ? $data->shippingAddress->suffix : '';
         $shipping['dob'] = isset($data->shippingAddress->dob) == true ? $data->shippingAddress->dob : '';
         $shipping['taxvat'] = isset($data->shippingAddress->taxvat) == true ? $data->shippingAddress->taxvat : '';
+		$shipping['vat_id'] = isset($data->shippingAddress->vat_id) == true ? $data->shippingAddress->vat_id : '';
         $shipping['gender'] = isset($data->shippingAddress->gender) == true ? $data->shippingAddress->gender : Mage::getResourceSingleton('customer/customer')->getAttribute('gender')->getSource()->getOptionId('Male');
         $shipping['month'] = isset($data->shippingAddress->month) == true ? $data->shippingAddress->month : '';
         $shipping['day'] = isset($data->shippingAddress->day) == true ? $data->shippingAddress->day : '';
@@ -175,7 +177,7 @@ class Simi_Connector_Helper_Checkout extends Mage_Core_Helper_Abstract {
                             $option = array(
                                 'option_title' => $bundleOption->getTitle(),
                                 'option_value' => $qty . ' x ' . $this->escapeHtml($bundleSelection->getName()),
-                                'option_price' => Mage::helper('bundle/catalog_product_configuration')->getSelectionFinalPrice($item, $bundleSelection),
+                                'option_price' =>Mage::helper('core')->currency(Mage::helper('bundle/catalog_product_configuration')->getSelectionFinalPrice($item, $bundleSelection), false),
                             );
                         }
                     }

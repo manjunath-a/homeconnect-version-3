@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <config>
+    <modules>
+        <Hco_Cashondelivery>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Hco_Cashondelivery>
+    </modules>
+</config> 

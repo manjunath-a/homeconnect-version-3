@@ -76,6 +76,7 @@ class Simi_Connector_Model_Switch extends Simi_Connector_Model_Abstract {
                 $data[] = array(
                     'store_id' => $store->getId(),
                     'store_name' => $store->getName(),
+					'store_code' => $store->getCode(),
                 );
             }
             $information = $this->statusSuccess();            

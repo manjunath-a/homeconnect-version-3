@@ -98,7 +98,10 @@ class Simi_Connector_Model_Catalog_Category extends Simi_Connector_Model_Catalog
     }
 
     public function getCategories($data, $device_id) {
-        $category_id = $data->category_id;
+        $category_id = null;
+		if(isset($data->category_id)){
+			$category_id = $data->category_id;
+		}
         $recursionLevel = max(0, (int) Mage::app()->getStore()->getConfig('catalog/navigation/max_depth'));
         $parent = Mage::app()->getStore()->getRootCategoryId();
         if ($category_id) {

@@ -117,8 +117,7 @@ class Simi_Connector_Model_Observer {
 			$shipping = Mage::getModel('connector/cms')->load($shipping_condition);
 			$content = $shipping->getCmsContent();
 			$title = $shipping->getCmsTitle();
-			$other_info[] = array("label" => "", "value" => $title, "click" => "1" , "content" => $content);			
-			$other_info[] = array("label" => "", "value" => "<b>Delivery time: </b>2-3 working days",);						
+			$other_info[] = array("label" => "", "value" => $title, "click" => "1" , "content" => $content);										
 		}				
         $data["other_info"] = $other_info;		
         $object->setCacheData($data, "simi_connector"); 

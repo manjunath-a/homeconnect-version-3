@@ -47,6 +47,9 @@ class Simi_Connector_Model_Catalog_Product_Options {
             case Mage_Catalog_Model_Product_Type::TYPE_VIRTUAL :
                 return Mage::getModel('connector/catalog_product_options_virtual')->getOptions($product);
                 break;
+			// case "downloadable" :
+                // return Mage::getModel('connector/catalog_product_options_downloadable')->getOptions($product);
+                // break;
         }
     }
 

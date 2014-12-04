@@ -23,34 +23,55 @@
 <config>
     <menu>
         <connector module="connector" translate="title">
-            <title>Simicart Connector</title>
+            <title>SimiCart</title>
             <sort_order>71</sort_order>               
             <children>
-                <connector module="connector" translate="title">
-                    <title>Manage Apps</title>
-                    <sort_order>0</sort_order>
-                    <action>connectoradmin/adminhtml_connector</action>
-                </connector>
-                <banner module="connector" translate="title">
-                    <title>Manage Banners</title>
-                    <sort_order>10</sort_order>
-                    <action>connectoradmin/adminhtml_banner</action>
-                </banner>
-                <notice module="connector" translate="title">
-                    <title>Manage Notifications</title>
-                    <sort_order>100</sort_order>
-                    <action>connectoradmin/adminhtml_notice</action>
-                </notice>
-				<cms module="connector" translate="title">
-                    <title>CMS</title>
-                    <sort_order>150</sort_order>
-                    <action>connectoradmin/adminhtml_cms</action>
-                </cms>
-                <settings module="connector" translate="title">
-                    <title>Settings</title>
-                    <sort_order>1000</sort_order>
-                    <action>adminhtml/system_config/edit/section/connector</action>
-                </settings>
+				<core module="connector" translate="title">
+                    <title>Connector Settings</title>      
+					<sort_order>0</sort_order>
+						<children>
+							<connector module="connector" translate="title">
+								<title>Apps</title>
+								<sort_order>0</sort_order>
+								<action>connectoradmin/adminhtml_connector</action>
+							</connector>
+							<banner module="connector" translate="title">
+								<title>Banners</title>
+								<sort_order>10</sort_order>
+								<action>connectoradmin/adminhtml_banner</action>
+							</banner>
+							<notice module="connector" translate="title">
+								<title>Notifications</title>
+								<sort_order>100</sort_order>
+								<action>connectoradmin/adminhtml_notice</action>
+							</notice>
+							<cms module="connector" translate="title">
+								<title>CMS</title>
+								<sort_order>150</sort_order>
+								<action>connectoradmin/adminhtml_cms</action>
+							</cms>
+							<promoteapp module="connector" translate="title">				
+								<title>Promote Apps</title>
+								<sort_order>170</sort_order>
+								<action>adminhtml/system_config/edit/section/popup</action>
+							</promoteapp>
+							<spotproduct module="connector" translate="title">				
+								<title>Spot Products</title>
+								<sort_order>160</sort_order>
+								<action>adminhtml/system_config/edit/section/spotproduct</action>
+							</spotproduct>
+							<trasfersimi module="connector" translate="title">
+								<title>Payment</title>
+								<sort_order>180</sort_order>
+								<action>adminhtml/system_config/edit/section/payment</action>
+							</trasfersimi>	
+							<settings module="connector" translate="title">
+								<title>General Settings</title>
+								<sort_order>1000</sort_order>
+								<action>adminhtml/system_config/edit/section/connector</action>
+							</settings>
+					</children>
+                </core>  						
             </children>
         </connector>
     </menu>
@@ -74,7 +95,7 @@
                         </children>
                     </system>
                     <connector module="connector" translate="title">
-                        <title>Simicart Connector</title>
+                        <title>SimiCart</title>
                         <sort_order>71</sort_order>               
                         <children>
                             <connector module="connector" translate="title">

@@ -30,7 +30,7 @@
     <sections>
         <connector translate="label" module="connector">
             <class>separator-top</class>
-            <label>Simicart Connector</label>
+            <label>SimiCart</label>
             <tab>simi</tab>
             <frontend_type>text</frontend_type>
             <sort_order>299</sort_order>

@@ -1,0 +1,67 @@
+<config>    
+    <modules>
+        <Codewix_Adminhints>
+            <version>1.0.0.2</version>
+        </Codewix_Adminhints>
+    </modules>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <adminhints_section>
+                                            <title>Ravinder Adminhints Module Section</title>
+                                        </adminhints_section>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+    <global>
+    		<blocks>
+         		<adminhints>
+              		<class>Codewix_Adminhints_Block</class>
+         		</adminhints>
+      		</blocks>
+      		<helpers>
+      			<adminhints>
+      				<class>Codewix_Adminhints_Helper</class>
+      			</adminhints>
+      		</helpers>
+      		<models>
+      			<adminhints>
+      				<class>Codewix_Adminhints_Model</class>
+      			</adminhints>
+      		</models>
+    <!-- allow the plugin to read and write -->
+			<resources>
+				<adminhints_setup>
+					<setup>
+						<module>Codewix_Adminhints</module>
+					</setup>
+					<connection>
+						  <use>core_setup</use>
+					</connection>
+				</adminhints_setup>
+		        <adminhints_write>
+		            <connection>
+		                <use>core_write</use>
+		            </connection>
+		        </adminhints_write>
+		       <adminhints_read>
+		          <connection>
+		             <use>core_read</use>
+		          </connection>
+		       </adminhints_read>
+			</resources>
+ 
+	</global>
+</config>  
