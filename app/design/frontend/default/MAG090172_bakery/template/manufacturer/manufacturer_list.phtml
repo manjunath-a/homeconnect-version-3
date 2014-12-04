@@ -1,0 +1,43 @@
+<?php
+$maufacturers = Mage::getModel('manufacturer/manufacturer')->getCollection()->addFieldToFilter('status',Array('eq'=>1));    
+?> 
+<div id="manufacture-logo" class="manufacture_products">
+ <div class="category-title"><h2><a href="<?php echo $this->getUrl(''); ?>manufacturer"><?php echo $this->getHeading(); ?></a></h2></div>
+	 <?php $_collectionSize = $maufacturers->count() ?>
+	
+	<?php 
+		$sliderFor =6;
+		$productCount = $_collectionSize; 
+	?>	
+	<?php if ($productCount >= $sliderFor): ?>
+		<div class="customNavigation">
+			<a class="btn prev">&nbsp;</a>
+			<a class="btn next">&nbsp;</a>
+		</div>	
+	<?php endif; ?>	
+		<ul class="<?php if ($productCount >= $sliderFor){?>product-carousel<?php }else{?>products-grid<?php }?>" id="<?php if ($productCount >= $sliderFor){?>brand-carousel<?php }else{?>brand-grid<?php }?>">		
+	<?php foreach($maufacturers as $manufacturer): ?>		
+		<?php if(Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product', Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName())): ?>
+		
+		   <li class="<?php if ($productCount >= $sliderFor){?>slider-item<?php }else{?>product-items<?php }?> item">
+				<div class="product-block">
+				<div class="product-block-inner">
+				
+					<a href="<?php echo $manufacturer->getUrl();?>">
+						<?php echo $this->getLayout()->createBlock('core/template')->setmanufacturerimage($manufacturer->getFilename())->setListPageFlag(1)->setTemplate('manufacturer/manufacturer_resize.phtml')->toHtml(); ?>
+					</a>
+					
+					<?php if($this->displayName()):?>
+					<div class="manufacturer-name">
+						<a href="<?php echo $manufacturer->getUrl(); ?>">  <?php echo Mage::getModel('eav/entity_attribute_source_table')->setAttribute(Mage::getModel('eav/entity_attribute')->load(Mage::getModel('eav/entity_attribute')->getIdByCode('catalog_product', Mage::getStoreConfig('manufacturer/general/attribute_code'))))->getOptionText($manufacturer->getManufacturerName()) ?>
+						</a>
+					</div>
+					<?php endif; ?>
+				</div><!-- End div class product-block-->
+				</div><!-- End div class product-block-inner -->
+		 </li>
+	<?php endif; ?>
+	<?php endforeach; ?>
+	</ul>
+</div>
+ <span  class="brand_default_width" style="display: none; visibility: hidden;"></span>

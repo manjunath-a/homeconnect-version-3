@@ -1,0 +1,25 @@
+<?php
+    //Modified by : Compassites - Shanmuga Prabu
+    //To allow users to unsubscribe Newsletters
+    //This module is not part of standard Magento distribution
+?>
+
+<?php $newsletterObj = new Mage_Newsletter_Block_Subscribe(); ?>
+<div class="newsletter-unsubscribe">
+    <div class="newsletter-unsubscribe-title"><?php echo $this->__('Submit your email id to unsubscribe newsletter') ?></div>
+    <form action="<?php echo $newsletterObj->getUnsubscribeFormActionUrl() ?>" method="post" id="newsletter-validate-detail">
+        <div class="block-content">
+            <div class="input-box">
+                <input type="text" name="email" id="newsletter" title="<?php echo $this->__('Sign up for our newsletter') ?>" class="input-text required-entry validate-email" value="<?php echo $this->__('Enter Your Email Here') ?>" onfocus="if(this.value=='<?php echo $this->__('Enter Your Email Here') ?>')this.value='';" onblur="if(this.value=='')this.value='<?php echo $this->__('Enter Your Email Here') ?>';"/>
+            </div>
+            <div class="actions">
+                <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+    //<![CDATA[
+        var newsletterSubscriberFormDetail = new VarienForm('newsletter-validate-detail');
+    //]]>
+    </script>
+</div> 

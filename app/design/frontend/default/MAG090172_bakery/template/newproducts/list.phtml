@@ -1,0 +1,208 @@
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<h2><?php echo $this->getPageHeading(); ?></h2>
+
+<?php $_productCollection=$this->getProductCollection() ?>
+
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+
+<article class="category-products">
+
+    <?php echo $this->getToolbarHtml() ?>
+    <?php // List mode ?>
+    <?php if($this->getMode()!='grid'): ?>
+     
+	<ul class="products-list" id="products-list">    
+    <?php foreach ($_productCollection as $_product): ?>
+        
+		 <li class="item">
+           		
+			  <div class="list-left">
+			
+			<?php if($this->helper('framework')->isNewProduct($_product)):?>
+				<div class="new-label"><?php echo $this->__('New') ?></div>
+			<?php endif; ?>
+				
+			<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
+                        <?php
+                            //Modified by : Compassites - Shanmuga Prabu
+                            //To display "Offer" instead of "Sale" over all products with discounted price
+                            //Original was - echo $this->__('Sale')
+                            //Changed to - echo $this->__('Offer')
+                        ?>
+				<div class="sale-label"><?php echo $this->__('Offer') ?></div>
+			<?php endif; ?>
+				
+				
+		    <?php // Product Image ?>
+            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(165); ?>" width="165" height="165" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+			
+			</div>
+			
+			
+			<div class="list-center">
+					<div class="f-fix">
+						<?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+						
+						<h2 class="product-name" ><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName())?></a></h2>
+						
+						<?php if($_product->getRatingSummary()): ?>
+						<div class="description"><?php echo $this->getReviewsSummaryHtml($_product) ?></div>
+						<?php endif; ?>
+						
+						<div class="desc std">
+					  <?php 
+							$str = strlen($_product->getShortDescription());
+							if($str <= 300 )
+							{
+								echo $_product->getShortDescription();  ?>						
+								<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="link-learn">
+									<?php echo $this->__('Learn More') ?>
+								</a>
+							<?php }
+							else
+							{
+								echo substr($_product->getShortDescription(),0,300);  ?>							
+								<a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>" class="link-learn">
+								 <?php echo $this->__('Learn More') ?>
+							   </a>
+						<?php } ?>
+                    </div>
+					
+					<ul class="add-to-links">
+                        <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                        <?php endif; ?>
+                        <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                            <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                    </ul>        
+						 
+					</div>				
+			</div><!-- ======== End products_list_center -->
+		
+			<div class="list-right">
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display custom Per Unit value next to price
+                                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                                    //Original was - $this->getPriceHtml($_product, true)
+                                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                                ?>
+				<?php echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit'); ?>
+				<?php if($_product->isSaleable()): ?>
+						<p>
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display custom text on Add to Cart button
+                                    //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+                                    //Original was - echo $this->__('Add to Cart')
+                                    //Changed to - echo $_product->getData('hco_addtocartlabel');
+                                ?>
+
+                                                <button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span class="value-title" title="In Stock"><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button></p>
+						<?php else: ?>
+						<p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+						<?php endif; ?>
+			</div>			
+        </li>
+    <?php endforeach; ?>
+    </ul>
+
+    <script type="text/javascript">decorateList('products-list', 'none-recursive')</script>
+
+    <?php else: ?>
+
+    <?php // Grid Mode ?>
+
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+
+        <?php if ($i++%$_columnCount==0): ?>
+		<ul id="newproduct_standalone_page" class="products-grid">
+        <?php endif ?>
+		
+    <?php $i=0; foreach ($_productCollection as $_product):  $i++;?>
+           
+           <li class="item">
+				<div class="product-block">
+				<div class="product-block-inner">
+				
+				<?php if($this->helper('framework')->isNewProduct($_product)):?>
+					<div class="new-label"><?php echo $this->__('New') ?></div>
+				<?php endif; ?>
+				
+				<?php if($this->helper('framework')->isSpecialProduct($_product)):?>
+                                <?php
+                                    //Modified by : Compassites - Shanmuga Prabu
+                                    //To display "Offer" instead of "Sale" over all products with discounted price
+                                    //Original was - echo $this->__('Sale')
+                                    //Changed to - echo $this->__('Offer')
+                                ?>
+					<div class="sale-label"><?php echo $this->__('Offer') ?></div>
+				<?php endif; ?>
+					
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(165); ?>" width="165" height="165" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+				
+                <h2 class="product-name" ><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_product->getName()) ?>"><?php echo $this->escapeHtml($_product->getName())?></a></h2>
+                <?php if($_product->getRatingSummary()): ?>
+                <div class="description"><?php echo $this->getReviewsSummaryHtml($_product, 'short') ?></div>
+                <?php endif; ?>
+				
+                <?php
+                    //Modified by : Compassites - Shanmuga Prabu
+                    //To display custom Per Unit value next to price
+                    //For this, the attribute "hco_perunit" should have the property "Used in Product Listing" set to "Yes"
+                    //Original was - $this->getPriceHtml($_product, true)
+                    //Changed to - echo $this->getPriceHtml($_product, true) . " " . $_product->getData('hco_perunit')
+                ?>
+                <?php echo $this->getPriceHtml($_product, true)  . " " . $_product->getData('hco_perunit');?>
+								 
+                <div class="actions">
+                    <?php if($_product->isSaleable()): ?>
+                    <?php
+                        //Modified by : Compassites - Shanmuga Prabu
+                        //To display custom text on Add to Cart button
+                        //For this, the attribute should have the property "Used in Product Listing" set to "Yes"
+                        //Original was - echo $this->__('Add to Cart')
+                        //Changed to - echo $_product->getData('hco_addtocartlabel');
+                    ?>
+                        <button type="button" title="<?php echo $_product->getData('hco_addtocartlabel'); ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $_product->getData('hco_addtocartlabel'); ?></span></span></button>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                    
+				</div> 
+				 
+				 <ul class="add-to-links">
+                      <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                         <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?>					</a></li>
+                      <?php endif; ?>
+                      <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+                         <li><a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                        <?php endif; ?>
+                  </ul>
+				
+				</div><!-- End div class product-block-->
+				</div><!-- End div class product-block-inner -->
+            </li>
+        <?php endforeach ?>         
+        </ul> 
+	 
+    <?php endif; ?>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+	<span style="display: none; visibility: hidden;" class="grid_default_width"></span>
+
+</article>
+
+<?php endif; ?> 

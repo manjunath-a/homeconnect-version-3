@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ * 
+ * DISCLAIMER
+ * 
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ * 
+ * @category 	Magestore
+ * @package 	Magestore_Paypalmobile
+ * @copyright 	Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license 	http://www.magestore.com/license-agreement.html
+ */
+-->
+<config>
+    <modules>
+        <Simi_Paypalmobile>
+            <version>0.1.0</version>
+        </Simi_Paypalmobile>
+    </modules>
+    <frontend>
+        <routers>
+            <paypalmobile>
+                <use>standard</use>
+                <args>
+                    <module>Simi_Paypalmobile</module>
+                    <frontName>paypalmobile</frontName>
+                </args>
+            </paypalmobile>
+        </routers>
+        <layout>
+            <updates>
+                <paypalmobile>
+                    <file>paypalmobile.xml</file>
+                </paypalmobile>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Simi_Paypalmobile>
+                    <files>
+                        <default>Simi_Paypalmobile.csv</default>
+                    </files>
+                </Simi_Paypalmobile>
+            </modules>
+        </translate>
+        <events>
+            <payment_method_is_active>
+                <observers>
+                    <paypalmobilement_paypal_observers>
+                        <type>singleton</type>
+                        <class>paypalmobile/observer</class>
+                        <method>paymentMethodIsActive</method>
+                    </paypalmobilement_paypal_observers>
+                </observers>
+            </payment_method_is_active>
+        </events>
+    </frontend>
+    <admin>
+        <routers>
+            <paypalmobileadmin>
+                <use>admin</use>
+                <args>
+                    <module>Simi_Paypalmobile</module>
+                    <frontName>paypalmobileadmin</frontName>
+                </args>
+            </paypalmobileadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <paypalmobile>
+                    <file>paypalmobile.xml</file>
+                </paypalmobile>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Simi_Paypalmobile>
+                    <files>
+                        <default>Simi_Paypalmobile.csv</default>
+                    </files>
+                </Simi_Paypalmobile>
+            </modules>
+        </translate>
+    </adminhtml>   
+    <global>
+        <models>
+            <paypalmobile>
+                <class>Simi_Paypalmobile_Model</class>
+                <resourceModel>paypalmobile_mysql4</resourceModel>
+            </paypalmobile>
+            <paypalmobile_mysql4>
+                <class>Simi_Paypalmobile_Model_Mysql4</class>
+                <entities>
+                    <paypalmobile>
+                        <table>paypalmobile</table>
+                    </paypalmobile>
+                </entities>
+            </paypalmobile_mysql4>
+        </models>
+        <resources>
+            <paypalmobile_setup>
+                <setup>
+                    <module>Simi_Paypalmobile</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </paypalmobile_setup>
+            <paypalmobile_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </paypalmobile_write>
+            <paypalmobile_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </paypalmobile_read>
+        </resources>
+        <blocks>
+            <paypalmobile>
+                <class>Simi_Paypalmobile_Block</class>
+            </paypalmobile>
+        </blocks>
+        <helpers>
+            <paypalmobile>
+                <class>Simi_Paypalmobile_Helper</class>
+            </paypalmobile>
+        </helpers>
+        <events>
+			<simi_add_payment_method>
+				<observers>
+					<paypalmobile_add_payment_method>
+						<class>paypalmobile/observer</class>
+							<method>addPayment</method>
+					</paypalmobile_add_payment_method>
+				</observers>
+            </simi_add_payment_method>
+      	</events>
+    </global>
+    <default>
+        <payment>             
+            <paypal_mobile>
+                <active>0</active>    
+                <business_account></business_account>                
+                <api_name backend_model="adminhtml/system_config_backend_encrypted"/>
+                <api_pass backend_model="adminhtml/system_config_backend_encrypted"/>
+                <signature backend_model="adminhtml/system_config_backend_encrypted"/>
+                <order_status>pending</order_status>       
+                <model>paypalmobile/paypal</model>     
+                <title>Paypal Mobile</title>
+                <allowspecific>0</allowspecific>
+                <client_id backend_model="adminhtml/system_config_backend_encrypted"/>                    
+                <secret backend_model="adminhtml/system_config_backend_encrypted"/>
+                <is_sandbox>0</is_sandbox>           
+            </paypal_mobile>          
+        </payment>       
+    </default>
+</config>
