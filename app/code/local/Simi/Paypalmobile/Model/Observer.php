@@ -45,8 +45,7 @@ class Simi_Paypalmobile_Model_Observer {
         $method = $observer['method_instance'];
         //$store = $quote ? $quote->getStoreId() : null;            
         if ($method->getCode() == 'paypal_mobile') {
-             if (Mage::app()->getRequest()->getControllerModule() != 'Simi_Connector' 
-				&& Mage::app()->getRequest()->getControllerModule() != 'Simi_Hideaddress') {
+            if (Mage::app()->getRequest()->getControllerModule() != 'Simi_Connector') {
                 $result->isAvailable = false;
             }
         }

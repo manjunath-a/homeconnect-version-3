@@ -47,8 +47,7 @@
     $cashondelivery=$cashondeliveryinfo['cashondelivery'];
     if($cashdeliverymessage==$cashdeliverynomessage)
     {
-        echo "Since one of your service doesn't have cash on delivery,<br>";
-        echo "Overall Checkout doesn't have cash On delivery";
+         echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('cod_msg')->getValue('html');
         $cashondelivery='No';
     }
     foreach ($methods as $_method):

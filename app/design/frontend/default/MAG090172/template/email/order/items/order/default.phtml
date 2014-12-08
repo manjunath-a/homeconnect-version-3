@@ -46,6 +46,25 @@
         <?php echo $this->escapeHtml($_item->getDescription()) ?>
     </td>
     <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->escapeHtml($this->getSku($_item)) ?></td>
+    <!-- Begin
+        added by Roopa HomeConnectOnline.com
+        Unit price and Unit of measurement has been added-->
+     <?php
+                $_products = Mage::getModel('catalog/product');
+                $_products ->load($_item->getProductId());
+                
+                if($_products->getSpecialPrice()!="")
+                {
+                    $regularprice=$_products->getSpecialPrice();
+                }
+                else
+                {
+                    $regularprice=$_products->getPrice();
+                }
+ ?>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_order->formatPrice($regularprice); ?></td>
+    <td align="left" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $this->escapeHtml($_products->getHcoPerunit()); ?></td>
+    <!-- End of the code-->
     <td align="center" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;"><?php echo $_item->getQtyOrdered()*1 ?></td>
     <td align="right" valign="top" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
         <?php if ($this->helper('tax')->displaySalesPriceExclTax($_order->getStore()) || $this->helper('tax')->displaySalesBothPrices($_order->getStore())): ?>
@@ -126,7 +145,7 @@
 </tr>
 <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('giftmessage/message')->getGiftMessage($_item->getGiftMessageId())): ?>
 <tr>
-    <td colspan="4" style=" border-bottom:2px solid #CCCCCC; padding:3px 9px;">
+    <td colspan="6" style=" border-bottom:2px solid #CCCCCC; padding:3px 9px;">
         <strong style="color:#444444; font-size:11px;"><?php echo $this->__('Gift Message') ?></strong>
         <?php echo $this->__('From:'); ?> <?php echo $this->escapeHtml($_giftMessage->getSender()) ?><br />
         <?php echo $this->__('To:'); ?> <?php echo $this->escapeHtml($_giftMessage->getRecipient()) ?><br />
@@ -138,13 +157,17 @@
      Company : HomeConnectOnline.com
      To display custom attributes in order email confirmation-->
 <tr height="30px">
-    <td colspan="4"align="left" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
+    <td colspan="6"align="left" style="font-size:11px; padding:3px 9px; border-bottom:1px dotted #CCCCCC;">
           <?php 
             $_product = Mage::getModel('catalog/product');
             $_product ->load($_item->getProductId());?>
-            <strong style="font-size:11px;"><b> Service Provider Name - </b><?php echo $this->escapeHtml($_product->getHcoServiceprovider());?></strong><br/>
+            <br/><strong style="font-size:11px;">Service Provider Details</strong><br/>
+            <span style="font-size:11px;">Name: <?php echo $this->escapeHtml($_product->getHcoServiceprovider());?></span><br/>
+            <span style="font-size:11px;">Email: <?php echo $this->escapeHtml($_product->getHcoServiceprovideremail());?></span><br/>
+              <span style="font-size:11px;">Mobile: <?php echo $this->escapeHtml($_product->getHcoServiceprovidermobile());?></span><br/><br/>
             <?php if($_product->getAdditionalChargeApp()!="No")?>
                 <strong style="font-size:11px; color:#0000A3;"><?php echo $this->escapeHtml($_product->getAdditionalChargeInfo() ." ".$_product->getAdditionalChargeAmt());?></strong>
-            
+            <strong style="font-size:11px;"><a href="<?php echo $this->escapeHtml($_product->getHcoAttachmentFile());?>">Click here</a> for service fulfillment process.</strong>
+
           </td>
     </tr>
