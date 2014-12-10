@@ -6,7 +6,7 @@
             <codePool>community</codePool>
         </Aitoc_Aitsys>
         <Aitoc_Aitinstall>
-            <active>true</active>
+            <active>false</active>
             <codePool>community</codePool>
         </Aitoc_Aitinstall>
     </modules>

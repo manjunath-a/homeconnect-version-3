@@ -40,11 +40,11 @@ abstract class Simi_Connector_Controller_Action extends Mage_Core_Controller_Fro
             header("HTTP/1.0 503");
             exit();
         }
-        if (!$this->isHeader()) {
-            echo 'Connect error!';
-            header("HTTP/1.0 401 Unauthorized");
-            exit();
-        }
+        // if (!$this->isHeader()) {
+            // echo 'Connect error!';
+            // header("HTTP/1.0 401 Unauthorized");
+            // exit(); 
+        // }
 
         $value = $this->getRequest()->getParam('data');
         $this->praseJsonToData($value);
