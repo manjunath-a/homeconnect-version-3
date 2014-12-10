@@ -12,6 +12,7 @@
 			<action method="addCss"><stylesheet>css/megnor/custom.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/megnor/tm_flexslider.css</stylesheet></action>
 			<action method="addCss"><stylesheet>css/megnor/carousel.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/megnor/sidebar.css</stylesheet></action>
 			<action method="addItem" ifconfig="advanced_menu/general/enabled"><type>skin_css</type><name>css/megnor/style.css</name><params/></action>		
 			<action method="addCss"><stylesheet>css/megnor/responsive.css</stylesheet></action>		  
 			 
@@ -24,7 +25,9 @@
 			<action method="addJs"><script>megnor/carousel.min.js</script></action>					
 			<action method="addJs"><script>megnor/jstree.min.js</script></action>
 			<action method="addJs"><script>megnor/scrolltop.min.js</script></action> 
-			 <action method="addItem"><type>skin_js</type><name>js/custom.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/custom.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>js/jquery-ui.js</name><params/></action>
+           		<action method="addItem"><type>skin_js</type><name>js/jquery.sidebar.js</name><params/></action>
 			<action method="addJs" ifconfig="advanced_menu/general/enabled"><script>megnor/advancedmenu.js</script></action> 					
 		</reference>
 

@@ -38,6 +38,7 @@
 <!--[if !IE]><!--> <html lang="<?php echo $this->getLang() ?>"><!--<![endif]-->
 <head>
 <?php echo $this->getChildHtml('head') ?> 
+ <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('slide_name')->getValue('html');?>
 </head>
 <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
@@ -47,6 +48,29 @@
         <?php echo $this->getChildHtml('header') ?>
         <?php echo $this->getChildHtml('home_content') ?>
 		<section class="main-container col2-left-layout">
+                    <?php $enable=Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('on_off')->getValue('text');
+                    if($enable=='on')
+                    {?>
+			<ul id="demo_menu2" >
+                            <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('slide_img')->getValue('html');?>
+                        </ul>
+                        <script type="text/javascript">
+                            var $j = jQuery.noConflict();
+                            $j("ul#demo_menu2").sidebar({
+                                position: "right",
+                                callback: {
+                                    item: {
+                                        enter: function() {
+                                            $j(this).find("a").animate({color: "blue"}, 20);
+                                        },
+                                        leave: function() {
+                                            $j(this).find("a").animate({color: "white"}, 20);
+                                        }
+                                    }
+                                }
+                            });
+                        </script>
+                    <?php }?>
             <div class="main"> 
                 <article class="col-main">
 					<?php echo $this->getChildHtml('breadcrumbs') ?>
