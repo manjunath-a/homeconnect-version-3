@@ -1,19 +1,12 @@
 
 <?php $_option = $this->getOption();
 date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/timezone'));
+$product_id= $_option->_data['product_id'];
+$product_details=Mage::getModel('catalog/product')->load($product_id);
+$nodays=$product_details['no_days'];
+$mind = str_replace(" ", " ", ($this->getProduct()->getData('bookable_from'))? $this->getProduct()->getData('bookable_from') : (date('Y/m/d',strtotime('+'.$nodays.'days'))));
 
-//Code added - HomeConnect
-//To get the attribute no_days and add it to the current date for restricting
-//booking of product / service to the pre-defined number of days
-$model=Mage::getModel('catalog/product');
-$_product=$model->load($_option->getId());
-//$nodays=$_product['no_days'];
-echo $_option->getId();
-
-//Calculate the date based on the number of days and display the JQ Calender
-$mind = str_replace(" ", " ", ($this->getProduct()->getData('bookable_from'))? $this->getProduct()->getData('bookable_from') : (date('Y/m/d'/*,strtotime('+'.$nodays.'days')*/)));
-//Calculate the date based on the number of days and display the JQ Calender
-$mind = (strtotime(date('Y/m/d')) >  strtotime($mind))? date('Y/m/d'/*,strtotime('+'.$nodays.'days')*/) : $mind;
+$mind = (strtotime(date('Y/m/d')) >  strtotime($mind))? date('Y/m/d',strtotime('+'.$nodays.'days')) : $mind;
 $mind = date('Y/m/d', strtotime($mind));
 $maxd = ($this->getProduct()->getData('bookable_to'))? date('Y/m/d', strtotime($this->getProduct()->getData('bookable_to'))) : '2100/01/01';
 ?>
@@ -43,7 +36,11 @@ $maxd = ($this->getProduct()->getData('bookable_to'))? date('Y/m/d', strtotime($
          
          <input type="hidden" id="pikaday_max_qty" name="pikaday_max_qty" value="0" onchange="addMaxQty()"/>
 		 <div id="pikaday_element">
-         	
+         		<?php 
+         			$weburl = (Mage::app()->getStore()->isCurrentlySecure())? Mage::getStoreConfig('web/secure/base_url').'index.php/' : Mage::getStoreConfig('web/unsecure/base_url').'index.php/';
+         			if(Mage::getStoreConfig('web/url/use_store'))
+         				$weburl .= Mage::app()->getStore()->getCode().'/';
+         			?>
 				    <script type="text/javascript">
 				    //<![CDATA[
 				    //var opConfig = new Product.Options({"8":{"price":100,"oldPrice":100,"priceValue":"100.0000","type":"fixed","excludeTax":100,"includeTax":100}});
@@ -68,7 +65,7 @@ $maxd = ($this->getProduct()->getData('bookable_to'))? date('Y/m/d', strtotime($
 						basePrice : <?php echo $this->getProduct()->getFinalPrice()?>,
 						sessions : [],
 						reloadp : true,
-						baseUrl : '<?php echo (Mage::app()->getStore()->isCurrentlySecure())? Mage::getStoreConfig('web/secure/base_url').'index.php/' : Mage::getStoreConfig('web/unsecure/base_url') ?>'
+						baseUrl : '<?php echo $weburl ?>'
 				    });
 
 			    	picker.show();

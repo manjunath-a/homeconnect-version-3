@@ -48,7 +48,7 @@ extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract{
 
 	public function afterSave($object)
 	{
-		
+		date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/timezone'));
 		$exRows = $object->getData($this->getAttribute()->getName());
 		
 		foreach ($exRows as $row){
@@ -75,8 +75,8 @@ extends Mage_Eav_Model_Entity_Attribute_Backend_Abstract{
 			$exObject->setProduct($object);
 			$exObject->setPeriodType($row['period_type']);
 			if($row['period_type'] == VDesign_Bookme_Model_Product_Attribute_Backend_Excludeday::TYPE_PERIOD){
-				$exObject->setFromDate($row['from_date']);
-				$exObject->setToDate($row['to_date']);
+				$exObject->setFromDate(date('Y-m-d', strtotime($row['from_date'])));
+				$exObject->setToDate(date('Y-m-d', strtotime($row['to_date'])));
 			}else{
 				$exObject->setValue($row['value']);
 			}

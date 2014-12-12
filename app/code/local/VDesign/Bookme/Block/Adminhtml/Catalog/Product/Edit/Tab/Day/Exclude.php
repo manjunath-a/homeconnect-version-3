@@ -75,11 +75,9 @@ implements Varien_Data_Form_Element_Renderer_Interface
 	}
 	
 	public function getDateInFormat($date){
-		 
+		date_default_timezone_set(Mage::app()->getStore()->getConfig('general/locale/timezone'));
 		if($date){
-			$data = explode(" ", $date);
-			$date = $data[0];
-			$date = Mage::helper('core')->formatDate($date, 'medium', false);
+			$date = Mage::helper('core')->formatDate($date, 'short', false);
 		}
 		return $date;
 	}
