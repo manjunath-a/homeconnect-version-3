@@ -48,6 +48,7 @@
         <?php echo $this->getChildHtml('header') ?>
         <?php echo $this->getChildHtml('home_content') ?>
 		<section class="main-container col2-left-layout">
+                    <div>
                     <?php $enable=Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('on_off')->getValue('text');
                     if($enable=='on')
                     {?>
@@ -72,6 +73,7 @@
                             });
                         </script>
                     <?php }?>
+                    </div>
             <div class="main"> 
                 <article class="col-main">
 					<?php echo $this->getChildHtml('breadcrumbs') ?>
