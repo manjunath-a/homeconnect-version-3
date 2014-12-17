@@ -4,7 +4,7 @@
 @media only screen and (min-width: 980px) and (max-width: 1023px) {
 
 .header_top, .header-bottom, .nav-inner, .main, .footer{ width:940px;   }
-.subbanner{ width:750px; }
+.subbanner{ width:750px;}
 .col-main { float:left; width:750px;}
 .col-left { float:left; width:180px;}
 .col-right { float:right; width:180px; margin-left:0;}
@@ -26,7 +26,7 @@
 }
 
 @media only screen and (max-width: 979px){
-
+div.sidebar-container{display: none;}
 .header_top, .header-bottom, .nav-inner, .main, .footer{ width:724px;    }
 .footer{ padding:0; }
 .col-main , .col3-layout .col-wrapper{ width:549px;}
@@ -196,13 +196,14 @@ border:none; float:none; text-align:center; }
     cursor: pointer;
     padding:9px 0 10px;
 }
+div.sidebar-container{display: none;}
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 .form-list li.wide .input-box{width: 260px;}
 .form-list li.wide input.input-text{ width: 250px;}
-
+div.sidebar-container{display: none;}
 }
 
 /* Landscape phones and down */
@@ -244,7 +245,7 @@ border:none; float:none; text-align:center; }
 .pager .pages{ float:left; margin-bottom:10px; margin-left:0; } 
 .pager .pager_right .sort-by{ float:left; }
 .products-list li .list-right{ width:100%; }
-
+div.sidebar-container{display: none;}
 
 }
 
@@ -272,6 +273,9 @@ border:none; float:none; text-align:center; }
 #footer #block_1, #footer #block_2{ width:90%; }
 .header .form-search input.input-text{ width:103px; }
 .header .form-search, .header .header-cart #panel{  width: 185px; }
+div.sidebar-container{display: none;}
 }
 
-@media only screen and (max-width:240px) {}
+@media only screen and (max-width:240px) {
+    div.sidebar-container{display: none;}
+}

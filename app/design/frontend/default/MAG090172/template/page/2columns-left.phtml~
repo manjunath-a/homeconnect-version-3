@@ -38,7 +38,6 @@
 <!--[if !IE]><!--> <html lang="<?php echo $this->getLang() ?>"><!--<![endif]-->
 <head>
 <?php echo $this->getChildHtml('head') ?> 
- <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('slide_name')->getValue('html');?>
 </head>
 <body<?php echo $this->getBodyClass()?' class="'.$this->getBodyClass().'"':'' ?>>
 <?php echo $this->getChildHtml('after_body_start') ?>
@@ -53,37 +52,8 @@
 					<?php echo $this->getChildHtml('breadcrumbs') ?>
                     <?php echo $this->getChildHtml('global_messages') ?>
                     <?php echo $this->getChildHtml('content') ?>
-                    <div>
-                    <?php $enable=Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('on_off')->getValue('text');
-                    if($enable=='on')
-                    {?>
-			<ul id="demo_menu2">
-                            <?php echo Mage::getModel('core/variable')->setStoreId(Mage::app()->getStore()->getId())->loadByCode('slide_img')->getValue('html');?>
-                            <!--<li><a href="<?php //echo Mage::getBaseUrl();?>new-year-offers.html" ><img src="http://i.imgur.com/kEeIhL6.jpg"></img></a></li>-->
-                        </ul>
-                        <script type="text/javascript">
-                            var $j = jQuery.noConflict();
-                            $j("ul#demo_menu2").sidebar({
-                                position: "right",
-                                callback: {
-                                    item: {
-                                        enter: function() {
-                                            $j(this).find("a").animate({color: "blue"}, 20);
-                                        },
-                                        leave: function() {
-                                            $j(this).find("a").animate({color: "white"}, 20);
-                                        }
-                                    }
-                                }
-                            });
-                        </script>
-                    <?php }?>
-                    </div>
                 </article>
-                <aside class="col-left sidebar"><?php echo $this->getChildHtml('left') ?>
-                    
-                
-                </aside>
+                <aside class="col-left sidebar"><?php echo $this->getChildHtml('left') ?></aside>
             </div>
         </section>
         <?php echo $this->getChildHtml('footer') ?>

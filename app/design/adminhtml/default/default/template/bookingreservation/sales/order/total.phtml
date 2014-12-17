@@ -1,9 +1,0 @@
-<?php $this->setPriceDataObject($this->getSource()) ?>
-<?php if ((float) $this->getSource()->getHomeserviceAmount()): ?>
-    <tr>
-        <td class="label"><?php echo Mage::helper('bookingreservation')->__('Home Service Charges') ?></td>
-        <td>
-            <?php echo $this->displayPrices($this->getSource()->getBaseHomeserviceAmount(), $this->getSource()->getHomeserviceAmount()); ?>
-        </td>
-    </tr>
-<?php endif; ?>

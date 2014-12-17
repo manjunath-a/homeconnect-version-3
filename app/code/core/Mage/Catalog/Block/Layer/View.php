@@ -193,7 +193,6 @@ class Mage_Catalog_Block_Layer_View extends Mage_Core_Block_Template
         foreach ($filterableAttributes as $attribute) {
             $filters[] = $this->getChild($attribute->getAttributeCode() . '_filter');
         }
-
         return $filters;
     }
 
