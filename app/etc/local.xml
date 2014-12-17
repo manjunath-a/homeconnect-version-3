@@ -42,7 +42,7 @@
                 <connection>
                     <host><![CDATA[localhost]]></host>
                     <username><![CDATA[web]]></username>
-                    <password><![CDATA[offDB@com$24100]]></password>
+                    <password><![CDATA[websa]]></password>
                     <dbname><![CDATA[www_homeconnectonline_com]]></dbname>
                     <initStatements><![CDATA[SET NAMES utf8]]></initStatements>
                     <model><![CDATA[mysql4]]></model>
